@@ -1,0 +1,15 @@
+﻿################################################################################
+# 此 .gitignore 文件已由 Microsoft(R) Visual Studio 自动创建。
+################################################################################
+
+/bin/Debug/w123.pal
+/bin/Debug/banim.pal
+/bin/Debug/233.pal
+/bin/Debug/System.ValueTuple.xml
+/bin/Debug/System.ValueTuple.dll
+/bin/Debug/PaletteStudio.pdb
+/bin/Debug/PaletteStudio.exe.config
+/.vs/PaletteStudio/v16
+/obj/Debug
+/packages/System.ValueTuple.4.5.0
+/bin/Debug/PaletteStudio.exe

@@ -1,0 +1,75 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.IO;
+using PaletteStudio.Utils;
+using System.Drawing;
+
+namespace PaletteStudio.FileSystem
+{
+    public class PalFile : BaseFile
+    {
+        private List<int> data = new List<int>();
+
+
+        #region Ctor - PalFile
+        public PalFile() { for (int i = 0; i < 256; i++) data.Add(0); }
+        public PalFile(Stream baseStream, string _fullName) : base(baseStream, _fullName)
+        {
+            Load();
+        }
+        public PalFile(byte[] _rawData, string _fullName) : base(_rawData, _fullName)
+        {
+            Load();
+        }
+        public PalFile(string _path) : base(Misc.GetRawBytes(_path), _path.Split('\\').LastOrDefault())
+        {
+            Load();
+        }
+        #endregion
+
+
+        #region Private Methods - PalFile
+        private void Load()
+        {
+            for (int i = 0; i < 256; i++)
+            {
+                int tmp = (ReadByte() << 18) + (ReadByte() << 10) + (ReadByte() << 2) + (0xFF << 26);
+                data.Add(tmp);
+            }
+        }
+        #endregion
+
+
+        #region Public Methods - PalFile
+        public void Save(BinaryWriter bw)
+        {
+            for(int i = 0; i < 256; i++)
+            {
+                bw.Write((byte)(data[i] >> 18 & 0xFF));
+                bw.Write((byte)(data[i] >> 10 & 0xFF));
+                bw.Write((byte)(data[i] >> 2 & 0xFF));
+            }
+            bw.Dispose();
+        }
+
+        public void Save(string _path)
+        {
+            StreamWriter sw = new StreamWriter(_path);
+            Save(new BinaryWriter(sw.BaseStream));
+        }
+        #endregion
+
+
+        #region Public Calls - PalFile
+        public int this[byte index]
+        {
+            get { return data[index]; }
+            set { data[index] = value; }
+        }
+        public int TransparentColor { get { return data[0]; } }
+        #endregion
+    }
+}
