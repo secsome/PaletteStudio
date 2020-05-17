@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaletteStudio.FileSystem;
 using PaletteStudio.Utils;
+using PaletteStudio.GUI;
 
 namespace PaletteStudio
 {
@@ -58,12 +59,25 @@ namespace PaletteStudio
         #region Main Panel
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (MainPanel.PalSource == null) return;
             string format = "";
             format += MainPanel.Selections.Count.ToString();
             foreach (byte v in MainPanel.Selections) format += "," + v + "." + Misc.ColorToString(MainPanel.PalSource[v]);
             Clipboard.SetData(DataFormats.Text, format);
         }
-        
+        private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainPanel.PalSource == null) return;
+
+        }
+        private void sortToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainPanel.PalSource == null) return;
+            GUI.Dialogs.Sort sort = new GUI.Dialogs.Sort();
+            PalPanel palPanel = (PalPanel)sort.Controls["PreviewPanel"];
+            palPanel.PalSource = MainPanel.PalSource;
+            sort.ShowDialog();
+        }
         #endregion
     }
 }

@@ -34,7 +34,6 @@ namespace PaletteStudio
             UpdatePreview();
             label4.Text = "Cur Idx:" + MainPanel.Selections.LastOrDefault();
         }
-
         private void btnApply_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource == null) return;
@@ -49,7 +48,6 @@ namespace PaletteStudio
             if (!isColorUpdating) 
                 UpdatePreview();
         }
-
         private void ColorPreview_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
@@ -63,6 +61,22 @@ namespace PaletteStudio
                 nudBlue.Value = colorDialog.Color.B;
                 isColorUpdating = false;
                 UpdatePreview();
+            }
+        }
+        private void Main_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            switch(MessageBox.Show(
+                "Are you sure to exit the Palette Studio? Please ensure that you have saved the file.",
+                "Palette Studio",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Information
+                ))
+            {
+                case DialogResult.Yes:
+                    break;
+                default:
+                    e.Cancel = true;
+                    break;
             }
         }
     }

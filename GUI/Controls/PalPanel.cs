@@ -73,8 +73,7 @@ namespace PaletteStudio.GUI
                 }
                 Focus();
                 if (PalSource != null)
-                    try { SelectedIndexChanged(this, new EventArgs()); }
-                    catch {; }
+                    SelectedIndexChanged(this, new EventArgs());
                 Refresh();
             }
             
@@ -105,7 +104,7 @@ namespace PaletteStudio.GUI
                     }
                 }
                 e.Graphics.DrawImage(map, new Rectangle(0, 0, Width, Height), new Rectangle(0, 0, Width, Height), GraphicsUnit.Pixel);
-                SelectedIndexChanged(this, new EventArgs());
+                if (IsSelectable)   SelectedIndexChanged(this, new EventArgs());
                 IsInitialized = true;
                 g.Dispose();
             }

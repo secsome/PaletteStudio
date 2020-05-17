@@ -51,7 +51,7 @@
     <Compile Include="Common\GlobalVar.cs" />
     <Compile Include="FileSystem\BaseFile.cs" />
     <Compile Include="FileSystem\PalFile.cs" />
-    <Compile Include="GUI\ColorPanel.cs">
+    <Compile Include="GUI\Controls\ColorPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="GUI\Dialogs\About.cs">
@@ -75,7 +75,7 @@
     <Compile Include="GUI\Main\MenuHandler.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="GUI\PalPanel.cs">
+    <Compile Include="GUI\Controls\PalPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Program.cs" />
@@ -109,6 +109,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

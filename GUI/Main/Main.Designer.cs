@@ -51,8 +51,8 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pasteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sortToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainPanel = new PaletteStudio.GUI.PalPanel();
             this.label4 = new System.Windows.Forms.Label();
+            this.MainPanel = new PaletteStudio.GUI.PalPanel();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGreen)).BeginInit();
@@ -130,20 +130,20 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(122, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // settingsToolStripMenuItem1
             // 
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
-            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(122, 22);
             this.settingsToolStripMenuItem1.Text = "Settings";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(274, 32);
+            this.label1.Location = new System.Drawing.Point(274, 145);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(23, 12);
             this.label1.TabIndex = 2;
@@ -151,7 +151,7 @@
             // 
             // nudRed
             // 
-            this.nudRed.Location = new System.Drawing.Point(317, 30);
+            this.nudRed.Location = new System.Drawing.Point(317, 143);
             this.nudRed.Maximum = new decimal(new int[] {
             255,
             0,
@@ -164,7 +164,7 @@
             // 
             // nudGreen
             // 
-            this.nudGreen.Location = new System.Drawing.Point(317, 57);
+            this.nudGreen.Location = new System.Drawing.Point(317, 170);
             this.nudGreen.Maximum = new decimal(new int[] {
             255,
             0,
@@ -178,7 +178,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(274, 59);
+            this.label2.Location = new System.Drawing.Point(274, 172);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 12);
             this.label2.TabIndex = 5;
@@ -186,7 +186,7 @@
             // 
             // nudBlue
             // 
-            this.nudBlue.Location = new System.Drawing.Point(317, 84);
+            this.nudBlue.Location = new System.Drawing.Point(317, 197);
             this.nudBlue.Maximum = new decimal(new int[] {
             255,
             0,
@@ -200,7 +200,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(274, 86);
+            this.label3.Location = new System.Drawing.Point(274, 199);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
             this.label3.TabIndex = 7;
@@ -208,7 +208,7 @@
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(274, 111);
+            this.btnApply.Location = new System.Drawing.Point(274, 224);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(93, 23);
             this.btnApply.TabIndex = 9;
@@ -219,7 +219,7 @@
             // ColorPreview
             // 
             this.ColorPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ColorPreview.Location = new System.Drawing.Point(272, 140);
+            this.ColorPreview.Location = new System.Drawing.Point(272, 253);
             this.ColorPreview.Name = "ColorPreview";
             this.ColorPreview.Size = new System.Drawing.Size(95, 21);
             this.ColorPreview.TabIndex = 11;
@@ -247,31 +247,34 @@
             this.pasteToolStripMenuItem.Name = "pasteToolStripMenuItem";
             this.pasteToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.pasteToolStripMenuItem.Text = "Paste";
+            this.pasteToolStripMenuItem.Click += new System.EventHandler(this.pasteToolStripMenuItem_Click);
             // 
             // sortToolStripMenuItem
             // 
             this.sortToolStripMenuItem.Name = "sortToolStripMenuItem";
             this.sortToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.sortToolStripMenuItem.Text = "Sort";
+            this.sortToolStripMenuItem.Click += new System.EventHandler(this.sortToolStripMenuItem_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(272, 277);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(53, 12);
+            this.label4.TabIndex = 12;
+            this.label4.Text = "Cur Idx:";
             // 
             // MainPanel
             // 
             this.MainPanel.ContextMenuStrip = this.contextMenuStrip1;
+            this.MainPanel.IsSelectable = true;
             this.MainPanel.Location = new System.Drawing.Point(0, 27);
             this.MainPanel.Name = "MainPanel";
             this.MainPanel.PalSource = null;
             this.MainPanel.Size = new System.Drawing.Size(266, 423);
             this.MainPanel.TabIndex = 0;
             this.MainPanel.SelectedIndexChanged += new PaletteStudio.GUI.PalPanel.SelectedIndexChangedHandle(this.MainPanel_SelectedIndexChanged);
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(272, 164);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 12;
-            this.label4.Text = "Cur Idx:";
             // 
             // Main
             // 
@@ -294,6 +297,7 @@
             this.MaximizeBox = false;
             this.Name = "Main";
             this.Text = "Palette Studio";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRed)).EndInit();
