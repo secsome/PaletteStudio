@@ -50,8 +50,8 @@ namespace PaletteStudio
         }
         private void btnApply_Click(object sender, EventArgs e)
         {
-            MakeUndo();
             if (MainPanel.PalSource == null) return;
+            MakeUndo();
             Color newColor = Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value);
             MainPanel.PalSource[MainPanel.Selections.LastOrDefault()] = newColor.ToArgb();
             MainPanel.Refresh();

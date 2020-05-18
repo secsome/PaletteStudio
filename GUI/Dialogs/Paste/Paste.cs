@@ -79,6 +79,7 @@ namespace PaletteStudio.GUI.Dialogs
             else
             {
                 foreach (Control c in groupBox2.Controls) c.Enabled = true;
+                ckbReserved.Enabled = false;
                 nudStarting.Value = PreviewPanel.Selections.LastOrDefault();
                 IsOrigin = false;
             }

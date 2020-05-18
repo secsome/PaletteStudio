@@ -108,6 +108,7 @@ namespace PaletteStudio
                     MainPanel.PalSource[(byte)i] = Undos.Last()[(byte)i];
                 Undos.RemoveAt(Undos.Count - 1);
                 MainPanel.Refresh();
+                CurrentStatusLabel.Text = "Undo";
             }  
         }
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
@@ -119,6 +120,7 @@ namespace PaletteStudio
                     MainPanel.PalSource[(byte)i] = Redos.Last()[(byte)i];
                 Redos.RemoveAt(Redos.Count - 1);
                 MainPanel.Refresh();
+                CurrentStatusLabel.Text = "Redo";
             }
         }
         #endregion
@@ -152,11 +154,11 @@ namespace PaletteStudio
         }
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MakeUndo();
             try
             {
                 if (MainPanel.PalSource == null) return;
                 if (!Clipboard.ContainsData(DataFormats.StringFormat)) return;
+                MakeUndo();
                 int[] backupPalData = new int[256];
                 for (int i = 0; i < 256; i++) backupPalData[(byte)i] = MainPanel.PalSource[(byte)i];
                 string data = Clipboard.GetText(TextDataFormat.Text);
@@ -192,10 +194,10 @@ namespace PaletteStudio
         }
         private void sortToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MakeUndo();
             try
             {
                 if (MainPanel.PalSource == null) return;
+                MakeUndo();
                 Sort sort = new Sort(MainPanel.PalSource, MainPanel.Selections);
                 if (sort.ShowDialog() == DialogResult.OK)
                 {
