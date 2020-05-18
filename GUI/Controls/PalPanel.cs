@@ -18,7 +18,6 @@ namespace PaletteStudio.GUI
         #region Ctor - PalPanel
         public PalPanel()
         {
-            //DoubleBuffered = true;
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
         }
         #endregion
@@ -36,40 +35,46 @@ namespace PaletteStudio.GUI
             {
                 byte idx = FromPoint(e.X / cellWidth, e.Y / cellHeight);
                 int tmp = Selections.IndexOf(idx);
-                switch (ModifierKeys)
+                if(!IsMultiSelect)
                 {
-                    case Keys.Control:
-                        if (tmp == -1) Selections.Add(idx);
-                        else Selections.RemoveAt(tmp);
-                        break;
-                    case Keys.Shift:
-                        if (Selections.Count > 0)
-                        {
-                            if (Selections.Last() == idx)
+                    Selections.Clear();
+                    Selections.Add(idx);
+                }
+                else
+                {
+                    switch (ModifierKeys)
+                    {
+                        case Keys.Control:
+                            if (tmp == -1) Selections.Add(idx);
+                            else Selections.RemoveAt(tmp);
+                            break;
+                        case Keys.Shift:
+                            if (Selections.Count > 0)
                             {
-                                Selections.RemoveAt(Selections.Count - 1);
-                            }
-                            else
-                            {
-                                if (Selections.Last() < idx)
+                                if (Selections.Last() == idx)
                                 {
-                                    for (int i = Selections.Last() + 1; i <= idx; i++)
-                                        if (tmp == -1) Selections.Add((byte)i);
+                                    Selections.RemoveAt(Selections.Count - 1);
                                 }
                                 else
                                 {
-                                    for (int i = Selections.Last() - 1; i >= idx; i--)
-                                        if (tmp == -1) Selections.Add((byte)i);
+                                    if (Selections.Last() < idx)
+                                    {
+                                        for (int i = Selections.Last() + 1; i <= idx; i++)
+                                            if (tmp == -1) Selections.Add((byte)i);
+                                    }
+                                    else
+                                    {
+                                        for (int i = Selections.Last() - 1; i >= idx; i--)
+                                            if (tmp == -1) Selections.Add((byte)i);
+                                    }
                                 }
                             }
-
-
-                        }
-                        break;
-                    default:
-                        Selections.Clear();
-                        Selections.Add(idx);
-                        break;
+                            break;
+                        default:
+                            Selections.Clear();
+                            Selections.Add(idx);
+                            break;
+                    }
                 }
                 Focus();
                 if (PalSource != null)
@@ -169,6 +174,7 @@ namespace PaletteStudio.GUI
         public bool IsInitialized { get; private set; } = false;
         public bool IsSelectVisible { get; set; } = true;
         public bool IsSelectable { get; set; } = true;
+        public bool IsMultiSelect { get; set; } = true;
         #endregion
     }
 }

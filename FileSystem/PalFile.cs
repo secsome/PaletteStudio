@@ -60,6 +60,11 @@ namespace PaletteStudio.FileSystem
             StreamWriter sw = new StreamWriter(_path);
             Save(new BinaryWriter(sw.BaseStream));
         }
+
+        public void Save()
+        {
+            Save(FilePath);
+        }
         #endregion
 
 
@@ -70,6 +75,7 @@ namespace PaletteStudio.FileSystem
             set { data[index] = value; }
         }
         public int TransparentColor { get { return data[0]; } }
+        public List<int> Data { get { return data; } set { data = value; } }
         #endregion
     }
 }

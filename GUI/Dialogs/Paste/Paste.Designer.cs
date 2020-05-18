@@ -30,35 +30,24 @@
         {
             PaletteStudio.FileSystem.PalFile palFile2 = new PaletteStudio.FileSystem.PalFile();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Paste));
-            this.PreviewPanel = new PaletteStudio.GUI.PalPanel();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbtnCustom = new System.Windows.Forms.RadioButton();
             this.rbtnOrigin = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.ckbBack2Front = new System.Windows.Forms.CheckBox();
             this.ckbReserved = new System.Windows.Forms.CheckBox();
-            this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
+            this.nudStarting = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.ckbIgnoreSpace = new System.Windows.Forms.CheckBox();
             this.rbtnToTheEnd = new System.Windows.Forms.RadioButton();
             this.rbtnJumpToStart = new System.Windows.Forms.RadioButton();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnPaste = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.PreviewPanel = new PaletteStudio.GUI.PalPanel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStarting)).BeginInit();
             this.SuspendLayout();
-            // 
-            // PreviewPanel
-            // 
-            this.PreviewPanel.IsSelectable = false;
-            this.PreviewPanel.IsSelectVisible = false;
-            this.PreviewPanel.Location = new System.Drawing.Point(184, 27);
-            this.PreviewPanel.Name = "PreviewPanel";
-            this.PreviewPanel.PalSource = palFile2;
-            this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
-            this.PreviewPanel.Size = new System.Drawing.Size(238, 292);
-            this.PreviewPanel.TabIndex = 6;
             // 
             // groupBox1
             // 
@@ -70,14 +59,17 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paste To";
+            this.groupBox1.Visible = false;
             // 
             // rbtnCustom
             // 
             this.rbtnCustom.AutoSize = true;
+            this.rbtnCustom.Checked = true;
             this.rbtnCustom.Location = new System.Drawing.Point(96, 20);
             this.rbtnCustom.Name = "rbtnCustom";
             this.rbtnCustom.Size = new System.Drawing.Size(59, 16);
             this.rbtnCustom.TabIndex = 1;
+            this.rbtnCustom.TabStop = true;
             this.rbtnCustom.Text = "Custom";
             this.rbtnCustom.UseVisualStyleBackColor = true;
             this.rbtnCustom.CheckedChanged += new System.EventHandler(this.rbtnPasteTo_CheckedChanged);
@@ -85,12 +77,10 @@
             // rbtnOrigin
             // 
             this.rbtnOrigin.AutoSize = true;
-            this.rbtnOrigin.Checked = true;
             this.rbtnOrigin.Location = new System.Drawing.Point(6, 20);
             this.rbtnOrigin.Name = "rbtnOrigin";
             this.rbtnOrigin.Size = new System.Drawing.Size(59, 16);
             this.rbtnOrigin.TabIndex = 0;
-            this.rbtnOrigin.TabStop = true;
             this.rbtnOrigin.Text = "Origin";
             this.rbtnOrigin.UseVisualStyleBackColor = true;
             this.rbtnOrigin.CheckedChanged += new System.EventHandler(this.rbtnPasteTo_CheckedChanged);
@@ -99,14 +89,14 @@
             // 
             this.groupBox2.Controls.Add(this.ckbBack2Front);
             this.groupBox2.Controls.Add(this.ckbReserved);
-            this.groupBox2.Controls.Add(this.numericUpDown1);
+            this.groupBox2.Controls.Add(this.nudStarting);
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.ckbIgnoreSpace);
             this.groupBox2.Controls.Add(this.rbtnToTheEnd);
             this.groupBox2.Controls.Add(this.rbtnJumpToStart);
-            this.groupBox2.Location = new System.Drawing.Point(12, 67);
+            this.groupBox2.Location = new System.Drawing.Point(12, 12);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(166, 223);
+            this.groupBox2.Size = new System.Drawing.Size(166, 278);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Custom Configs";
@@ -120,28 +110,37 @@
             this.ckbBack2Front.TabIndex = 7;
             this.ckbBack2Front.Text = "Back to front";
             this.ckbBack2Front.UseVisualStyleBackColor = true;
+            this.ckbBack2Front.CheckedChanged += new System.EventHandler(this.ckbBack2Front_CheckedChanged);
             // 
             // ckbReserved
             // 
             this.ckbReserved.AutoSize = true;
-            this.ckbReserved.Location = new System.Drawing.Point(6, 98);
+            this.ckbReserved.Enabled = false;
+            this.ckbReserved.Location = new System.Drawing.Point(17, 98);
             this.ckbReserved.Name = "ckbReserved";
             this.ckbReserved.Size = new System.Drawing.Size(108, 16);
             this.ckbReserved.TabIndex = 6;
             this.ckbReserved.Text = "Reserved order";
             this.ckbReserved.UseVisualStyleBackColor = true;
+            this.ckbReserved.CheckedChanged += new System.EventHandler(this.ckbReserved_CheckedChanged);
             // 
-            // numericUpDown1
+            // nudStarting
             // 
-            this.numericUpDown1.Location = new System.Drawing.Point(23, 196);
-            this.numericUpDown1.Name = "numericUpDown1";
-            this.numericUpDown1.Size = new System.Drawing.Size(120, 21);
-            this.numericUpDown1.TabIndex = 5;
+            this.nudStarting.Location = new System.Drawing.Point(26, 250);
+            this.nudStarting.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudStarting.Name = "nudStarting";
+            this.nudStarting.Size = new System.Drawing.Size(120, 21);
+            this.nudStarting.TabIndex = 5;
+            this.nudStarting.ValueChanged += new System.EventHandler(this.nudStarting_ValueChanged);
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(21, 181);
+            this.label2.Location = new System.Drawing.Point(24, 235);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 12);
             this.label2.TabIndex = 4;
@@ -156,6 +155,7 @@
             this.ckbIgnoreSpace.TabIndex = 3;
             this.ckbIgnoreSpace.Text = "Ignore the spaces";
             this.ckbIgnoreSpace.UseVisualStyleBackColor = true;
+            this.ckbIgnoreSpace.CheckedChanged += new System.EventHandler(this.ckbIgnoreSpace_CheckedChanged);
             // 
             // rbtnToTheEnd
             // 
@@ -168,6 +168,7 @@
             this.rbtnToTheEnd.TabStop = true;
             this.rbtnToTheEnd.Text = "Paste to the end";
             this.rbtnToTheEnd.UseVisualStyleBackColor = true;
+            this.rbtnToTheEnd.CheckedChanged += new System.EventHandler(this.rbtnCustoms_CheckedChanged);
             // 
             // rbtnJumpToStart
             // 
@@ -178,15 +179,17 @@
             this.rbtnJumpToStart.TabIndex = 1;
             this.rbtnJumpToStart.Text = "If meet the end then \r\njump to the start";
             this.rbtnJumpToStart.UseVisualStyleBackColor = true;
+            this.rbtnJumpToStart.CheckedChanged += new System.EventHandler(this.rbtnCustoms_CheckedChanged);
             // 
-            // button1
+            // btnPaste
             // 
-            this.button1.Location = new System.Drawing.Point(12, 296);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(166, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "Paste";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnPaste.Location = new System.Drawing.Point(12, 296);
+            this.btnPaste.Name = "btnPaste";
+            this.btnPaste.Size = new System.Drawing.Size(166, 23);
+            this.btnPaste.TabIndex = 9;
+            this.btnPaste.Text = "Paste";
+            this.btnPaste.UseVisualStyleBackColor = true;
+            this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
             // 
             // label1
             // 
@@ -197,13 +200,26 @@
             this.label1.TabIndex = 10;
             this.label1.Text = "Preview";
             // 
+            // PreviewPanel
+            // 
+            this.PreviewPanel.IsMultiSelect = false;
+            this.PreviewPanel.IsSelectable = true;
+            this.PreviewPanel.IsSelectVisible = false;
+            this.PreviewPanel.Location = new System.Drawing.Point(184, 27);
+            this.PreviewPanel.Name = "PreviewPanel";
+            this.PreviewPanel.PalSource = palFile2;
+            this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
+            this.PreviewPanel.Size = new System.Drawing.Size(238, 292);
+            this.PreviewPanel.TabIndex = 6;
+            this.PreviewPanel.SelectedIndexChanged += new PaletteStudio.GUI.PalPanel.SelectedIndexChangedHandle(this.PreviewPanel_SelectedIndexChanged);
+            // 
             // Paste
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(433, 331);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnPaste);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.PreviewPanel);
@@ -219,7 +235,7 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStarting)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -232,9 +248,9 @@
         private System.Windows.Forms.RadioButton rbtnCustom;
         private System.Windows.Forms.RadioButton rbtnOrigin;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnPaste;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown numericUpDown1;
+        private System.Windows.Forms.NumericUpDown nudStarting;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.CheckBox ckbIgnoreSpace;
         private System.Windows.Forms.RadioButton rbtnToTheEnd;

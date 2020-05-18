@@ -13,11 +13,26 @@ namespace PaletteStudio
 {
     public partial class Main : Form
     {
+        private List<List<int>> Undos = new List<List<int>>();
+        private List<List<int>> Redos = new List<List<int>>();
+        private bool IsSaved = false;
+        private string SavePath = "";
+
         public Main()
         {
             InitializeComponent();
         }
 
+        private void MakeUndo()
+        {
+            Undos.Add(new List<int>());
+            Utils.Misc.DeepCopy(MainPanel.PalSource.Data, Undos.Last());
+        }
+        private void MakeRedo()
+        {
+            Redos.Add(new List<int>());
+            Utils.Misc.DeepCopy(MainPanel.PalSource.Data, Redos.Last());
+        }
         private void UpdatePreview()
         {
             ColorPreview.BackColor= Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value); 
@@ -35,6 +50,7 @@ namespace PaletteStudio
         }
         private void btnApply_Click(object sender, EventArgs e)
         {
+            MakeUndo();
             if (MainPanel.PalSource == null) return;
             Color newColor = Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value);
             MainPanel.PalSource[MainPanel.Selections.LastOrDefault()] = newColor.ToArgb();
@@ -53,6 +69,7 @@ namespace PaletteStudio
             colorDialog.Color = ColorPreview.BackColor;
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
+                MakeUndo();
                 ColorPreview.BackColor = colorDialog.Color;
                 isColorUpdating = true;
                 nudRed.Value = colorDialog.Color.R;

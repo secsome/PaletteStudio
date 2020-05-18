@@ -14,6 +14,12 @@ namespace PaletteStudio.Utils
 {
     public class Misc
     {
+        public static void DeepCopy<T>(List<T> src, List<T> des)
+        {
+            des.Clear();
+            foreach (T t in src) des.Add(t);
+        }
+
         public static byte[] GetRawBytes(string _path)
         {
             return File.ReadAllBytes(_path);

@@ -55,6 +55,7 @@ namespace PaletteStudio.GUI.Dialogs
         {
             for (int i = 0; i < 256; i++)
                 OrigionPal[(byte)i] = PreviewPanel.PalSource[(byte)i];
+            DialogResult = DialogResult.OK;
             Close();
         }
     }
