@@ -22,7 +22,6 @@ namespace PaletteStudio
         {
             ColorPreview.BackColor= Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value); 
         }
-
         private void MainPanel_SelectedIndexChanged(object sender,EventArgs e)
         {
             Color currentColor = Color.FromArgb(MainPanel.PalSource[MainPanel.Selections.LastOrDefault()]);

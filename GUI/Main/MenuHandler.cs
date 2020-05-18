@@ -73,10 +73,9 @@ namespace PaletteStudio
         private void sortToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource == null) return;
-            GUI.Dialogs.Sort sort = new GUI.Dialogs.Sort();
-            PalPanel palPanel = (PalPanel)sort.Controls["PreviewPanel"];
-            palPanel.PalSource = MainPanel.PalSource;
+            GUI.Dialogs.Sort sort = new GUI.Dialogs.Sort(MainPanel.PalSource, MainPanel.Selections);
             sort.ShowDialog();
+            MainPanel.Refresh();
         }
         #endregion
     }

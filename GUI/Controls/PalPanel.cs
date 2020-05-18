@@ -90,8 +90,10 @@ namespace PaletteStudio.GUI
                     for (int j = 0; j < 32; j++)
                         g.FillRectangle(new SolidBrush(Color.FromArgb(PalSource[(byte)(idx++)])), new Rectangle(i * cellWidth, j * cellHeight, cellWidth, cellHeight));
                 if (IsSelectable)
+                    if (Selections.Count == 0) 
+                        Selections.Add(0);
+                if (IsSelectVisible)
                 {
-                    if (Selections.Count == 0) Selections.Add(0);
                     foreach (byte selected in Selections)
                     {
                         Color crossColor = Color.FromArgb(PalSource[(byte)(GetPoint(selected).X * 32 + GetPoint(selected).Y)]);
@@ -162,9 +164,10 @@ namespace PaletteStudio.GUI
         #endregion
 
         #region Public Calls - PalPanel
-        public PalFile PalSource { get; set; }
-        public List<byte> Selections { get; private set; } = new List<byte>();
+        public PalFile PalSource { get; set; } = new PalFile();
+        public List<byte> Selections { get; set; } = new List<byte>();
         public bool IsInitialized { get; private set; } = false;
+        public bool IsSelectVisible { get; set; } = true;
         public bool IsSelectable { get; set; } = true;
         #endregion
     }

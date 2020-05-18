@@ -7,6 +7,7 @@ using System.IO;
 using System.Drawing;
 using PaletteStudio.FileSystem;
 using PaletteStudio.Common;
+using System.Reflection;
 using System.Drawing.Imaging;
 
 namespace PaletteStudio.Utils

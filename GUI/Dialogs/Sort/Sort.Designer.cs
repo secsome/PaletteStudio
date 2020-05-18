@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sort));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbtnComprehensive = new System.Windows.Forms.RadioButton();
             this.rbtnArgb = new System.Windows.Forms.RadioButton();
@@ -38,15 +39,16 @@
             this.rbtnBlue = new System.Windows.Forms.RadioButton();
             this.rbtnGreen = new System.Windows.Forms.RadioButton();
             this.rbtnRed = new System.Windows.Forms.RadioButton();
-            this.radioButton4 = new System.Windows.Forms.RadioButton();
-            this.radioButton5 = new System.Windows.Forms.RadioButton();
+            this.rbtnIncrease = new System.Windows.Forms.RadioButton();
+            this.rbtnDecrease = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.radioButton7 = new System.Windows.Forms.RadioButton();
-            this.radioButton6 = new System.Windows.Forms.RadioButton();
+            this.rbtnAll = new System.Windows.Forms.RadioButton();
+            this.rbtnSelected = new System.Windows.Forms.RadioButton();
             this.PreviewPanel = new PaletteStudio.GUI.PalPanel();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.ckbVisible = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -80,6 +82,7 @@
             this.rbtnComprehensive.TabStop = true;
             this.rbtnComprehensive.Text = "Comprehensive";
             this.rbtnComprehensive.UseVisualStyleBackColor = true;
+            this.rbtnComprehensive.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnArgb
             // 
@@ -91,6 +94,7 @@
             this.rbtnArgb.TabStop = true;
             this.rbtnArgb.Text = "Argb";
             this.rbtnArgb.UseVisualStyleBackColor = true;
+            this.rbtnArgb.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnGray
             // 
@@ -102,6 +106,7 @@
             this.rbtnGray.TabStop = true;
             this.rbtnGray.Text = "Gray";
             this.rbtnGray.UseVisualStyleBackColor = true;
+            this.rbtnGray.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnBrightness
             // 
@@ -113,6 +118,7 @@
             this.rbtnBrightness.TabStop = true;
             this.rbtnBrightness.Text = "Brightness";
             this.rbtnBrightness.UseVisualStyleBackColor = true;
+            this.rbtnBrightness.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnSaturation
             // 
@@ -124,6 +130,7 @@
             this.rbtnSaturation.TabStop = true;
             this.rbtnSaturation.Text = "Saturation";
             this.rbtnSaturation.UseVisualStyleBackColor = true;
+            this.rbtnSaturation.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnHue
             // 
@@ -135,6 +142,7 @@
             this.rbtnHue.TabStop = true;
             this.rbtnHue.Text = "Hue";
             this.rbtnHue.UseVisualStyleBackColor = true;
+            this.rbtnHue.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnBlue
             // 
@@ -146,6 +154,7 @@
             this.rbtnBlue.TabStop = true;
             this.rbtnBlue.Text = "Blue";
             this.rbtnBlue.UseVisualStyleBackColor = true;
+            this.rbtnBlue.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnGreen
             // 
@@ -157,6 +166,7 @@
             this.rbtnGreen.TabStop = true;
             this.rbtnGreen.Text = "Green";
             this.rbtnGreen.UseVisualStyleBackColor = true;
+            this.rbtnGreen.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
             // rbtnRed
             // 
@@ -169,45 +179,48 @@
             this.rbtnRed.TabStop = true;
             this.rbtnRed.Text = "Red";
             this.rbtnRed.UseVisualStyleBackColor = true;
+            this.rbtnRed.CheckedChanged += new System.EventHandler(this.rbtnPerferances);
             // 
-            // radioButton4
+            // rbtnIncrease
             // 
-            this.radioButton4.AutoSize = true;
-            this.radioButton4.Checked = true;
-            this.radioButton4.Location = new System.Drawing.Point(6, 20);
-            this.radioButton4.Name = "radioButton4";
-            this.radioButton4.Size = new System.Drawing.Size(71, 16);
-            this.radioButton4.TabIndex = 0;
-            this.radioButton4.TabStop = true;
-            this.radioButton4.Text = "Increase";
-            this.radioButton4.UseVisualStyleBackColor = true;
+            this.rbtnIncrease.AutoSize = true;
+            this.rbtnIncrease.Checked = true;
+            this.rbtnIncrease.Location = new System.Drawing.Point(6, 20);
+            this.rbtnIncrease.Name = "rbtnIncrease";
+            this.rbtnIncrease.Size = new System.Drawing.Size(71, 16);
+            this.rbtnIncrease.TabIndex = 0;
+            this.rbtnIncrease.TabStop = true;
+            this.rbtnIncrease.Text = "Increase";
+            this.rbtnIncrease.UseVisualStyleBackColor = true;
+            this.rbtnIncrease.CheckedChanged += new System.EventHandler(this.rbtnOrder);
             // 
-            // radioButton5
+            // rbtnDecrease
             // 
-            this.radioButton5.AutoSize = true;
-            this.radioButton5.Location = new System.Drawing.Point(88, 20);
-            this.radioButton5.Name = "radioButton5";
-            this.radioButton5.Size = new System.Drawing.Size(71, 16);
-            this.radioButton5.TabIndex = 1;
-            this.radioButton5.TabStop = true;
-            this.radioButton5.Text = "Decrease";
-            this.radioButton5.UseVisualStyleBackColor = true;
+            this.rbtnDecrease.AutoSize = true;
+            this.rbtnDecrease.Location = new System.Drawing.Point(88, 20);
+            this.rbtnDecrease.Name = "rbtnDecrease";
+            this.rbtnDecrease.Size = new System.Drawing.Size(71, 16);
+            this.rbtnDecrease.TabIndex = 1;
+            this.rbtnDecrease.TabStop = true;
+            this.rbtnDecrease.Text = "Decrease";
+            this.rbtnDecrease.UseVisualStyleBackColor = true;
+            this.rbtnDecrease.CheckedChanged += new System.EventHandler(this.rbtnOrder);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.radioButton4);
-            this.groupBox2.Controls.Add(this.radioButton5);
+            this.groupBox2.Controls.Add(this.rbtnIncrease);
+            this.groupBox2.Controls.Add(this.rbtnDecrease);
             this.groupBox2.Location = new System.Drawing.Point(12, 132);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(165, 48);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Method";
+            this.groupBox2.Text = "Order";
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.radioButton7);
-            this.groupBox3.Controls.Add(this.radioButton6);
+            this.groupBox3.Controls.Add(this.rbtnAll);
+            this.groupBox3.Controls.Add(this.rbtnSelected);
             this.groupBox3.Location = new System.Drawing.Point(12, 186);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(165, 46);
@@ -215,35 +228,39 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Range";
             // 
-            // radioButton7
+            // rbtnAll
             // 
-            this.radioButton7.AutoSize = true;
-            this.radioButton7.Location = new System.Drawing.Point(118, 20);
-            this.radioButton7.Name = "radioButton7";
-            this.radioButton7.Size = new System.Drawing.Size(41, 16);
-            this.radioButton7.TabIndex = 1;
-            this.radioButton7.TabStop = true;
-            this.radioButton7.Text = "All";
-            this.radioButton7.UseVisualStyleBackColor = true;
+            this.rbtnAll.AutoSize = true;
+            this.rbtnAll.Location = new System.Drawing.Point(118, 20);
+            this.rbtnAll.Name = "rbtnAll";
+            this.rbtnAll.Size = new System.Drawing.Size(41, 16);
+            this.rbtnAll.TabIndex = 1;
+            this.rbtnAll.TabStop = true;
+            this.rbtnAll.Text = "All";
+            this.rbtnAll.UseVisualStyleBackColor = true;
+            this.rbtnAll.CheckedChanged += new System.EventHandler(this.rbtnRange);
             // 
-            // radioButton6
+            // rbtnSelected
             // 
-            this.radioButton6.AutoSize = true;
-            this.radioButton6.Checked = true;
-            this.radioButton6.Location = new System.Drawing.Point(6, 20);
-            this.radioButton6.Name = "radioButton6";
-            this.radioButton6.Size = new System.Drawing.Size(71, 16);
-            this.radioButton6.TabIndex = 0;
-            this.radioButton6.TabStop = true;
-            this.radioButton6.Text = "Selected";
-            this.radioButton6.UseVisualStyleBackColor = true;
+            this.rbtnSelected.AutoSize = true;
+            this.rbtnSelected.Checked = true;
+            this.rbtnSelected.Location = new System.Drawing.Point(6, 20);
+            this.rbtnSelected.Name = "rbtnSelected";
+            this.rbtnSelected.Size = new System.Drawing.Size(71, 16);
+            this.rbtnSelected.TabIndex = 0;
+            this.rbtnSelected.TabStop = true;
+            this.rbtnSelected.Text = "Selected";
+            this.rbtnSelected.UseVisualStyleBackColor = true;
+            this.rbtnSelected.CheckedChanged += new System.EventHandler(this.rbtnRange);
             // 
             // PreviewPanel
             // 
             this.PreviewPanel.IsSelectable = false;
+            this.PreviewPanel.IsSelectVisible = true;
             this.PreviewPanel.Location = new System.Drawing.Point(183, 24);
             this.PreviewPanel.Name = "PreviewPanel";
             this.PreviewPanel.PalSource = null;
+            this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
             this.PreviewPanel.Size = new System.Drawing.Size(251, 237);
             this.PreviewPanel.TabIndex = 5;
             // 
@@ -264,12 +281,27 @@
             this.button1.TabIndex = 3;
             this.button1.Text = "Confirm";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // ckbVisible
+            // 
+            this.ckbVisible.AutoSize = true;
+            this.ckbVisible.Checked = true;
+            this.ckbVisible.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.ckbVisible.Location = new System.Drawing.Point(183, 8);
+            this.ckbVisible.Name = "ckbVisible";
+            this.ckbVisible.Size = new System.Drawing.Size(102, 16);
+            this.ckbVisible.TabIndex = 7;
+            this.ckbVisible.Text = "Show Selected";
+            this.ckbVisible.UseVisualStyleBackColor = true;
+            this.ckbVisible.CheckedChanged += new System.EventHandler(this.ckbVisible_CheckedChanged);
             // 
             // Sort
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(446, 268);
+            this.Controls.Add(this.ckbVisible);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.PreviewPanel);
@@ -282,6 +314,7 @@
             this.Name = "Sort";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Sort";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -300,12 +333,12 @@
         private System.Windows.Forms.RadioButton rbtnBlue;
         private System.Windows.Forms.RadioButton rbtnGreen;
         private System.Windows.Forms.RadioButton rbtnRed;
-        private System.Windows.Forms.RadioButton radioButton4;
-        private System.Windows.Forms.RadioButton radioButton5;
+        private System.Windows.Forms.RadioButton rbtnIncrease;
+        private System.Windows.Forms.RadioButton rbtnDecrease;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.RadioButton radioButton7;
-        private System.Windows.Forms.RadioButton radioButton6;
+        private System.Windows.Forms.RadioButton rbtnAll;
+        private System.Windows.Forms.RadioButton rbtnSelected;
         private System.Windows.Forms.RadioButton rbtnBrightness;
         private System.Windows.Forms.RadioButton rbtnSaturation;
         private System.Windows.Forms.RadioButton rbtnHue;
@@ -315,5 +348,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.RadioButton rbtnComprehensive;
         private System.Windows.Forms.RadioButton rbtnArgb;
+        private System.Windows.Forms.CheckBox ckbVisible;
     }
 }
