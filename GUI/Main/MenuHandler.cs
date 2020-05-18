@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using PaletteStudio.FileSystem;
 using PaletteStudio.Utils;
 using PaletteStudio.GUI;
+using PaletteStudio.GUI.Dialogs;
 
 namespace PaletteStudio
 {
@@ -62,13 +63,29 @@ namespace PaletteStudio
             if (MainPanel.PalSource == null) return;
             string format = "";
             format += MainPanel.Selections.Count.ToString();
-            foreach (byte v in MainPanel.Selections) format += "," + v + "." + Misc.ColorToString(MainPanel.PalSource[v]);
+            foreach (byte v in MainPanel.Selections) format += "," + v + "," + Misc.ColorToString(MainPanel.PalSource[v]);
             Clipboard.SetData(DataFormats.Text, format);
         }
         private void pasteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource == null) return;
+            if (!Clipboard.ContainsData(DataFormats.StringFormat)) return;
+            string data = Clipboard.GetText(TextDataFormat.Text);
+            List<ValueTuple<byte ,byte, byte, byte>> Colors = new List<(byte, byte, byte, byte)>();
+            try
+            {
+                string[] splitedData = data.Split(',');
+                int count = int.Parse(splitedData[0]);
+                for(int i = 0; i < count; i++)
+                    Colors.Add((byte.Parse(splitedData[i * 4 + 1]), byte.Parse(splitedData[i * 4 + 2]), byte.Parse(splitedData[i * 4 + 3]), byte.Parse(splitedData[i * 4 + 4])));
+                Colors.Sort((a, b) => a.Item1.CompareTo(b.Item1));
+                Paste paste = new Paste(MainPanel.PalSource, Colors);
+                paste.ShowDialog();
+            }
+            catch(Exception ex)
+            {
 
+            }
         }
         private void sortToolStripMenuItem_Click(object sender, EventArgs e)
         {
