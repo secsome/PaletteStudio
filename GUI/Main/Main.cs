@@ -135,5 +135,6 @@ namespace PaletteStudio
                     break;
             }
         }
+
     }
 }

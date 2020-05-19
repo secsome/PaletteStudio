@@ -14,6 +14,26 @@ namespace PaletteStudio.Utils
 {
     public class Misc
     {
+        public static byte FindBestColor(Color color, PalFile pal)
+        {
+            byte bestIdx = 0;
+            int minDistance = 195075; // 255* 255* 3
+            for (int i = 0; i < 256; ++i)
+            {
+                Color palColor = Color.FromArgb(pal[(byte)i]);
+                int deltaR = palColor.R - color.R;
+                int deltaG = palColor.G - color.G;
+                int deltaB = palColor.B - color.B;
+                int delta = deltaR * deltaR + deltaG * deltaG + deltaB * deltaB;
+                if (delta < minDistance)
+                {
+                    minDistance = delta;
+                    bestIdx = (byte)i;
+                }
+            }
+            return bestIdx;
+        }
+
         public static void DeepCopy<T>(List<T> src, List<T> des)
         {
             des.Clear();

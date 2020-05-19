@@ -1,12 +1,8 @@
 ﻿using PaletteStudio.FileSystem;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PaletteStudio.GUI.Dialogs
@@ -24,15 +20,11 @@ namespace PaletteStudio.GUI.Dialogs
             OriginDatas = data;
             OriginPal = palFile;
             OriginSelecting = nowSelectOn;
+            PreviewPanel.PalSource = new PalFile();
             for (int i = 0; i < 256; i++) PreviewPanel.PalSource[(byte)i] = OriginPal[(byte)i];
             PreviewPanel.Selections.Add(OriginSelecting);
             rbtnPasteTo_CheckedChanged(null, new EventArgs());
             UpdatePreview();
-        }
-
-        public Paste()
-        {
-            InitializeComponent();
         }
 
         public void UpdatePreview()

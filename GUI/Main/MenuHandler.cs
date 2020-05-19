@@ -8,6 +8,7 @@ using PaletteStudio.FileSystem;
 using PaletteStudio.Utils;
 using PaletteStudio.GUI;
 using PaletteStudio.GUI.Dialogs;
+using System.Drawing;
 
 namespace PaletteStudio
 {
@@ -15,6 +16,18 @@ namespace PaletteStudio
     {
         #region Main Form
         #region File
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainPanel.PalSource != null)
+                if(MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
+                    saveToolStripMenuItem_Click(null, new EventArgs());
+
+            MainPanel.PalSource = new PalFile();
+            // New, later being Dialog Box but use this to replace it at first
+            for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = Color.FromArgb(252, i, i, i).ToArgb();
+            MainPanel.Refresh();
+            CurrentStatusLabel.Text = "New palette created";
+        }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -139,6 +152,25 @@ namespace PaletteStudio
             }
         }
         #endregion
+        #region Tools
+        private void gradientToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainPanel.PalSource == null) return;
+            Gradient gradient = new Gradient(MainPanel);
+            if (gradient.ShowDialog() == DialogResult.OK)
+            {
+                MakeUndo();
+                Misc.DeepCopy(MainPanel.PalSource.Data, gradient.PalData);
+                MainPanel.Refresh();
+            }
+        }
+
+        private void findToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Find find = new Find(MainPanel);
+            find.Show();
+        }
+        #endregion
         #region Others
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -149,6 +181,27 @@ namespace PaletteStudio
         #endregion
 
         #region Main Panel
+        private void cutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MainPanel.PalSource == null) return;
+                MakeUndo();
+                string format = "";
+                format += MainPanel.Selections.Count.ToString();
+                foreach (byte v in MainPanel.Selections) format += "," + v + "," + Misc.ColorToString(MainPanel.PalSource[v]);
+                Clipboard.SetData(DataFormats.Text, format);
+                foreach (byte v in MainPanel.Selections) MainPanel.PalSource[v] = MainPanel.BackColor;
+                MainPanel.Refresh();
+                CurrentStatusLabel.Text = "Successfully cutted " + MainPanel.Selections.Count + " items to clipboard as string";
+            }
+            catch (Exception ex)
+            {
+                redoToolStripMenuItem_Click(null, new EventArgs());
+                CurrentStatusLabel.Text = "Failed to cut";
+                MessageBox.Show("Failed to cut, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
@@ -174,8 +227,6 @@ namespace PaletteStudio
                 if (MainPanel.PalSource == null) return;
                 if (!Clipboard.ContainsData(DataFormats.StringFormat)) return;
                 MakeUndo();
-                int[] backupPalData = new int[256];
-                for (int i = 0; i < 256; i++) backupPalData[(byte)i] = MainPanel.PalSource[(byte)i];
                 string data = Clipboard.GetText(TextDataFormat.Text);
                 List<ValueTuple<byte, byte, byte, byte>> Colors = new List<(byte, byte, byte, byte)>();
                 try
@@ -195,8 +246,7 @@ namespace PaletteStudio
                 }
                 catch (Exception ex)
                 {
-                    // Recover it
-                    for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = backupPalData[(byte)i];
+                    redoToolStripMenuItem_Click(null, new EventArgs());
                     CurrentStatusLabel.Text = "Failed to paste items";
                     MessageBox.Show("Fatal Error Occored, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
