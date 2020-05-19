@@ -26,6 +26,8 @@ namespace PaletteStudio
             // New, later being Dialog Box but use this to replace it at first
             for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = Color.FromArgb(252, i, i, i).ToArgb();
             MainPanel.Refresh();
+            MainPanel_BackColorChanged(null, new EventArgs());
+            MainPanel_SelectedIndexChanged(null, new EventArgs());
             CurrentStatusLabel.Text = "New palette created";
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)

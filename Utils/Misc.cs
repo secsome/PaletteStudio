@@ -14,6 +14,13 @@ namespace PaletteStudio.Utils
 {
     public class Misc
     {
+        public static byte GetRound(decimal num)
+        {
+            if (num < 0) return 0;
+            if (num > 254) return 255;
+            if (num - (byte)num > 0.5M) return (byte)(num + 1);
+            else return (byte)num;
+        }
         public static byte FindBestColor(Color color, PalFile pal)
         {
             byte bestIdx = 0;

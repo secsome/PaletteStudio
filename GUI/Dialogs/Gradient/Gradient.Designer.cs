@@ -90,6 +90,7 @@
             this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
             this.PreviewPanel.Size = new System.Drawing.Size(228, 253);
             this.PreviewPanel.TabIndex = 1;
+            this.PreviewPanel.SelectedIndexChanged += new PaletteStudio.GUI.PalPanel.SelectedIndexChangedHandle(this.PreviewPanel_SelectedIndexChanged);
             // 
             // ckbBack2Front
             // 
@@ -100,6 +101,7 @@
             this.ckbBack2Front.TabIndex = 2;
             this.ckbBack2Front.Text = "Back to front";
             this.ckbBack2Front.UseVisualStyleBackColor = true;
+            this.ckbBack2Front.Visible = false;
             // 
             // ckbAllowCycle
             // 
@@ -110,6 +112,7 @@
             this.ckbAllowCycle.TabIndex = 3;
             this.ckbAllowCycle.Text = "Allow cycle";
             this.ckbAllowCycle.UseVisualStyleBackColor = true;
+            this.ckbAllowCycle.Visible = false;
             // 
             // StartingPreview
             // 
@@ -174,6 +177,7 @@
             this.nudBlueS.Name = "nudBlueS";
             this.nudBlueS.Size = new System.Drawing.Size(73, 21);
             this.nudBlueS.TabIndex = 9;
+            this.nudBlueS.ValueChanged += new System.EventHandler(this.nudS_ValueChanged);
             // 
             // nudGreenS
             // 
@@ -186,6 +190,7 @@
             this.nudGreenS.Name = "nudGreenS";
             this.nudGreenS.Size = new System.Drawing.Size(73, 21);
             this.nudGreenS.TabIndex = 8;
+            this.nudGreenS.ValueChanged += new System.EventHandler(this.nudS_ValueChanged);
             // 
             // nudRedS
             // 
@@ -198,6 +203,7 @@
             this.nudRedS.Name = "nudRedS";
             this.nudRedS.Size = new System.Drawing.Size(73, 21);
             this.nudRedS.TabIndex = 7;
+            this.nudRedS.ValueChanged += new System.EventHandler(this.nudS_ValueChanged);
             // 
             // groupBox2
             // 
@@ -253,6 +259,7 @@
             this.nudBlueE.Name = "nudBlueE";
             this.nudBlueE.Size = new System.Drawing.Size(73, 21);
             this.nudBlueE.TabIndex = 9;
+            this.nudBlueE.ValueChanged += new System.EventHandler(this.nudE_ValueChanged);
             // 
             // nudGreenE
             // 
@@ -265,6 +272,7 @@
             this.nudGreenE.Name = "nudGreenE";
             this.nudGreenE.Size = new System.Drawing.Size(73, 21);
             this.nudGreenE.TabIndex = 8;
+            this.nudGreenE.ValueChanged += new System.EventHandler(this.nudE_ValueChanged);
             // 
             // nudRedE
             // 
@@ -277,6 +285,7 @@
             this.nudRedE.Name = "nudRedE";
             this.nudRedE.Size = new System.Drawing.Size(73, 21);
             this.nudRedE.TabIndex = 7;
+            this.nudRedE.ValueChanged += new System.EventHandler(this.nudE_ValueChanged);
             // 
             // EndingPreview
             // 
@@ -285,6 +294,7 @@
             this.EndingPreview.Size = new System.Drawing.Size(128, 32);
             this.EndingPreview.TabIndex = 4;
             this.EndingPreview.TabStop = false;
+            this.EndingPreview.Click += new System.EventHandler(this.EndingPreview_Click);
             // 
             // btnConfirm
             // 
@@ -309,7 +319,12 @@
             // 
             this.nudSteps.Location = new System.Drawing.Point(326, 313);
             this.nudSteps.Maximum = new decimal(new int[] {
-            255,
+            256,
+            0,
+            0,
+            0});
+            this.nudSteps.Minimum = new decimal(new int[] {
+            1,
             0,
             0,
             0});
@@ -321,6 +336,7 @@
             0,
             0,
             0});
+            this.nudSteps.ValueChanged += new System.EventHandler(this.PreviewUpdater);
             // 
             // label9
             // 
@@ -343,10 +359,13 @@
             this.nudStartingIdx.Name = "nudStartingIdx";
             this.nudStartingIdx.Size = new System.Drawing.Size(58, 21);
             this.nudStartingIdx.TabIndex = 15;
+            this.nudStartingIdx.ValueChanged += new System.EventHandler(this.PreviewUpdater);
             // 
             // ckbShowSelected
             // 
             this.ckbShowSelected.AutoSize = true;
+            this.ckbShowSelected.Checked = true;
+            this.ckbShowSelected.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbShowSelected.Location = new System.Drawing.Point(158, 5);
             this.ckbShowSelected.Name = "ckbShowSelected";
             this.ckbShowSelected.Size = new System.Drawing.Size(102, 16);
@@ -378,7 +397,7 @@
             this.Name = "Gradient";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Gradient";
+            this.Text = "Gradient(UNSTABLE)";
             ((System.ComponentModel.ISupportInitialize)(this.StartingPreview)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

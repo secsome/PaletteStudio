@@ -50,10 +50,12 @@ namespace PaletteStudio.GUI
                 case Keys.Up:
                     if (curY > 0)
                         UpdateSelection((byte)(idx - 1));
+                    else if (curX > 0) UpdateSelection((byte)(idx - 1));
                     return true;
                 case Keys.Down:
                     if (curY < 31)
                         UpdateSelection((byte)(idx + 1));
+                    else if (curX < 7) UpdateSelection((byte)(idx + 1));
                     return true;
                 case Keys.Left:
                     if (curX > 0)
@@ -113,7 +115,6 @@ namespace PaletteStudio.GUI
                     }
                 }
                 e.Graphics.DrawImage(map, new Rectangle(0, 0, Width, Height), new Rectangle(0, 0, Width, Height), GraphicsUnit.Pixel);
-                if (IsSelectable && SelectedIndexChanged != null)    SelectedIndexChanged(this, new EventArgs());
                 IsInitialized = true;
                 g.Dispose();
             }
@@ -152,6 +153,11 @@ namespace PaletteStudio.GUI
                         else Selections.Add(idx);
                         break;
                     case Keys.Shift:
+                        if (Selections.Count == 0)
+                        {
+                            Selections.Add(idx);
+                            break;
+                        }
                         if (Selections.Last() == idx)
                         {
                             Selections.Remove(idx);
@@ -161,12 +167,12 @@ namespace PaletteStudio.GUI
                             if (Selections.Last() < idx)
                             {
                                 for (int i = Selections.Last() + 1; i <= idx; i++)
-                                    if (!Selections.Contains(idx)) Selections.Add((byte)i);
+                                    if (!Selections.Contains((byte)i)) Selections.Add((byte)i);
                             }
                             else
                             {
                                 for (int i = Selections.Last() - 1; i >= idx; i--)
-                                    if (!Selections.Contains(idx)) Selections.Add((byte)i);
+                                    if (!Selections.Contains((byte)i)) Selections.Add((byte)i);
                             }
                         }
                         break;
@@ -181,8 +187,9 @@ namespace PaletteStudio.GUI
                 Selections.Clear();
                 Selections.Add(idx);
             }
-            if (PalSource != null)  SelectedIndexChanged(this, new EventArgs());
-            if(IsSelectVisible) Refresh();
+            if (PalSource != null)
+                SelectedIndexChanged?.Invoke(this, new EventArgs());
+            if (IsSelectVisible) Refresh();
         }
         private Point GetPoint(byte idx)
         {
