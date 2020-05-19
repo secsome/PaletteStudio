@@ -19,8 +19,17 @@ namespace PaletteStudio
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource != null)
-                if(MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNo, MessageBoxIcon.Information) == DialogResult.Yes)
-                    saveToolStripMenuItem_Click(null, new EventArgs());
+                switch(MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                {
+                    case DialogResult.Yes:
+                        saveToolStripMenuItem_Click(null, new EventArgs());
+                        break;
+                    case DialogResult.No:
+                        break;
+                    default:
+                        return;
+                }
+                    
 
             MainPanel.PalSource = new PalFile();
             // New, later being Dialog Box but use this to replace it at first
@@ -34,6 +43,17 @@ namespace PaletteStudio
         {
             try
             {
+                if (MainPanel.PalSource != null)
+                    switch (MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                    {
+                        case DialogResult.Yes:
+                            saveToolStripMenuItem_Click(null, new EventArgs());
+                            break;
+                        case DialogResult.No:
+                            break;
+                        default:
+                            return;
+                    }
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Palette File|*.pal|All Files|*.*";
                 openFileDialog.InitialDirectory = Application.StartupPath;
@@ -117,6 +137,25 @@ namespace PaletteStudio
             Undos.Clear();
             Redos.Clear();
             CurrentStatusLabel.Text = "Palette file closed";
+        }
+        private void importToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainPanel.PalSource != null)
+                switch (MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                {
+                    case DialogResult.Yes:
+                        saveToolStripMenuItem_Click(null, new EventArgs());
+                        break;
+                    case DialogResult.No:
+                        break;
+                    default:
+                        return;
+                }
+            Import import = new Import();
+            if (import.ShowDialog() == DialogResult.OK)
+            {
+
+            }
         }
         #endregion
         #region Edit

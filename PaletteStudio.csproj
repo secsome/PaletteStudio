@@ -37,6 +37,9 @@
     <ApplicationIcon>PalStudio.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ImageFormats, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\ImageFormats.1.0.0\lib\net45\ImageFormats.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -74,6 +77,12 @@
     </Compile>
     <Compile Include="GUI\Dialogs\Gradient\Gradient.Designer.cs">
       <DependentUpon>Gradient.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\Dialogs\Import\Import.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Dialogs\Import\Import.Designer.cs">
+      <DependentUpon>Import.cs</DependentUpon>
     </Compile>
     <Compile Include="GUI\Dialogs\Paste\Paste.cs">
       <SubType>Form</SubType>
@@ -115,6 +124,9 @@
     <EmbeddedResource Include="GUI\Dialogs\Gradient\Gradient.resx">
       <DependentUpon>Gradient.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Dialogs\Import\Import.resx">
+      <DependentUpon>Import.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Dialogs\Paste\Paste.resx">
       <DependentUpon>Paste.cs</DependentUpon>
     </EmbeddedResource>
@@ -134,6 +146,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

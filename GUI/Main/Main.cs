@@ -136,5 +136,60 @@ namespace PaletteStudio
             }
         }
 
+
+        #region Main Panel Drop Events - Main
+        private void MainPanel_DragDrop(object sender, DragEventArgs e)
+        {
+            if (MainPanel.AllowDropOpen)
+            {
+                if (e.Data.GetDataPresent(DataFormats.FileDrop, false))
+                {
+                    string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+                    string path = files.Last();
+                    try
+                    {
+                        PalFile palFile = new PalFile(path);
+                        if (MainPanel.PalSource != null)
+                            switch (MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                            {
+                                case DialogResult.Yes:
+                                    saveToolStripMenuItem_Click(null, new EventArgs());
+                                    break;
+                                case DialogResult.No:
+                                    break;
+                                default:
+                                    return;
+                            }
+                        SavePath = path;
+                        IsSaved = true;
+                        Undos.Clear();
+                        Redos.Clear();
+                        MainPanel.Selections.Clear();
+                        MainPanel.PalSource = palFile;
+                        MainPanel.Refresh();
+                        MainPanel_SelectedIndexChanged(null, new EventArgs());
+                        MainPanel_BackColorChanged(null, new EventArgs());
+                        CurrentStatusLabel.Text = "Palette opened";
+                    }
+                    catch(Exception ex)
+                    {
+                        SavePath = "";
+                        IsSaved = false;
+                        MainPanel.Close();
+                        CurrentStatusLabel.Text = "Failed to read the palette file";
+                        MessageBox.Show("Failed to read the palette file, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+            }
+        }
+        private void MainPanel_DragEnter(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+        private void MainPanel_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effect = DragDropEffects.All;
+        }
+        #endregion
     }
 }

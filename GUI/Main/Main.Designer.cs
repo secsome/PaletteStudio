@@ -160,6 +160,7 @@
             this.importToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.I)));
             this.importToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -215,20 +216,20 @@
             // 
             this.gradientToolStripMenuItem.Name = "gradientToolStripMenuItem";
             this.gradientToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.gradientToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gradientToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.gradientToolStripMenuItem.Text = "Gradient";
             this.gradientToolStripMenuItem.Click += new System.EventHandler(this.gradientToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(144, 6);
             // 
             // findToolStripMenuItem
             // 
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
             this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
             this.findToolStripMenuItem.Text = "Find";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.findToolStripMenuItem_Click);
             // 
@@ -435,6 +436,8 @@
             // 
             // MainPanel
             // 
+            this.MainPanel.AllowDrop = true;
+            this.MainPanel.AllowDropOpen = true;
             this.MainPanel.ContextMenuStrip = this.contextMenuStrip1;
             this.MainPanel.IsEditable = true;
             this.MainPanel.IsMultiSelect = true;
@@ -450,6 +453,9 @@
             this.MainPanel.BackColorChanged += new PaletteStudio.GUI.PalPanel.BackColorChangedHandle(this.MainPanel_BackColorChanged);
             this.MainPanel.PalSourceChanging += new PaletteStudio.GUI.PalPanel.PalSourceChangingHandle(this.MainPanel_PalSourceChanging);
             this.MainPanel.PalSourceChanged += new PaletteStudio.GUI.PalPanel.PalSourceChangedHandle(this.MainPanel_PalSourceChanged);
+            this.MainPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragDrop);
+            this.MainPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragEnter);
+            this.MainPanel.DragOver += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragOver);
             // 
             // Main
             // 

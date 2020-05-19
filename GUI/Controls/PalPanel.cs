@@ -237,6 +237,7 @@ namespace PaletteStudio.GUI
         public bool IsSelectable { get; set; } = true;
         public bool IsEditable { get; set; } = false;
         public bool IsMultiSelect { get; set; } = true;
+        public bool AllowDropOpen { get; set; } = false;
         public new int BackColor { get; set; } = -67108864; // 252, 0, 0, 0
         #endregion
     }
