@@ -9,11 +9,18 @@ using PaletteStudio.FileSystem;
 using PaletteStudio.Common;
 using System.Reflection;
 using System.Drawing.Imaging;
+using DmitryBrant.ImageFormats;
+using PaletteStudio.GUI;
+using System.Threading;
 
 namespace PaletteStudio.Utils
 {
     public class Misc
     {
+        public static Bitmap DecodePCX(string path)
+        {
+            return PcxReader.Load(path);
+        }
         public static byte GetRound(decimal num)
         {
             if (num < 0) return 0;
@@ -40,18 +47,15 @@ namespace PaletteStudio.Utils
             }
             return bestIdx;
         }
-
         public static void DeepCopy<T>(List<T> src, List<T> des)
         {
             des.Clear();
             foreach (T t in src) des.Add(t);
         }
-
         public static byte[] GetRawBytes(string _path)
         {
             return File.ReadAllBytes(_path);
         }
-
         public static T MemCpy<T>(T src)
         {
             T dest = Activator.CreateInstance<T>();
@@ -66,11 +70,6 @@ namespace PaletteStudio.Utils
             }
             return dest;
         }
-        /// <summary>
-        /// Return black(0x00000000) if something happened
-        /// </summary>
-        /// <param name="src"></param>
-        /// <returns></returns>
         public static Color ToColor(string[] src)
         {
             int r = 0xFF, g = 0xFF, b = 0xFF;
@@ -106,38 +105,25 @@ namespace PaletteStudio.Utils
         {
             return (color.R * 19595 + color.G * 38469 + color.B * 7472) >> 16;
         }
-        public static unsafe PalFile GetIndexPalette(Bitmap bmp)
+        public static Image GetImage(string _path)
         {
-            PalFile ret = new PalFile();
-            long[] counter = new long[4096];
-            List<long> sorter;
-
-            BitmapData bitmapData = bmp.LockBits(new Rectangle(0, 0, bmp.Width, bmp.Height), ImageLockMode.ReadWrite, PixelFormat.Format32bppRgb);
-            byte* ptr = (byte*)(bitmapData.Scan0);
-            for (int j = 0; j < bmp.Height; j++)
-            {
-                for (int i = 0; i < bmp.Width; i++)
-                {
-                    int idx = ((ptr[0] & 0xF0) << 4) + (ptr[1] & 0xF0) + ((ptr[2] & 0xF0) >> 4);
-                    ++counter[idx];
-                    ptr += 4;
-                }
-                ptr += bitmapData.Stride - bitmapData.Width * 4;
-            }
-            bmp.UnlockBits(bitmapData);
-
-            sorter = counter.ToList();
-            sorter.Sort();
-
-            for (int i = 0; i < 256; i++)
-            {
-                int Red = (byte)(sorter[i] & 0x00F << 4);
-                int Green = (byte)(sorter[i] & 0x0F0);
-                int Blue = (byte)(sorter[i] & 0xF00 >> 4);
-                ret[(byte)i] = Color.FromArgb(Red, Green, Blue).ToArgb();
-            }
-
-            return ret;
+            return Image.FromFile(_path);
+        }
+        public static void GetPal(PalFile pal)
+        {
+            System.Diagnostics.Process p = new System.Diagnostics.Process();
+            p.StartInfo.FileName = "PNG2SHP.exe";
+            p.StartInfo.UseShellExecute = false;
+            p.StartInfo.RedirectStandardInput = false;
+            p.StartInfo.RedirectStandardOutput = false;
+            p.StartInfo.RedirectStandardError = false;
+            p.StartInfo.CreateNoWindow = true;
+            p.StartInfo.Arguments = @"PaletteStudio.tmp PaletteStudio.tmpA PaletteStudio.tmpB";
+            p.Start();
+            p.WaitForExit();
+            p.Close();
+            DeepCopy(new PalFile("PaletteStudio.tmpB").Data, pal.Data);
+            return;
         }
     }
 }

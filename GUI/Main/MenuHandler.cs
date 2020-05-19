@@ -154,7 +154,16 @@ namespace PaletteStudio
             Import import = new Import();
             if (import.ShowDialog() == DialogResult.OK)
             {
-
+                if (MainPanel.PalSource == null)
+                {
+                    MainPanel.PalSource = new PalFile();
+                    MainPanel.BackColor = -67108864;
+                }
+                Misc.DeepCopy(import.Data, MainPanel.PalSource.Data);
+                MainPanel.Refresh();
+                MainPanel_BackColorChanged(null, new EventArgs());
+                MainPanel_SelectedIndexChanged(null, new EventArgs());
+                CurrentStatusLabel.Text = "Imported successful";
             }
         }
         #endregion
@@ -208,6 +217,7 @@ namespace PaletteStudio
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (MainPanel.PalSource == null) return;
             Find find = new Find(MainPanel);
             find.Show();
         }

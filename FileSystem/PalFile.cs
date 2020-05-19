@@ -65,6 +65,27 @@ namespace PaletteStudio.FileSystem
         {
             Save(FilePath);
         }
+
+        public void SaveJASC(string _path)
+        {
+            File.Delete(_path);
+            using (FileStream fs = new FileStream(_path, FileMode.OpenOrCreate))
+            {
+                using (StreamWriter sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine("JASC-PAL");
+                    sw.WriteLine(data.Count.ToString("X4"));
+                    sw.WriteLine(data.Count.ToString());
+
+                    for (int i = 0; i < data.Count; i++)
+                    {
+                        Color now = Color.FromArgb(data[i]);
+                        sw.WriteLine(now.R + " " + now.G + " " + now.B);
+                    }
+                        
+                }
+            }
+        }
         #endregion
 
 
