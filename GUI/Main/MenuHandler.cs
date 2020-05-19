@@ -29,9 +29,13 @@ namespace PaletteStudio
                 {
                     SavePath = openFileDialog.FileName;
                     IsSaved = true;
+                    Undos.Clear();
+                    Redos.Clear();
+                    MainPanel.Selections.Clear();
                     MainPanel.PalSource = new PalFile(SavePath);
                     MainPanel.Refresh();
                     MainPanel_SelectedIndexChanged(null, new EventArgs());
+                    MainPanel_BackColorChanged(null, new EventArgs());
                     CurrentStatusLabel.Text = "Palette opened";
                 }
             }
@@ -95,6 +99,8 @@ namespace PaletteStudio
             MainPanel.Close();
             IsSaved = false;
             SavePath = "";
+            Undos.Clear();
+            Redos.Clear();
             CurrentStatusLabel.Text = "Palette file closed";
         }
         #endregion
@@ -121,6 +127,15 @@ namespace PaletteStudio
                 Redos.RemoveAt(Redos.Count - 1);
                 MainPanel.Refresh();
                 CurrentStatusLabel.Text = "Redo";
+            }
+        }
+        private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (MainPanel.PalSource != null)
+            {
+                MainPanel.Selections.Clear();
+                for (int i = 0; i < 256; i++) MainPanel.Selections.Add((byte)i);
+                MainPanel.Refresh();
             }
         }
         #endregion

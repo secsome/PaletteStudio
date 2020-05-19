@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            PaletteStudio.FileSystem.PalFile palFile2 = new PaletteStudio.FileSystem.PalFile();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Paste));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.rbtnCustom = new System.Windows.Forms.RadioButton();
@@ -207,7 +206,7 @@
             this.PreviewPanel.IsSelectVisible = false;
             this.PreviewPanel.Location = new System.Drawing.Point(184, 27);
             this.PreviewPanel.Name = "PreviewPanel";
-            this.PreviewPanel.PalSource = palFile2;
+            this.PreviewPanel.PalSource = null;
             this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
             this.PreviewPanel.Size = new System.Drawing.Size(238, 292);
             this.PreviewPanel.TabIndex = 6;

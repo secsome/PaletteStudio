@@ -133,5 +133,9 @@
   <ItemGroup>
     <None Include="PalStudio.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GUI\Dialogs\Find\" />
+    <Folder Include="GUI\Dialogs\Gradient\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

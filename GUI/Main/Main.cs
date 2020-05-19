@@ -13,8 +13,6 @@ namespace PaletteStudio
 {
     public partial class Main : Form
     {
-        private List<List<int>> Undos = new List<List<int>>();
-        private List<List<int>> Redos = new List<List<int>>();
         private bool IsSaved = false;
         private string SavePath = "";
 
@@ -23,21 +21,26 @@ namespace PaletteStudio
             InitializeComponent();
         }
 
+        #region Undo & Redo
+        private List<List<int>> Undos = new List<List<int>>();
+        private List<List<int>> Redos = new List<List<int>>();
+
         private void MakeUndo()
         {
             Undos.Add(new List<int>());
             Utils.Misc.DeepCopy(MainPanel.PalSource.Data, Undos.Last());
+            GC.Collect();
         }
         private void MakeRedo()
         {
             Redos.Add(new List<int>());
             Utils.Misc.DeepCopy(MainPanel.PalSource.Data, Redos.Last());
+            GC.Collect();
         }
-        private void UpdatePreview()
-        {
-            ColorPreview.BackColor= Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value); 
-        }
-        private void MainPanel_SelectedIndexChanged(object sender,EventArgs e)
+        #endregion
+
+        #region MainPanel
+        private void MainPanel_SelectedIndexChanged(object sender, EventArgs e)
         {
             Color currentColor = Color.FromArgb(MainPanel.PalSource[MainPanel.Selections.LastOrDefault()]);
             isColorUpdating = true;
@@ -48,6 +51,65 @@ namespace PaletteStudio
             UpdatePreview();
             label4.Text = "Cur Idx:" + MainPanel.Selections.LastOrDefault();
         }
+        private void MainPanel_BackColorChanged(object sender, EventArgs e)
+        {
+            MakeUndo();
+            BackColorPreview.BackColor = Color.FromArgb(MainPanel.BackColor);
+        }
+        private void MainPanel_PalSourceChanging(object sender, EventArgs e)
+        {
+            MakeUndo();
+        }
+        private void MainPanel_PalSourceChanged(object sender, EventArgs e)
+        {
+            BackColorPreview.BackColor = Color.FromArgb(MainPanel.BackColor);
+            Refresh();
+        }
+        #endregion
+
+        #region GUI Updates
+        private void UpdatePreview()
+        {
+            ColorPreview.BackColor = Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value);
+        }
+
+        private bool isColorUpdating = false;
+        private void nud_ValueChanged(object sender, EventArgs e)
+        {
+            if (!isColorUpdating)
+                UpdatePreview();
+        }
+        private void ColorPreview_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = ColorPreview.BackColor;
+            colorDialog.FullOpen = true;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                MakeUndo();
+                ColorPreview.BackColor = Color.FromArgb(252, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B);
+                isColorUpdating = true;
+                nudRed.Value = colorDialog.Color.R;
+                nudGreen.Value = colorDialog.Color.G;
+                nudBlue.Value = colorDialog.Color.B;
+                isColorUpdating = false;
+                UpdatePreview();
+            }
+        }
+        private void BackColorPreview_Click(object sender, EventArgs e)
+        {
+            ColorDialog colorDialog = new ColorDialog();
+            colorDialog.Color = ColorPreview.BackColor;
+            colorDialog.FullOpen = true;
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                BackColorPreview.BackColor = Color.FromArgb(252, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B);
+                MainPanel.BackColor = BackColorPreview.BackColor.ToArgb();
+            }
+
+        }
+        #endregion
+
         private void btnApply_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource == null) return;
@@ -57,28 +119,6 @@ namespace PaletteStudio
             MainPanel.Refresh();
         }
 
-        private bool isColorUpdating = false;
-        private void nud_ValueChanged(object sender, EventArgs e)
-        {
-            if (!isColorUpdating) 
-                UpdatePreview();
-        }
-        private void ColorPreview_Click(object sender, EventArgs e)
-        {
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = ColorPreview.BackColor;
-            if (colorDialog.ShowDialog() == DialogResult.OK)
-            {
-                MakeUndo();
-                ColorPreview.BackColor = colorDialog.Color;
-                isColorUpdating = true;
-                nudRed.Value = colorDialog.Color.R;
-                nudGreen.Value= colorDialog.Color.G;
-                nudBlue.Value = colorDialog.Color.B;
-                isColorUpdating = false;
-                UpdatePreview();
-            }
-        }
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             switch(MessageBox.Show(

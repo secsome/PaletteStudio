@@ -1,12 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Runtime.InteropServices;
 using PaletteStudio.FileSystem;
 
 namespace PaletteStudio.GUI
@@ -24,64 +20,70 @@ namespace PaletteStudio.GUI
 
         #region Custom Events - PalPanel
         public delegate void SelectedIndexChangedHandle(object sender, EventArgs e);
+        public delegate void BackColorChangedHandle(object sender, EventArgs e);
+        public delegate void PalSourceChangingHandle(object sender, EventArgs e);
+        public delegate void PalSourceChangedHandle(object sender, EventArgs e);
+
         public event SelectedIndexChangedHandle SelectedIndexChanged;
+        public new event BackColorChangedHandle BackColorChanged;
+        public event PalSourceChangingHandle PalSourceChanging;
+        public event PalSourceChangedHandle PalSourceChanged;
         #endregion
 
         #region Protected Overrides - PalPanel
 
+        protected override bool IsInputKey(Keys keyData)
+        {
+            if (PalSource == null) return false;
+            byte idx = Selections.LastOrDefault();
+            int curX = idx / 32;
+            int curY = idx % 32;
+            switch (keyData)
+            {
+                // Functional Keys
+                case Keys.Control:
+                case Keys.Shift:
+                case Keys.Alt:
+                    return true;
+
+                // Move Idx
+                case Keys.Up:
+                    if (curY > 0)
+                        UpdateSelection((byte)(idx - 1));
+                    return true;
+                case Keys.Down:
+                    if (curY < 31)
+                        UpdateSelection((byte)(idx + 1));
+                    return true;
+                case Keys.Left:
+                    if (curX > 0)
+                        UpdateSelection((byte)(idx - 32));
+                    return true;
+                case Keys.Right:
+                    if (curX < 7)
+                        UpdateSelection((byte)(idx + 32));
+                    return true;
+
+                case Keys.Delete:
+                    if (IsEditable)
+                    {
+                        PalSourceChanging?.Invoke(this, new EventArgs());
+                        if (Selections.Contains(idx)) Selections.Remove(idx);
+                        PalSource[idx] = BackColor;
+                        foreach (byte i in Selections) PalSource[i] = BackColor;
+                        PalSourceChanged?.Invoke(this, new EventArgs());
+                    }
+                    return true;
+            }
+            return false;
+        }
+
         protected override void OnMouseClick(MouseEventArgs e)
         {
-            if (IsSelectable)
-            {
-                byte idx = FromPoint(e.X / cellWidth, e.Y / cellHeight);
-                int tmp = Selections.IndexOf(idx);
-                if(!IsMultiSelect)
-                {
-                    Selections.Clear();
-                    Selections.Add(idx);
-                }
-                else
-                {
-                    switch (ModifierKeys)
-                    {
-                        case Keys.Control:
-                            if (tmp == -1) Selections.Add(idx);
-                            else Selections.RemoveAt(tmp);
-                            break;
-                        case Keys.Shift:
-                            if (Selections.Count > 0)
-                            {
-                                if (Selections.Last() == idx)
-                                {
-                                    Selections.RemoveAt(Selections.Count - 1);
-                                }
-                                else
-                                {
-                                    if (Selections.Last() < idx)
-                                    {
-                                        for (int i = Selections.Last() + 1; i <= idx; i++)
-                                            if (tmp == -1) Selections.Add((byte)i);
-                                    }
-                                    else
-                                    {
-                                        for (int i = Selections.Last() - 1; i >= idx; i--)
-                                            if (tmp == -1) Selections.Add((byte)i);
-                                    }
-                                }
-                            }
-                            break;
-                        default:
-                            Selections.Clear();
-                            Selections.Add(idx);
-                            break;
-                    }
-                }
-                Focus();
-                if (PalSource != null)
-                    SelectedIndexChanged(this, new EventArgs());
-                Refresh();
-            }
-            
+            Focus();
+            if (PalSource == null) return;
+            byte idx = FromPoint(e.X / cellWidth, e.Y / cellHeight);
+            UpdateSelection(idx);
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -111,7 +113,7 @@ namespace PaletteStudio.GUI
                     }
                 }
                 e.Graphics.DrawImage(map, new Rectangle(0, 0, Width, Height), new Rectangle(0, 0, Width, Height), GraphicsUnit.Pixel);
-                if (IsSelectable)   SelectedIndexChanged(this, new EventArgs());
+                if (IsSelectable && SelectedIndexChanged != null)    SelectedIndexChanged(this, new EventArgs());
                 IsInitialized = true;
                 g.Dispose();
             }
@@ -131,6 +133,57 @@ namespace PaletteStudio.GUI
         #endregion
 
         #region Private Methods - PalPanel
+        private void UpdateSelection(byte idx)
+        {
+            if (PalSource == null) return;
+            if (ModifierKeys == Keys.Alt)
+            {
+                BackColor = PalSource[idx];
+                BackColorChanged?.Invoke(this, new EventArgs());
+                return;
+            }
+            if (!IsSelectable) return;
+            if (IsMultiSelect)
+            {
+                switch (ModifierKeys)
+                {
+                    case Keys.Control:
+                        if (Selections.Contains(idx)) Selections.Remove(idx);
+                        else Selections.Add(idx);
+                        break;
+                    case Keys.Shift:
+                        if (Selections.Last() == idx)
+                        {
+                            Selections.Remove(idx);
+                        }
+                        else
+                        {
+                            if (Selections.Last() < idx)
+                            {
+                                for (int i = Selections.Last() + 1; i <= idx; i++)
+                                    if (!Selections.Contains(idx)) Selections.Add((byte)i);
+                            }
+                            else
+                            {
+                                for (int i = Selections.Last() - 1; i >= idx; i--)
+                                    if (!Selections.Contains(idx)) Selections.Add((byte)i);
+                            }
+                        }
+                        break;
+                    default:
+                        Selections.Clear();
+                        Selections.Add(idx);
+                        break;
+                }
+            }
+            else
+            {
+                Selections.Clear();
+                Selections.Add(idx);
+            }
+            if (PalSource != null)  SelectedIndexChanged(this, new EventArgs());
+            if(IsSelectVisible) Refresh();
+        }
         private Point GetPoint(byte idx)
         {
             return new Point(idx / 32, idx % 32);
@@ -164,17 +217,20 @@ namespace PaletteStudio.GUI
         public void Close()
         {
             PalSource = null;
+            Selections.Clear();
             Refresh();
         }
         #endregion
 
         #region Public Calls - PalPanel
-        public PalFile PalSource { get; set; } = new PalFile();
+        public PalFile PalSource { get; set; } = null;
         public List<byte> Selections { get; set; } = new List<byte>();
         public bool IsInitialized { get; private set; } = false;
         public bool IsSelectVisible { get; set; } = true;
         public bool IsSelectable { get; set; } = true;
+        public bool IsEditable { get; set; } = false;
         public bool IsMultiSelect { get; set; } = true;
+        public new int BackColor { get; set; } = -67108864; // 252, 0, 0, 0
         #endregion
     }
 }
