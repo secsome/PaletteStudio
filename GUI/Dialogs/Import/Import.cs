@@ -63,11 +63,13 @@ namespace PaletteStudio.GUI.Dialogs
                             return;
                     }
                     lblPath.Text = path;
+                    btnImport.Enabled = true;
                 }
             }
             catch(Exception ex)
             {
                 MessageBox.Show("Something wrong occured while importing the image, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                btnImport.Enabled = false;
                 return;
             }
         }
@@ -76,7 +78,7 @@ namespace PaletteStudio.GUI.Dialogs
         {
             try
             {
-                PreviewBox.Image.Save("PaletteStudio.tmp");
+                PreviewBox.Image.Save("PaletteStudio.tmp", System.Drawing.Imaging.ImageFormat.Png);
                 PalFile palFile = new PalFile();
                 Misc.GetPal(palFile);
                 Data = palFile.Data;

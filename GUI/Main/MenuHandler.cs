@@ -212,6 +212,7 @@ namespace PaletteStudio
                 MakeUndo();
                 Misc.DeepCopy(MainPanel.PalSource.Data, gradient.PalData);
                 MainPanel.Refresh();
+                CurrentStatusLabel.Text = "Generate gradient colors done";
             }
         }
 
@@ -279,7 +280,7 @@ namespace PaletteStudio
                 if (!Clipboard.ContainsData(DataFormats.StringFormat)) return;
                 MakeUndo();
                 string data = Clipboard.GetText(TextDataFormat.Text);
-                List<ValueTuple<byte, byte, byte, byte>> Colors = new List<(byte, byte, byte, byte)>();
+                List<Tuple<byte, byte, byte, byte>> Colors = new List<Tuple<byte, byte, byte, byte>>();
                 try
                 {
                     string[] splitedData = data.Split(',');
@@ -287,7 +288,7 @@ namespace PaletteStudio
                     if (count > 0)
                     {
                         for (int i = 0; i < count; i++)
-                            Colors.Add((byte.Parse(splitedData[i * 4 + 1]), byte.Parse(splitedData[i * 4 + 2]), byte.Parse(splitedData[i * 4 + 3]), byte.Parse(splitedData[i * 4 + 4])));
+                            Colors.Add(new Tuple<byte, byte, byte, byte>(byte.Parse(splitedData[i * 4 + 1]), byte.Parse(splitedData[i * 4 + 2]), byte.Parse(splitedData[i * 4 + 3]), byte.Parse(splitedData[i * 4 + 4])));
                         Colors.Sort((a, b) => a.Item1.CompareTo(b.Item1));
                         Paste paste = new Paste(MainPanel.PalSource, Colors, MainPanel.Selections.LastOrDefault());
                         paste.ShowDialog();

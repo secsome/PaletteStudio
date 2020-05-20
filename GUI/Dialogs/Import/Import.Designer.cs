@@ -70,6 +70,7 @@
             // btnImport
             // 
             this.btnImport.Dock = System.Windows.Forms.DockStyle.Right;
+            this.btnImport.Enabled = false;
             this.btnImport.Location = new System.Drawing.Point(270, 279);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(279, 24);

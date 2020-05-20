@@ -15,6 +15,7 @@ namespace PaletteStudio.GUI
         public PalPanel()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
+            InitAltCursor(Properties.Resources.alt, new Point(0, 0));
         }
         #endregion
 
@@ -32,9 +33,20 @@ namespace PaletteStudio.GUI
 
         #region Protected Overrides - PalPanel
 
+        private Cursor AltCursor;
+        /*
+        protected override void OnMouseMove(MouseEventArgs e)
+        {
+            if (ModifierKeys == Keys.Alt)
+                Cursor = AltCursor;
+            else
+                Cursor = Cursors.Default;
+        }
+        */
         protected override bool IsInputKey(Keys keyData)
         {
             if (PalSource == null) return false;
+            Cursor = Cursors.Default;
             byte idx = Selections.LastOrDefault();
             int curX = idx / 32;
             int curY = idx % 32;
@@ -70,8 +82,7 @@ namespace PaletteStudio.GUI
                     if (IsEditable)
                     {
                         PalSourceChanging?.Invoke(this, new EventArgs());
-                        if (Selections.Contains(idx)) Selections.Remove(idx);
-                        PalSource[idx] = BackColor;
+                        if (!Selections.Contains(idx)) Selections.Add(idx);
                         foreach (byte i in Selections) PalSource[i] = BackColor;
                         PalSourceChanged?.Invoke(this, new EventArgs());
                     }
@@ -79,7 +90,6 @@ namespace PaletteStudio.GUI
             }
             return false;
         }
-
         protected override void OnMouseClick(MouseEventArgs e)
         {
             Focus();
@@ -87,7 +97,6 @@ namespace PaletteStudio.GUI
             byte idx = FromPoint(e.X / cellWidth, e.Y / cellHeight);
             UpdateSelection(idx);
         }
-
         protected override void OnPaint(PaintEventArgs e)
         {
             if (PalSource != null)
@@ -109,8 +118,10 @@ namespace PaletteStudio.GUI
                         Pen crossPen = new Pen(GetCrossColor(crossColor), 1.2F);
                         int stX = GetPoint(selected).X * cellWidth, stY = GetPoint(selected).Y * cellHeight;
                         g.DrawRectangle(crossPen, stX, stY, cellWidth, cellHeight);
-                        g.DrawLine(crossPen, stX, stY, stX + cellWidth, stY + cellHeight);
-                        g.DrawLine(crossPen, stX + cellWidth, stY, stX, stY + cellHeight);
+                        g.DrawLine(crossPen, stX, stY, stX + (float)0.25*cellWidth, stY + (float)0.25 * cellHeight); // Left Up
+                        g.DrawLine(crossPen, stX + (float)0.75 * cellWidth, stY + (float)0.75 * cellHeight, stX + cellWidth, stY + cellHeight); // Right Down
+                        g.DrawLine(crossPen, stX + cellWidth, stY, stX + (float)0.75 * cellWidth, stY + (float)0.25 * cellHeight); // Right Up
+                        g.DrawLine(crossPen, stX + (float)0.25 * cellWidth, stY+ (float)0.75 * cellHeight, stX, stY + cellHeight); // Left Down
                         crossPen.Dispose();
                     }
                 }
@@ -124,7 +135,6 @@ namespace PaletteStudio.GUI
                 base.OnPaint(e);
             }
         }
-
         protected override void OnSizeChanged(EventArgs e)
         {
             cellWidth = Width / 8;
@@ -134,6 +144,18 @@ namespace PaletteStudio.GUI
         #endregion
 
         #region Private Methods - PalPanel
+        private void InitAltCursor(Bitmap cursor, Point hotPoint)
+        {
+            int hotX = hotPoint.X;
+            int hotY = hotPoint.Y;
+            Bitmap myNewCursor = new Bitmap(cursor.Width * 2 - hotX, cursor.Height * 2 - hotY);
+            Graphics g = Graphics.FromImage(myNewCursor);
+            g.Clear(Color.FromArgb(0, 0, 0, 0));
+            g.DrawImage(cursor, cursor.Width - hotX, cursor.Height - hotY, cursor.Width, cursor.Height);
+            AltCursor = new Cursor(myNewCursor.GetHicon());
+            g.Dispose();
+            myNewCursor.Dispose();
+        }
         private void UpdateSelection(byte idx)
         {
             if (PalSource == null) return;
