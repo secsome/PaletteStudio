@@ -15,7 +15,6 @@ namespace PaletteStudio.GUI
         public PalPanel()
         {
             SetStyle(ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint | ControlStyles.DoubleBuffer, true);
-            InitAltCursor(Properties.Resources.alt, new Point(0, 0));
         }
         #endregion
 
@@ -32,17 +31,6 @@ namespace PaletteStudio.GUI
         #endregion
 
         #region Protected Overrides - PalPanel
-
-        private Cursor AltCursor;
-        /*
-        protected override void OnMouseMove(MouseEventArgs e)
-        {
-            if (ModifierKeys == Keys.Alt)
-                Cursor = AltCursor;
-            else
-                Cursor = Cursors.Default;
-        }
-        */
         protected override bool IsInputKey(Keys keyData)
         {
             if (PalSource == null) return false;
@@ -144,18 +132,6 @@ namespace PaletteStudio.GUI
         #endregion
 
         #region Private Methods - PalPanel
-        private void InitAltCursor(Bitmap cursor, Point hotPoint)
-        {
-            int hotX = hotPoint.X;
-            int hotY = hotPoint.Y;
-            Bitmap myNewCursor = new Bitmap(cursor.Width * 2 - hotX, cursor.Height * 2 - hotY);
-            Graphics g = Graphics.FromImage(myNewCursor);
-            g.Clear(Color.FromArgb(0, 0, 0, 0));
-            g.DrawImage(cursor, cursor.Width - hotX, cursor.Height - hotY, cursor.Width, cursor.Height);
-            AltCursor = new Cursor(myNewCursor.GetHicon());
-            g.Dispose();
-            myNewCursor.Dispose();
-        }
         private void UpdateSelection(byte idx)
         {
             if (PalSource == null) return;
