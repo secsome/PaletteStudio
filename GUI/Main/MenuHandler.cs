@@ -29,15 +29,22 @@ namespace PaletteStudio
                     default:
                         return;
                 }
-                    
 
-            MainPanel.PalSource = new PalFile();
+            New newDialog = new New();
+            if (newDialog.ShowDialog() == DialogResult.OK)
+            {
+                MainPanel.PalSource = new PalFile();
+                Misc.DeepCopy(newDialog.Data, MainPanel.PalSource.Data);
+                MainPanel.Refresh();
+                MainPanel_BackColorChanged(null, new EventArgs());
+                MainPanel_SelectedIndexChanged(null, new EventArgs());
+                CurrentStatusLabel.Text = "New palette created";
+            }
+
+            
             // New, later being Dialog Box but use this to replace it at first
             for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = Color.FromArgb(252, i, i, i).ToArgb();
-            MainPanel.Refresh();
-            MainPanel_BackColorChanged(null, new EventArgs());
-            MainPanel_SelectedIndexChanged(null, new EventArgs());
-            CurrentStatusLabel.Text = "New palette created";
+            
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -159,7 +166,7 @@ namespace PaletteStudio
                     MainPanel.PalSource = new PalFile();
                     MainPanel.BackColor = -67108864;
                 }
-                Misc.DeepCopy(import.Data, MainPanel.PalSource.Data);
+                Misc.DeepCopy(import.Data.Data, MainPanel.PalSource.Data);
                 MainPanel.Refresh();
                 MainPanel_BackColorChanged(null, new EventArgs());
                 MainPanel_SelectedIndexChanged(null, new EventArgs());

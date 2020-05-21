@@ -34,6 +34,7 @@ namespace PaletteStudio.FileSystem
         #region Private Methods - PalFile
         private void Load()
         {
+            if (FileLength != 768) throw new Exception("NOT A RA2/TS PALETTE");
             for (int i = 0; i < 256; i++)
             {
                 int tmp = (ReadByte() << 18) + (ReadByte() << 10) + (ReadByte() << 2) + (0xFF << 26);

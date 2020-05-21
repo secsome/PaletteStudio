@@ -16,12 +16,6 @@ namespace PaletteStudio.GUI.Dialogs
 {
     public partial class Import : Form
     {
-        private enum ImageFormat
-        {
-            PCX,GIF,OTHER
-        }
-        private ImageFormat imageFlag = ImageFormat.OTHER;
-
         public Import()
         {
             InitializeComponent();
@@ -42,26 +36,28 @@ namespace PaletteStudio.GUI.Dialogs
                 {
                     string path = openFileDialog.FileName;
                     string ext = path.Split('.').LastOrDefault().ToLower();
+                    Image img = new Bitmap(1, 1);
                     switch (ext)
                     {
                         case "png":
                         case "jpg":
                         case "jpeg":
                         case "bmp":
-                            PreviewBox.Image = Misc.GetImage(path);
-                            imageFlag = ImageFormat.OTHER;
+                            img = Image.FromFile(path);
+                            Misc.GetIndexedItem(img, Data);
                             break;
                         case "gif":
-                            PreviewBox.Image = Misc.GetImage(path);
-                            imageFlag = ImageFormat.GIF;
+                            img = Image.FromFile(path);
+                            Misc.GetIndexedImagePal(img, Data);
                             break;
                         case "pcx":
-                            PreviewBox.Image = Misc.DecodePCX(path);
-                            imageFlag = ImageFormat.PCX;
+                            img = Misc.DecodePCX(path);
+                            Misc.GetIndexedItem(img, Data);
                             break;
                         default:
-                            return;
+                            throw new Exception("Unsupported image format!");
                     }
+                    PreviewBox.Image = img;
                     lblPath.Text = path;
                     btnImport.Enabled = true;
                 }
@@ -78,10 +74,7 @@ namespace PaletteStudio.GUI.Dialogs
         {
             try
             {
-                PreviewBox.Image.Save("PaletteStudio.tmp", System.Drawing.Imaging.ImageFormat.Png);
-                PalFile palFile = new PalFile();
-                Misc.GetPal(palFile);
-                Data = palFile.Data;
+
                 DialogResult = DialogResult.OK;
             }
             catch(Exception ex)
@@ -92,6 +85,6 @@ namespace PaletteStudio.GUI.Dialogs
             Close();
         }
 
-        public List<int> Data { get; private set; } = new List<int>();
+        public PalFile Data { get; private set; } = new PalFile();
     }
 }

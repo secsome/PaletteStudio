@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Find));
             this.nudRed = new System.Windows.Forms.NumericUpDown();
             this.nudGreen = new System.Windows.Forms.NumericUpDown();
             this.nudBlue = new System.Windows.Forms.NumericUpDown();
@@ -154,6 +155,7 @@
             this.Controls.Add(this.nudGreen);
             this.Controls.Add(this.nudRed);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Find";

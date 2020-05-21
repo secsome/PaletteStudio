@@ -9,9 +9,14 @@ using PaletteStudio.FileSystem;
 using PaletteStudio.Common;
 using System.Reflection;
 using System.Drawing.Imaging;
-using DmitryBrant.ImageFormats;
 using PaletteStudio.GUI;
 using System.Threading;
+using PaletteStudio.Utils.PCXReader;
+using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using ImageProcessor.Processors;
+using ImageProcessor.Imaging.Quantizers;
+using System.Windows.Forms;
 
 namespace PaletteStudio.Utils
 {
@@ -56,43 +61,6 @@ namespace PaletteStudio.Utils
         {
             return File.ReadAllBytes(_path);
         }
-        public static T MemCpy<T>(T src)
-        {
-            T dest = Activator.CreateInstance<T>();
-            Type tIn = src.GetType();
-            foreach (var itemDest in dest.GetType().GetProperties())
-            {
-                var itemSrc = tIn.GetProperty(itemDest.Name);
-                if (itemSrc != null && itemDest.CanWrite)
-                {
-                    itemDest.SetValue(dest, itemSrc.GetValue(src));
-                }
-            }
-            return dest;
-        }
-        public static Color ToColor(string[] src)
-        {
-            int r = 0xFF, g = 0xFF, b = 0xFF;
-            if (src.Length != 3) return Color.FromArgb(0x00000000);
-            try
-            {
-                r = int.Parse(src[0]);
-                g = int.Parse(src[1]);
-                b = int.Parse(src[2]);
-            }
-            catch
-            {
-                return Color.FromArgb(0x00000000);
-            }
-            return Color.FromArgb(r, g, b);
-        }
-        public static Color ToColor(uint remapcolor)
-        {
-            int r = (int)(remapcolor & 0xFF);
-            int g = (int)(remapcolor & 0xFF00) >> 8;
-            int b = (int)(remapcolor & 0xFF0000) >> 16;
-            return Color.FromArgb(r, g, b);
-        }
         public static string ColorToString(Color color)
         {
             return color.R + "," + color.G + "," + color.B;
@@ -105,25 +73,59 @@ namespace PaletteStudio.Utils
         {
             return (color.R * 19595 + color.G * 38469 + color.B * 7472) >> 16;
         }
-        public static Image GetImage(string _path)
+        public static int ColorToArgb(int A,int R,int G,int B)
         {
-            return Image.FromFile(_path);
+            return Color.FromArgb(A, R, G, B).ToArgb();
         }
-        public static void GetPal(PalFile pal)
+        public unsafe static void GetIndexedItem(Image img, PalFile pal)
         {
-            System.Diagnostics.Process p = new System.Diagnostics.Process();
-            p.StartInfo.FileName = "PNG2SHP.exe";
-            p.StartInfo.UseShellExecute = false;
-            p.StartInfo.RedirectStandardInput = false;
-            p.StartInfo.RedirectStandardOutput = false;
-            p.StartInfo.RedirectStandardError = false;
-            p.StartInfo.CreateNoWindow = true;
-            p.StartInfo.Arguments = @"PaletteStudio.tmp PaletteStudio.tmpA PaletteStudio.tmpB";
-            p.Start();
-            p.WaitForExit();
-            p.Close();
-            DeepCopy(new PalFile("PaletteStudio.tmpB").Data, pal.Data);
+            List<int> myPalette = new List<int>();
+            if (img.PixelFormat == PixelFormat.Format8bppIndexed)
+            {
+                foreach (Color c in img.Palette.Entries)
+                    myPalette.Add(c.ToArgb());
+            }
+            else
+            {
+                ImageFactory factory = new ImageFactory();
+                factory.Load(img);
+                ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true};
+                factory.Format(format);
+                MemoryStream stream = new MemoryStream();
+                factory.Save(stream);
+                Bitmap src = new Bitmap(stream);
+                stream.Dispose();
+                Bitmap back = new Bitmap(src.Width, src.Height);
+                Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
+                BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+                byte* ptr = (byte*)bmpData.Scan0;
+                for (int j = 0; j < src.Height; j++)
+                {
+                    for (int i = 0; i < src.Width; i++)
+                    {
+                        int argb = Color.FromArgb(252, ptr[2], ptr[1], ptr[0]).ToArgb();
+                        if (!myPalette.Contains(argb)) myPalette.Add(argb);
+                        ptr += 4;
+                    }
+                    ptr += bmpData.Stride - bmpData.Width * 4;
+                }
+                src.UnlockBits(bmpData);
+                img = src;
+            }
+            while (myPalette.Count < 256) myPalette.Add(-67108864);
+            pal.Data = myPalette;
             return;
+        }
+        public static void GetIndexedImagePal(Image img,PalFile pal)
+        {
+            GetIndexedImagePal(img.Palette, pal);
+        }
+        public static void GetIndexedImagePal(ColorPalette imgPal,PalFile pal)
+        {
+            List<int> list = new List<int>();
+            foreach (Color c in imgPal.Entries) list.Add(c.ToArgb());
+            while (list.Count < 256) list.Add(-67108864);
+            pal.Data = list;
         }
     }
 }
