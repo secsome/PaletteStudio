@@ -226,16 +226,34 @@ namespace PaletteStudio
 
         private void findToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MainPanel.PalSource == null) return;
-            Find find = new Find(MainPanel);
-            find.Show();
+            if (MainPanel.PalSource == null || GlobalVar.IsFindOpening) return;
+            try
+            {
+                if (GlobalVar.FindWindow == null) GlobalVar.FindWindow = new Find(MainPanel);
+                else GlobalVar.FindWindow.srcPanel = MainPanel;
+                Misc.SetLanguage(GlobalVar.FindWindow);
+                GlobalVar.FindWindow.Show();
+                GlobalVar.IsFindOpening = true;
+            }
+            catch
+            {
+                GlobalVar.IsFindOpening = false;
+            }
         }
         #endregion
         #region Others
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            GUI.Dialogs.About about = new GUI.Dialogs.About();
+            About about = new About();
             about.ShowDialog();
+        }
+        private void settingsToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            Settings settings = new Settings();
+            if (settings.ShowDialog() == DialogResult.OK)
+            {
+                Misc.SetLanguage(this);
+            }
         }
         #endregion
         #endregion

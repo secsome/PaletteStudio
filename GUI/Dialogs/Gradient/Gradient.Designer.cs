@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Gradient));
             this.label1 = new System.Windows.Forms.Label();
-            this.PreviewPanel = new PaletteStudio.GUI.PalPanel();
             this.ckbBack2Front = new System.Windows.Forms.CheckBox();
             this.ckbAllowCycle = new System.Windows.Forms.CheckBox();
             this.StartingPreview = new System.Windows.Forms.PictureBox();
@@ -55,6 +54,7 @@
             this.label9 = new System.Windows.Forms.Label();
             this.nudStartingIdx = new System.Windows.Forms.NumericUpDown();
             this.ckbShowSelected = new System.Windows.Forms.CheckBox();
+            this.PreviewPanel = new PaletteStudio.GUI.PalPanel();
             ((System.ComponentModel.ISupportInitialize)(this.StartingPreview)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudBlueS)).BeginInit();
@@ -74,32 +74,18 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(339, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.Size = new System.Drawing.Size(113, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Preview";
-            // 
-            // PreviewPanel
-            // 
-            this.PreviewPanel.IsEditable = false;
-            this.PreviewPanel.IsMultiSelect = true;
-            this.PreviewPanel.IsSelectable = true;
-            this.PreviewPanel.IsSelectVisible = true;
-            this.PreviewPanel.Location = new System.Drawing.Point(158, 24);
-            this.PreviewPanel.Name = "PreviewPanel";
-            this.PreviewPanel.PalSource = null;
-            this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
-            this.PreviewPanel.Size = new System.Drawing.Size(228, 253);
-            this.PreviewPanel.TabIndex = 1;
-            this.PreviewPanel.SelectedIndexChanged += new PaletteStudio.GUI.PalPanel.SelectedIndexChangedHandle(this.PreviewPanel_SelectedIndexChanged);
+            this.label1.Text = "GradientlblPreview";
             // 
             // ckbBack2Front
             // 
             this.ckbBack2Front.AutoSize = true;
             this.ckbBack2Front.Location = new System.Drawing.Point(158, 282);
             this.ckbBack2Front.Name = "ckbBack2Front";
-            this.ckbBack2Front.Size = new System.Drawing.Size(102, 16);
+            this.ckbBack2Front.Size = new System.Drawing.Size(150, 16);
             this.ckbBack2Front.TabIndex = 2;
-            this.ckbBack2Front.Text = "Back to front";
+            this.ckbBack2Front.Text = "GradientckbBack2Front";
             this.ckbBack2Front.UseVisualStyleBackColor = true;
             this.ckbBack2Front.Visible = false;
             // 
@@ -108,14 +94,15 @@
             this.ckbAllowCycle.AutoSize = true;
             this.ckbAllowCycle.Location = new System.Drawing.Point(296, 282);
             this.ckbAllowCycle.Name = "ckbAllowCycle";
-            this.ckbAllowCycle.Size = new System.Drawing.Size(90, 16);
+            this.ckbAllowCycle.Size = new System.Drawing.Size(120, 16);
             this.ckbAllowCycle.TabIndex = 3;
-            this.ckbAllowCycle.Text = "Allow cycle";
+            this.ckbAllowCycle.Text = "GradientckbCycle";
             this.ckbAllowCycle.UseVisualStyleBackColor = true;
             this.ckbAllowCycle.Visible = false;
             // 
             // StartingPreview
             // 
+            this.StartingPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.StartingPreview.Location = new System.Drawing.Point(6, 20);
             this.StartingPreview.Name = "StartingPreview";
             this.StartingPreview.Size = new System.Drawing.Size(128, 32);
@@ -137,34 +124,34 @@
             this.groupBox1.Size = new System.Drawing.Size(140, 144);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Starting Color";
+            this.groupBox1.Text = "GradientgpbStarting";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(6, 119);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.Size = new System.Drawing.Size(101, 12);
             this.label3.TabIndex = 12;
-            this.label3.Text = "Blue";
+            this.label3.Text = "GradientlblSBlue";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 92);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.Size = new System.Drawing.Size(107, 12);
             this.label2.TabIndex = 11;
-            this.label2.Text = "Green";
+            this.label2.Text = "GradientlblSGreen";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 65);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(23, 12);
+            this.label4.Size = new System.Drawing.Size(95, 12);
             this.label4.TabIndex = 10;
-            this.label4.Text = "Red";
+            this.label4.Text = "GradientlblSRed";
             // 
             // nudBlueS
             // 
@@ -219,34 +206,34 @@
             this.groupBox2.Size = new System.Drawing.Size(140, 144);
             this.groupBox2.TabIndex = 13;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Ending Color";
+            this.groupBox2.Text = "GradientgpbEnding";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(6, 119);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.Size = new System.Drawing.Size(101, 12);
             this.label5.TabIndex = 12;
-            this.label5.Text = "Blue";
+            this.label5.Text = "GradientlblEBlue";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(6, 92);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(35, 12);
+            this.label6.Size = new System.Drawing.Size(107, 12);
             this.label6.TabIndex = 11;
-            this.label6.Text = "Green";
+            this.label6.Text = "GradientlblEGreen";
             // 
             // label7
             // 
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(6, 65);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(23, 12);
+            this.label7.Size = new System.Drawing.Size(95, 12);
             this.label7.TabIndex = 10;
-            this.label7.Text = "Red";
+            this.label7.Text = "GradientlblERed";
             // 
             // nudBlueE
             // 
@@ -289,6 +276,7 @@
             // 
             // EndingPreview
             // 
+            this.EndingPreview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.EndingPreview.Location = new System.Drawing.Point(6, 20);
             this.EndingPreview.Name = "EndingPreview";
             this.EndingPreview.Size = new System.Drawing.Size(128, 32);
@@ -302,7 +290,7 @@
             this.btnConfirm.Name = "btnConfirm";
             this.btnConfirm.Size = new System.Drawing.Size(140, 27);
             this.btnConfirm.TabIndex = 14;
-            this.btnConfirm.Text = "Confirm";
+            this.btnConfirm.Text = "GradientbtnConfirm";
             this.btnConfirm.UseVisualStyleBackColor = true;
             this.btnConfirm.Click += new System.EventHandler(this.btnConfirm_Click);
             // 
@@ -311,9 +299,9 @@
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(285, 315);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(35, 12);
+            this.label8.Size = new System.Drawing.Size(101, 12);
             this.label8.TabIndex = 14;
-            this.label8.Text = "Steps";
+            this.label8.Text = "GradientlblSteps";
             // 
             // nudSteps
             // 
@@ -343,9 +331,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(158, 310);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(53, 24);
+            this.label9.Size = new System.Drawing.Size(137, 12);
             this.label9.TabIndex = 16;
-            this.label9.Text = "Starting\r\nIndex\r\n";
+            this.label9.Text = "GradientlblStartingIdx";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // nudStartingIdx
@@ -368,11 +356,26 @@
             this.ckbShowSelected.CheckState = System.Windows.Forms.CheckState.Checked;
             this.ckbShowSelected.Location = new System.Drawing.Point(158, 5);
             this.ckbShowSelected.Name = "ckbShowSelected";
-            this.ckbShowSelected.Size = new System.Drawing.Size(102, 16);
+            this.ckbShowSelected.Size = new System.Drawing.Size(162, 16);
             this.ckbShowSelected.TabIndex = 17;
-            this.ckbShowSelected.Text = "Show Selected";
+            this.ckbShowSelected.Text = "GradientckbShowSelected";
             this.ckbShowSelected.UseVisualStyleBackColor = true;
             this.ckbShowSelected.CheckedChanged += new System.EventHandler(this.ckbShowSelected_CheckedChanged);
+            // 
+            // PreviewPanel
+            // 
+            this.PreviewPanel.AllowDropOpen = false;
+            this.PreviewPanel.IsEditable = false;
+            this.PreviewPanel.IsMultiSelect = true;
+            this.PreviewPanel.IsSelectable = true;
+            this.PreviewPanel.IsSelectVisible = true;
+            this.PreviewPanel.Location = new System.Drawing.Point(158, 24);
+            this.PreviewPanel.Name = "PreviewPanel";
+            this.PreviewPanel.PalSource = null;
+            this.PreviewPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("PreviewPanel.Selections")));
+            this.PreviewPanel.Size = new System.Drawing.Size(228, 253);
+            this.PreviewPanel.TabIndex = 1;
+            this.PreviewPanel.SelectedIndexChanged += new PaletteStudio.GUI.PalPanel.SelectedIndexChangedHandle(this.PreviewPanel_SelectedIndexChanged);
             // 
             // Gradient
             // 
@@ -397,7 +400,7 @@
             this.Name = "Gradient";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Gradient(UNSTABLE)";
+            this.Text = "GradientTitle";
             ((System.ComponentModel.ISupportInitialize)(this.StartingPreview)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();

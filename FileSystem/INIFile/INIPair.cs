@@ -187,6 +187,10 @@ namespace PaletteStudio.FileSystem
 
 
         #region Public Calls - INIPair
+        public override string ToString()
+        {
+            return Name + " - " + Value;
+        }
         public string Name { get; set; }
         public dynamic Value { get; set; }
         public string Comment { get { return comment; } }

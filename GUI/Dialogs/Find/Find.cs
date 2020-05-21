@@ -8,10 +8,11 @@ namespace PaletteStudio.GUI.Dialogs
 {
     public partial class Find : Form
     {
-        private PalPanel srcPanel;
+        public PalPanel srcPanel;
 
         public Find(PalPanel src)
         {
+            Misc.SetLanguage(this);
             InitializeComponent();
             srcPanel = src;
             isColorUpdating = true;
@@ -71,6 +72,13 @@ namespace PaletteStudio.GUI.Dialogs
                 isColorUpdating = false;
                 UpdatePreview();
             }
+        }
+
+        private void Find_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            e.Cancel = true;
+            Hide();
+            Common.GlobalVar.IsFindOpening = false;
         }
     }
 }

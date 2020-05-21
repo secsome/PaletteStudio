@@ -29,7 +29,7 @@ namespace PaletteStudio.Utils
                     }
                     return result;
                 }
-                return key;
+                return "MISSING:" + key;
             }
         }
     }

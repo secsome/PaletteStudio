@@ -43,9 +43,9 @@
             this.lblPath.AutoSize = true;
             this.lblPath.Location = new System.Drawing.Point(0, 267);
             this.lblPath.Name = "lblPath";
-            this.lblPath.Size = new System.Drawing.Size(35, 12);
+            this.lblPath.Size = new System.Drawing.Size(95, 12);
             this.lblPath.TabIndex = 1;
-            this.lblPath.Text = "Path:";
+            this.lblPath.Text = "ImportlblPrefix";
             // 
             // btnLoad
             // 
@@ -53,7 +53,7 @@
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(264, 24);
             this.btnLoad.TabIndex = 2;
-            this.btnLoad.Text = "Load Image";
+            this.btnLoad.Text = "ImportbtnLoad";
             this.btnLoad.UseVisualStyleBackColor = true;
             this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
@@ -64,7 +64,7 @@
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(279, 24);
             this.btnImport.TabIndex = 3;
-            this.btnImport.Text = "Import";
+            this.btnImport.Text = "ImportbtnImport";
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
             // 
@@ -111,7 +111,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Import";
+            this.Text = "ImportTitle";
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).EndInit();

@@ -20,6 +20,7 @@ namespace PaletteStudio
         public Main()
         {
             InitializeComponent();
+            Misc.SetLanguage(this);
         }
 
         #region Undo & Redo
@@ -192,10 +193,5 @@ namespace PaletteStudio
             e.Effect = DragDropEffects.All;
         }
         #endregion
-
-        private void Main_Paint(object sender, PaintEventArgs e)
-        {
-            Misc.SetLanguage(this);
-        }
     }
 }

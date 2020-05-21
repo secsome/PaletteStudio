@@ -90,7 +90,7 @@
             this.settingsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(377, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(371, 25);
             this.menuStrip1.TabIndex = 1;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -258,10 +258,10 @@
             // 
             // settingsToolStripMenuItem1
             // 
-            this.settingsToolStripMenuItem1.Enabled = false;
             this.settingsToolStripMenuItem1.Name = "settingsToolStripMenuItem1";
             this.settingsToolStripMenuItem1.Size = new System.Drawing.Size(200, 22);
             this.settingsToolStripMenuItem1.Text = "MainmenuSettings";
+            this.settingsToolStripMenuItem1.Click += new System.EventHandler(this.settingsToolStripMenuItem1_Click);
             // 
             // label1
             // 
@@ -406,7 +406,7 @@
             this.CurrentStatusLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 428);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(377, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(371, 22);
             this.statusStrip1.TabIndex = 13;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -461,7 +461,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(377, 450);
+            this.ClientSize = new System.Drawing.Size(371, 450);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.BackColorPreview);
             this.Controls.Add(this.statusStrip1);
@@ -483,7 +483,6 @@
             this.Name = "Main";
             this.Text = "MainTitle";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_FormClosing);
-            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Main_Paint);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRed)).EndInit();

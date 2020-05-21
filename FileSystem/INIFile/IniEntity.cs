@@ -215,6 +215,10 @@ namespace PaletteStudio.FileSystem
                 if (data.Keys.Contains(key)) return data[key].Value;
                 else return "";
             }
+            set
+            {
+                data[key] = value;
+            }
         }
         public List<INIPair> DataList { get { return data.Values.ToList(); } }
         public static INIEntity NullEntity { get { return new INIEntity("", "", ""); } }

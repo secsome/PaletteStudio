@@ -88,27 +88,27 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(23, 12);
+            this.label1.Size = new System.Drawing.Size(65, 12);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Red";
+            this.label1.Text = "FindlblRed";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(12, 36);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
+            this.label2.Size = new System.Drawing.Size(77, 12);
             this.label2.TabIndex = 5;
-            this.label2.Text = "Green";
+            this.label2.Text = "FindlblGreen";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(12, 63);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(29, 12);
+            this.label3.Size = new System.Drawing.Size(71, 12);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Blue";
+            this.label3.Text = "FindlblBlue";
             // 
             // FindColorPreview
             // 
@@ -126,7 +126,7 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 23);
             this.button1.TabIndex = 8;
-            this.button1.Text = "Find Nearest Color";
+            this.button1.Text = "findbtnFind";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -135,9 +135,9 @@
             this.ckbAdd2Selections.AutoSize = true;
             this.ckbAdd2Selections.Location = new System.Drawing.Point(14, 92);
             this.ckbAdd2Selections.Name = "ckbAdd2Selections";
-            this.ckbAdd2Selections.Size = new System.Drawing.Size(126, 16);
+            this.ckbAdd2Selections.Size = new System.Drawing.Size(150, 16);
             this.ckbAdd2Selections.TabIndex = 9;
-            this.ckbAdd2Selections.Text = "Add to selections";
+            this.ckbAdd2Selections.Text = "FindckbAdd2Selections";
             this.ckbAdd2Selections.UseVisualStyleBackColor = true;
             // 
             // Find
@@ -161,7 +161,8 @@
             this.Name = "Find";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Find";
+            this.Text = "FindTitle";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Find_FormClosing);
             ((System.ComponentModel.ISupportInitialize)(this.nudRed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGreen)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudBlue)).EndInit();

@@ -102,6 +102,12 @@
     <Compile Include="GUI\Dialogs\Paste\Paste.Designer.cs">
       <DependentUpon>Paste.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Dialogs\Settings\Settings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Dialogs\Settings\Settings.Designer.cs">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Dialogs\Sort\EventHandler.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -148,6 +154,9 @@
     <EmbeddedResource Include="GUI\Dialogs\Paste\Paste.resx">
       <DependentUpon>Paste.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Dialogs\Settings\Settings.resx">
+      <DependentUpon>Settings.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GUI\Dialogs\Sort\Sort.resx">
       <DependentUpon>Sort.cs</DependentUpon>
     </EmbeddedResource>
@@ -182,6 +191,8 @@
   <ItemGroup>
     <None Include="PalStudio.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="GUI\Dialogs\MyMessageBox\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

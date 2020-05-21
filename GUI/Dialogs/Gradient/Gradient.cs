@@ -19,6 +19,7 @@ namespace PaletteStudio.GUI.Dialogs
         public Gradient(PalPanel src)
         {
             InitializeComponent();
+            Misc.SetLanguage(this);
             PreviewPanel.PalSource = new PalFile();
             SourceColorList = src.PalSource.Data;
             Misc.DeepCopy(SourceColorList, PreviewPanel.PalSource.Data);

@@ -21,6 +21,7 @@ namespace PaletteStudio.GUI.Dialogs
         public Import()
         {
             InitializeComponent();
+            Misc.SetLanguage(this);
         }
 
         private void btnLoad_Click(object sender, EventArgs e)
@@ -69,7 +70,7 @@ namespace PaletteStudio.GUI.Dialogs
                 }
             }
             PreviewBox.Image = img;
-            lblPath.Text = path;
+            lblPath.Text = Language.DICT["ImportlblPrefix"] + path;
             btnImport.Enabled = true;
         }
 
