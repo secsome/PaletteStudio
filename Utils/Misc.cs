@@ -131,5 +131,32 @@ namespace PaletteStudio.Utils
             pal.Data = myPalette;
             return;
         }
+        public unsafe static void GifToIndex(Image img, PalFile pal)
+        {
+            HashSet<int> set = new HashSet<int>();
+            FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
+            int framecount = img.GetFrameCount(fd);
+            for(int k = 0; k < framecount; k++)
+            {
+                img.SelectActiveFrame(fd, k);
+                Bitmap src = new Bitmap(img);
+                Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
+                BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+                byte* ptr = (byte*)bmpData.Scan0;
+                for (int j = 0; j < src.Height; j++)
+                {
+                    for (int i = 0; i < src.Width; i++)
+                    {
+                        if(ptr[3]!=0)    set.Add(Color.FromArgb(ptr[3], ptr[2], ptr[1], ptr[0]).ToArgb());
+                        ptr += 4;
+                    }
+                    ptr += bmpData.Stride - bmpData.Width * 4;
+                }
+                src.UnlockBits(bmpData);
+                src.Dispose();
+            }
+            pal.Data = set.ToList();
+            while (pal.Data.Count < 256) pal.Data.Add(Constant.Colors.PaletteBlack);
+        }
     }
 }

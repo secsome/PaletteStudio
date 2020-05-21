@@ -11,11 +11,11 @@ namespace PaletteStudio.GUI.Dialogs
     public partial class Paste : Form
     {
         private PalFile OriginPal = new PalFile();
-        private List<Tuple<byte, byte, byte, byte>> OriginDatas = new List<Tuple<byte, byte, byte, byte>>();
+        private List<Tuple<byte, int>> OriginDatas = new List<Tuple<byte, int>>();
         private byte OriginSelecting = 0;
         private bool IsOrigin = false;
 
-        public Paste(PalFile palFile, List<Tuple<byte, byte, byte, byte>> data, byte nowSelectOn)
+        public Paste(PalFile palFile, List<Tuple<byte, int>> data, byte nowSelectOn)
         {
             InitializeComponent();
             Misc.SetLanguage(this);
@@ -34,9 +34,9 @@ namespace PaletteStudio.GUI.Dialogs
             for (int i = 0; i < 256; i++) PreviewPanel.PalSource[(byte)i] = OriginPal[(byte)i];
             if (IsOrigin)
             {
-                foreach(Tuple<byte,byte,byte,byte> val in OriginDatas)
+                foreach(Tuple<byte,int> val in OriginDatas)
                 {
-                    PreviewPanel.PalSource[val.Item1] = Color.FromArgb(252, val.Item2, val.Item3, val.Item4).ToArgb();
+                    PreviewPanel.PalSource[val.Item1] = val.Item2;
                 }
             }
             else
@@ -46,8 +46,8 @@ namespace PaletteStudio.GUI.Dialogs
                 for (int i = 0; i < OriginDatas.Count; i++) 
                 {
                     int myi = ckbReserved.Checked ? (OriginDatas.Count - 1 - i) : i;
-                    Tuple<byte, byte, byte, byte> val = OriginDatas[myi];
-                    int colorArgb = Color.FromArgb(252, val.Item2, val.Item3, val.Item4).ToArgb();
+                    Tuple<byte, int> val = OriginDatas[myi];
+                    int colorArgb = val.Item2;
                     int delta = val.Item1 - startingIdx;
                     int myDelta = ckbIgnoreSpace.Checked ? i : delta;
                     if (ckbBack2Front.Checked) myDelta = -myDelta;

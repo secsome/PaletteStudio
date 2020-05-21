@@ -20,7 +20,7 @@ namespace PaletteStudio
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource != null)
-                switch(MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                switch(MyMessageBox.Show("Palette Studio", "Do you want to save the current file first?", MyMessageBoxButtons.YesNoCancel))
                 {
                     case DialogResult.Yes:
                         saveToolStripMenuItem_Click(null, new EventArgs());
@@ -52,7 +52,7 @@ namespace PaletteStudio
             try
             {
                 if (MainPanel.PalSource != null)
-                    switch (MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                    switch (MyMessageBox.Show("Palette Studio", "Do you want to save the current file first?", MyMessageBoxButtons.YesNoCancel))
                     {
                         case DialogResult.Yes:
                             saveToolStripMenuItem_Click(null, new EventArgs());
@@ -65,7 +65,7 @@ namespace PaletteStudio
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Palette File|*.pal|All Files|*.*";
                 openFileDialog.InitialDirectory = Application.StartupPath;
-                openFileDialog.Title = "Open a palette file,,,";
+                openFileDialog.Title = Constant.RunTime.ProgromTitle + " - " + Constant.RunTime.ProgramVersion;
                 openFileDialog.DefaultExt = "pal";
                 openFileDialog.CheckPathExists = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -88,7 +88,7 @@ namespace PaletteStudio
                 IsSaved = false;
                 MainPanel.Close();
                 CurrentStatusLabel.Text = "Failed to read the palette file";
-                MessageBox.Show("Failed to read the palette file, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Failed to read the palette file, the reason might be:\n" + ex.Message);
             }
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace PaletteStudio
             catch(Exception ex)
             {
                 CurrentStatusLabel.Text = "Failed to save the palette file";
-                MessageBox.Show("Failed to save the palette file, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Failed to save the palette file, the reason might be:\n" + ex.Message);
             }
             
         }
@@ -120,7 +120,7 @@ namespace PaletteStudio
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Palette File|*.pal";
                 saveFileDialog.InitialDirectory = Application.StartupPath;
-                saveFileDialog.Title = "Save a palette file...";
+                saveFileDialog.Title = Constant.RunTime.ProgromTitle + " - " + Constant.RunTime.ProgramVersion;
                 saveFileDialog.DefaultExt = "pal";
                 saveFileDialog.CheckPathExists = true;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -134,7 +134,7 @@ namespace PaletteStudio
             catch(Exception ex)
             {
                 CurrentStatusLabel.Text = "Failed to save the palette file";
-                MessageBox.Show("Failed to save the palette file, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Failed to save the palette file, the reason might be:\n" + ex.Message);
             }
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -149,7 +149,7 @@ namespace PaletteStudio
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource != null)
-                switch (MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                switch (MyMessageBox.Show("Palette Studio", "Do you want to save the current file first?", MyMessageBoxButtons.YesNoCancel))
                 {
                     case DialogResult.Yes:
                         saveToolStripMenuItem_Click(null, new EventArgs());
@@ -231,7 +231,6 @@ namespace PaletteStudio
             {
                 if (GlobalVar.FindWindow == null) GlobalVar.FindWindow = new Find(MainPanel);
                 else GlobalVar.FindWindow.srcPanel = MainPanel;
-                Misc.SetLanguage(GlobalVar.FindWindow);
                 GlobalVar.FindWindow.Show();
                 GlobalVar.IsFindOpening = true;
             }
@@ -277,7 +276,7 @@ namespace PaletteStudio
             {
                 redoToolStripMenuItem_Click(null, new EventArgs());
                 CurrentStatusLabel.Text = "Failed to cut";
-                MessageBox.Show("Failed to cut, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Failed to cut, the reason might be:\n" + ex.Message);
             }
         }
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -287,14 +286,14 @@ namespace PaletteStudio
                 if (MainPanel.PalSource == null) return;
                 string format = "";
                 format += MainPanel.Selections.Count.ToString();
-                foreach (byte v in MainPanel.Selections) format += "," + v + "," + Misc.ColorToString(MainPanel.PalSource[v]);
+                foreach (byte v in MainPanel.Selections) format += "," + v + "," + MainPanel.PalSource[v];
                 Clipboard.SetData(DataFormats.Text, format);
                 CurrentStatusLabel.Text = "Successfully copied " + MainPanel.Selections.Count + " items to clipboard as string";
             }
             catch(Exception ex)
             {
                 CurrentStatusLabel.Text = "Failed to copy";
-                MessageBox.Show("Failed to copy, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Failed to copy, the reason might be:\n" + ex.Message);
             }
             
         }
@@ -306,7 +305,7 @@ namespace PaletteStudio
                 if (!Clipboard.ContainsData(DataFormats.StringFormat)) return;
                 MakeUndo();
                 string data = Clipboard.GetText(TextDataFormat.Text);
-                List<Tuple<byte, byte, byte, byte>> Colors = new List<Tuple<byte, byte, byte, byte>>();
+                List<Tuple<byte, int>> Colors = new List<Tuple<byte, int>>();
                 try
                 {
                     string[] splitedData = data.Split(',');
@@ -314,7 +313,7 @@ namespace PaletteStudio
                     if (count > 0)
                     {
                         for (int i = 0; i < count; i++)
-                            Colors.Add(new Tuple<byte, byte, byte, byte>(byte.Parse(splitedData[i * 4 + 1]), byte.Parse(splitedData[i * 4 + 2]), byte.Parse(splitedData[i * 4 + 3]), byte.Parse(splitedData[i * 4 + 4])));
+                            Colors.Add(new Tuple<byte, int>(byte.Parse(splitedData[i * 2 + 1]), int.Parse(splitedData[i * 2 + 2])));
                         Colors.Sort((a, b) => a.Item1.CompareTo(b.Item1));
                         Paste paste = new Paste(MainPanel.PalSource, Colors, MainPanel.Selections.LastOrDefault());
                         paste.ShowDialog();
@@ -326,13 +325,13 @@ namespace PaletteStudio
                 {
                     redoToolStripMenuItem_Click(null, new EventArgs());
                     CurrentStatusLabel.Text = "Failed to paste items";
-                    MessageBox.Show("Fatal Error Occored, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MyMessageBox.Show("Palette Studio", "Fatal Error Occored, the reason might be:\n" + ex.Message);
                 }
             }
             catch(Exception ex)
             {
                 CurrentStatusLabel.Text = "Failed to paste items";
-                MessageBox.Show("Fatal Error Occored while reading the clipboard, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Fatal Error Occored while reading the clipboard, the reason might be:\n" + ex.Message);
             }
         }
         private void sortToolStripMenuItem_Click(object sender, EventArgs e)
@@ -351,7 +350,7 @@ namespace PaletteStudio
             catch(Exception ex)
             {
                 CurrentStatusLabel.Text = "Failed to sort";
-                MessageBox.Show("Failed to sort, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Failed to sort, the reason might be:\n" + ex.Message);
             }
         }
         #endregion

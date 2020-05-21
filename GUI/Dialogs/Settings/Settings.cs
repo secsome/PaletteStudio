@@ -34,7 +34,7 @@ namespace PaletteStudio.GUI.Dialogs
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Failed to save the change, the reason might be:\n" + ex.Message);
+                MyMessageBox.Show("Palette Studio", "Failed to save the change, the reason might be:\n" + ex.Message);
             }
             Close();
         }

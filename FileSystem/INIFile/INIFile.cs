@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using PaletteStudio.Common;
+using PaletteStudio.GUI.Dialogs;
 
 namespace PaletteStudio.FileSystem
 {
@@ -17,8 +18,16 @@ namespace PaletteStudio.FileSystem
         #region Ctor - INIFile
         public INIFile(string path, INIFileType itype = INIFileType.DefaultINI) : base(path, FileMode.Open, FileAccess.Read, false)
         {
-            initype = itype;
-            Load();
+            try
+            {
+                initype = itype;
+                if (!File.Exists(path)) throw new Exception("The INI File doesn't exists.");
+                Load();
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show("Palette Studio", "Cannot open ini file correctly! The reason might be:\n" + ex.Message);
+            }
         }
         public INIFile(byte[] _data, string _filename, INIFileType _type = INIFileType.DefaultINI) : base(_data, _filename)
         {

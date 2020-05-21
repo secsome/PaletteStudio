@@ -1,4 +1,5 @@
 ﻿using PaletteStudio.FileSystem;
+using PaletteStudio.GUI.Dialogs;
 using PaletteStudio.Utils;
 using System;
 using System.Collections.Generic;
@@ -51,7 +52,7 @@ namespace PaletteStudio
             nudGreen.Value = currentColor.G;
             isColorUpdating = false;
             UpdatePreview();
-            label4.Text = "Cur Idx:" + MainPanel.Selections.LastOrDefault();
+            label4.Text = Language.DICT["MainlblCurrentIndex"] + MainPanel.Selections.LastOrDefault();
         }
         private void MainPanel_BackColorChanged(object sender, EventArgs e)
         {
@@ -123,12 +124,9 @@ namespace PaletteStudio
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            switch(MessageBox.Show(
-                "Are you sure to exit the Palette Studio? Please ensure that you have saved the file.",
-                "Palette Studio",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Information
-                ))
+            switch(
+                MyMessageBox.Show("Palette Studio", "Are you sure to exit the Palette Studio? Please ensure that you have saved the file.", MyMessageBoxButtons.YesNo)
+                )
             {
                 case DialogResult.Yes:
                     break;
@@ -152,7 +150,7 @@ namespace PaletteStudio
                     {
                         PalFile palFile = new PalFile(path);
                         if (MainPanel.PalSource != null)
-                            switch (MessageBox.Show("Do you want to save the current file first?", "Palette Studio", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Information))
+                            switch (MyMessageBox.Show("Palette Studio", "Do you want to save the current file first?", MyMessageBoxButtons.YesNoCancel))
                             {
                                 case DialogResult.Yes:
                                     saveToolStripMenuItem_Click(null, new EventArgs());
@@ -179,7 +177,7 @@ namespace PaletteStudio
                         IsSaved = false;
                         MainPanel.Close();
                         CurrentStatusLabel.Text = "Failed to read the palette file";
-                        MessageBox.Show("Failed to read the palette file, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MyMessageBox.Show("Palette Studio", "Failed to read the palette file, the reason might be:\n" + ex.Message);
                     }
                 }
             }

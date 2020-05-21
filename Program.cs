@@ -1,5 +1,6 @@
 ﻿using PaletteStudio.Common;
 using PaletteStudio.FileSystem;
+using PaletteStudio.GUI.Dialogs;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,8 +17,16 @@ namespace PaletteStudio
         [STAThread]
         static void Main()
         {
-            Utils.Misc.LoadLanguage();
-            ReadNewTemplates();
+            try
+            {
+                Utils.Misc.LoadLanguage();
+                ReadNewTemplates();
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show("Palette Studio", "Cannot open ini file correctly! The reason might be:\n" + ex.Message);
+                Application.Exit();
+            }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);

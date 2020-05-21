@@ -6,20 +6,17 @@ namespace PaletteStudio.Common
     {
         public static class RunTime
         {
-            public static string INIFile = "PalStudio.ini";
+            public static readonly string ProgromTitle = "Palette Studio";
+            public static readonly string ProgramVersion = "1.0";
+            public static readonly string INIFile = "PalStudio.ini";
         }
-
         public static class Colors
         {
-            public static int PaletteBlack = -67108864; // 252 0 0 0
+            public static readonly int PaletteBlack = -67108864; // 252 0 0 0
         }
-
-        public static class MapStructure
+        public static class Messages
         {
-            public static int ArgLenInfantry = 14;
-            public static int ArgLenStructure = 17;
-            public static int ArgLenUnit = 14;
-            public static int ArgLenAircraft = 12;
+
         }
         public static class EntName
         {
@@ -129,22 +126,6 @@ namespace PaletteStudio.Common
                 "BuildTimeMultiplier","DeathWeaponDamageModifier","IronCurtain.Modifier","ForceShield.Modifier","EMP.Modifier","LightningRod.Modifier",
                 "Experience.MindControlSelfModifier","Experience.SpawnOwnerModifier","BallisticScatter.Max","BallisticScatter.Min"
             };
-        }
-        public static class DrawingEngine
-        {
-            public static class Tiles
-            {
-                public const int Cliff = 15;
-                public const int Water = 9;
-                public const int Shore = 10;
-                public const int Track = 6;
-                public const int Roads = 12;
-                public const int LAT_P = 11;
-                public const int LAT_D = 14;
-                public const int Clear = 13;
-                public static readonly int[] Buildables = { Roads, LAT_D, LAT_P, Clear };
-                public static readonly int[] Passable = { Track, Roads, LAT_P, LAT_D, Clear, Shore, Water };
-            }
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using PaletteStudio.Common;
 using System.Windows.Forms;
 
 namespace PaletteStudio.GUI.Dialogs
@@ -32,6 +33,7 @@ namespace PaletteStudio.GUI.Dialogs
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
+                openFileDialog.Title = Constant.RunTime.ProgromTitle + " - " + Constant.RunTime.ProgramVersion;
                 openFileDialog.Filter =
                     "All Support Image Formats|*.pcx;*.gif;*.bmp;*.png;*.jpg;*.jpeg;*.tiff" +
                     "PCX File|*.pcx|" +
@@ -46,7 +48,11 @@ namespace PaletteStudio.GUI.Dialogs
                     path = openFileDialog.FileName;
                     string ext = path.Split('.').LastOrDefault().ToLower();
                     img = Image.FromFile(path);
-                    Misc.GetIndexedItem(img, Data);
+                    if (ext == "gif")
+                    {
+                        Misc.GifToIndex(img, Data);
+                    }
+                    else Misc.GetIndexedItem(img, Data);
                 }
             }
             catch(Exception ex)
@@ -59,12 +65,7 @@ namespace PaletteStudio.GUI.Dialogs
                 }
                 catch(Exception Ex)
                 {
-                    MessageBox.Show(
-                        "Something wrong occured while importing the image, the reason might be:\n" + (flag ? Ex.Message : ex.Message), 
-                        "Palette Studio", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
-                        );
+                    MyMessageBox.Show("Palette Studio", "Something wrong occured while importing the image, the reason might be:\n" + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
                     return;
                 }
@@ -82,7 +83,7 @@ namespace PaletteStudio.GUI.Dialogs
             }
             catch(Exception ex)
             {
-                MessageBox.Show("Something wrong occured while importing the image, the reason might be:\n" + ex.Message, "Palette Studio", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MyMessageBox.Show("Palette Studio", "Something wrong occured while importing the image, the reason might be:\n" + ex.Message);
                 GC.Collect();
             }
             Close();
