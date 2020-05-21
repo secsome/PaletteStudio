@@ -4,6 +4,11 @@ namespace PaletteStudio.Common
 {
     public static class Constant
     {
+        public static class RunTime
+        {
+            public static string INIFile = "PalStudio.ini";
+        }
+
         public static class Colors
         {
             public static int PaletteBlack = -67108864; // 252 0 0 0

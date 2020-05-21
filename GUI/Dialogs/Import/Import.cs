@@ -44,12 +44,7 @@ namespace PaletteStudio.GUI.Dialogs
                 {
                     path = openFileDialog.FileName;
                     string ext = path.Split('.').LastOrDefault().ToLower();
-                    ImageFactory factory = new ImageFactory(preserveExifData: true);
-                    factory.Load(path);
-                    MemoryStream ms = new MemoryStream();
-                    factory.Save(ms);
-                    img = Image.FromStream(ms);
-                    ms.Dispose();
+                    img = Image.FromFile(path);
                     Misc.GetIndexedItem(img, Data);
                 }
             }
@@ -82,7 +77,6 @@ namespace PaletteStudio.GUI.Dialogs
         {
             try
             {
-
                 DialogResult = DialogResult.OK;
             }
             catch(Exception ex)

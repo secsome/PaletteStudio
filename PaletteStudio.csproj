@@ -66,9 +66,6 @@
     <Compile Include="FileSystem\INIFile\IRegistable.cs" />
     <Compile Include="FileSystem\INIFile\TechnoPair.cs" />
     <Compile Include="FileSystem\PalFile.cs" />
-    <Compile Include="GUI\Controls\ColorPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="GUI\Dialogs\About\About.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -129,6 +126,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\Colors.cs" />
+    <Compile Include="Utils\Lang.cs" />
     <Compile Include="Utils\Misc.cs" />
     <Compile Include="Utils\PCXReader\PCXReader.cs" />
     <Compile Include="Utils\PCXReader\Util.cs" />

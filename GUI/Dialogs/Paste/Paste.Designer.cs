@@ -98,16 +98,16 @@
             this.groupBox2.Size = new System.Drawing.Size(166, 278);
             this.groupBox2.TabIndex = 8;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Custom Configs";
+            this.groupBox2.Text = "PastegpbCustom";
             // 
             // ckbBack2Front
             // 
             this.ckbBack2Front.AutoSize = true;
             this.ckbBack2Front.Location = new System.Drawing.Point(6, 120);
             this.ckbBack2Front.Name = "ckbBack2Front";
-            this.ckbBack2Front.Size = new System.Drawing.Size(102, 16);
+            this.ckbBack2Front.Size = new System.Drawing.Size(132, 16);
             this.ckbBack2Front.TabIndex = 7;
-            this.ckbBack2Front.Text = "Back to front";
+            this.ckbBack2Front.Text = "PasteckbBack2Front";
             this.ckbBack2Front.UseVisualStyleBackColor = true;
             this.ckbBack2Front.CheckedChanged += new System.EventHandler(this.ckbBack2Front_CheckedChanged);
             // 
@@ -117,9 +117,9 @@
             this.ckbReserved.Enabled = false;
             this.ckbReserved.Location = new System.Drawing.Point(17, 98);
             this.ckbReserved.Name = "ckbReserved";
-            this.ckbReserved.Size = new System.Drawing.Size(108, 16);
+            this.ckbReserved.Size = new System.Drawing.Size(120, 16);
             this.ckbReserved.TabIndex = 6;
-            this.ckbReserved.Text = "Reserved order";
+            this.ckbReserved.Text = "PasteckbReserved";
             this.ckbReserved.UseVisualStyleBackColor = true;
             this.ckbReserved.CheckedChanged += new System.EventHandler(this.ckbReserved_CheckedChanged);
             // 
@@ -143,16 +143,16 @@
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(131, 12);
             this.label2.TabIndex = 4;
-            this.label2.Text = "Paste starting index:";
+            this.label2.Text = "PastelblStartingIndex";
             // 
             // ckbIgnoreSpace
             // 
             this.ckbIgnoreSpace.AutoSize = true;
             this.ckbIgnoreSpace.Location = new System.Drawing.Point(6, 76);
             this.ckbIgnoreSpace.Name = "ckbIgnoreSpace";
-            this.ckbIgnoreSpace.Size = new System.Drawing.Size(126, 16);
+            this.ckbIgnoreSpace.Size = new System.Drawing.Size(144, 16);
             this.ckbIgnoreSpace.TabIndex = 3;
-            this.ckbIgnoreSpace.Text = "Ignore the spaces";
+            this.ckbIgnoreSpace.Text = "PasteckbIgnoreSpaces";
             this.ckbIgnoreSpace.UseVisualStyleBackColor = true;
             this.ckbIgnoreSpace.CheckedChanged += new System.EventHandler(this.ckbIgnoreSpace_CheckedChanged);
             // 
@@ -162,10 +162,10 @@
             this.rbtnToTheEnd.Checked = true;
             this.rbtnToTheEnd.Location = new System.Drawing.Point(6, 20);
             this.rbtnToTheEnd.Name = "rbtnToTheEnd";
-            this.rbtnToTheEnd.Size = new System.Drawing.Size(119, 16);
+            this.rbtnToTheEnd.Size = new System.Drawing.Size(125, 16);
             this.rbtnToTheEnd.TabIndex = 2;
             this.rbtnToTheEnd.TabStop = true;
-            this.rbtnToTheEnd.Text = "Paste to the end";
+            this.rbtnToTheEnd.Text = "PasterdbPaste2End";
             this.rbtnToTheEnd.UseVisualStyleBackColor = true;
             this.rbtnToTheEnd.CheckedChanged += new System.EventHandler(this.rbtnCustoms_CheckedChanged);
             // 
@@ -174,9 +174,9 @@
             this.rbtnJumpToStart.AutoSize = true;
             this.rbtnJumpToStart.Location = new System.Drawing.Point(6, 42);
             this.rbtnJumpToStart.Name = "rbtnJumpToStart";
-            this.rbtnJumpToStart.Size = new System.Drawing.Size(149, 28);
+            this.rbtnJumpToStart.Size = new System.Drawing.Size(137, 16);
             this.rbtnJumpToStart.TabIndex = 1;
-            this.rbtnJumpToStart.Text = "If meet the end then \r\njump to the start";
+            this.rbtnJumpToStart.Text = "PasterdbCycle2Start";
             this.rbtnJumpToStart.UseVisualStyleBackColor = true;
             this.rbtnJumpToStart.CheckedChanged += new System.EventHandler(this.rbtnCustoms_CheckedChanged);
             // 
@@ -186,7 +186,7 @@
             this.btnPaste.Name = "btnPaste";
             this.btnPaste.Size = new System.Drawing.Size(166, 23);
             this.btnPaste.TabIndex = 9;
-            this.btnPaste.Text = "Paste";
+            this.btnPaste.Text = "PastebtnPaste";
             this.btnPaste.UseVisualStyleBackColor = true;
             this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
             // 
@@ -195,12 +195,14 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(375, 12);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.Size = new System.Drawing.Size(95, 12);
             this.label1.TabIndex = 10;
-            this.label1.Text = "Preview";
+            this.label1.Text = "PastelblPreview";
             // 
             // PreviewPanel
             // 
+            this.PreviewPanel.AllowDropOpen = false;
+            this.PreviewPanel.IsEditable = false;
             this.PreviewPanel.IsMultiSelect = false;
             this.PreviewPanel.IsSelectable = true;
             this.PreviewPanel.IsSelectVisible = false;
@@ -229,7 +231,7 @@
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Paste";
+            this.Text = "PasteTitle";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);

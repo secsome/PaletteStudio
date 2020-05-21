@@ -1,4 +1,5 @@
 ﻿using PaletteStudio.FileSystem;
+using PaletteStudio.Utils;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -9,16 +10,10 @@ namespace PaletteStudio.GUI.Dialogs
     {
         private PalFile OrigionPal { get; set; } = new PalFile();
         private List<byte> OriginSelections { get; set; } = new List<byte>();
-
-        public Sort()
-        {
-            InitializeComponent();
-            InitializeRadioButtons();
-        }
-
         public Sort(PalFile pal,List<byte> selects)
         {
             InitializeComponent();
+            Misc.SetLanguage(this);
             OrigionPal = pal;
             OriginSelections = selects;
             PreviewPanel.PalSource = new PalFile();
@@ -51,6 +46,11 @@ namespace PaletteStudio.GUI.Dialogs
                 OrigionPal[(byte)i] = PreviewPanel.PalSource[(byte)i];
             DialogResult = DialogResult.OK;
             Close();
+        }
+
+        private void Sort_Paint(object sender, PaintEventArgs e)
+        {
+            Misc.SetLanguage(this);
         }
     }
 }

@@ -14,14 +14,26 @@ using System.Threading;
 using PaletteStudio.Utils.PCXReader;
 using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
-using ImageProcessor.Processors;
-using ImageProcessor.Imaging.Quantizers;
 using System.Windows.Forms;
 
 namespace PaletteStudio.Utils
 {
     public class Misc
     {
+        public static void LoadLanguage()
+        {
+            Dictionary<string, string> dict = new Dictionary<string, string>();
+            INIFile f = new INIFile(Constant.RunTime.INIFile);
+            INIEntity ent = f[f["Language"][f["Settings"]["CurrentLanguage"]]];
+            foreach (INIPair p in ent.DataList)
+                dict[p.Name] = p.Value;
+            Language.DICT = new Lang(dict);
+        }
+        public static void SetLanguage(Form f)
+        {
+            foreach (Control c in f.Controls) Language.SetControlLanguage(c);
+            f.Text = Language.DICT[f.Text];
+        }
         public static Bitmap DecodePCX(string path)
         {
             return PcxReader.Load(path);

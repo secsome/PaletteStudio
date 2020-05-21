@@ -1,4 +1,5 @@
 ﻿using PaletteStudio.FileSystem;
+using PaletteStudio.Utils;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -17,6 +18,7 @@ namespace PaletteStudio.GUI.Dialogs
         public Paste(PalFile palFile, List<Tuple<byte, byte, byte, byte>> data, byte nowSelectOn)
         {
             InitializeComponent();
+            Misc.SetLanguage(this);
             OriginDatas = data;
             OriginPal = palFile;
             OriginSelecting = nowSelectOn;
@@ -82,13 +84,13 @@ namespace PaletteStudio.GUI.Dialogs
         {
             if (ckbBack2Front.Checked)
             {
-                rbtnToTheEnd.Text = "Paste to the begin";
-                rbtnJumpToStart.Text = "If meet the start then\njump to the end";
+                rbtnToTheEnd.Text = Language.DICT["PasterdbPaste2Begin"];
+                rbtnJumpToStart.Text = Language.DICT["PasterdbCycle2End"];
             }
             else
             {
-                rbtnToTheEnd.Text = "Paste to the end";
-                rbtnJumpToStart.Text = "If meet the end then\njump to the start";
+                rbtnToTheEnd.Text = Language.DICT["PasterdbPaste2End"];
+                rbtnJumpToStart.Text = Language.DICT["PasterdbCycle2Start"];
             }
             UpdatePreview();
         }

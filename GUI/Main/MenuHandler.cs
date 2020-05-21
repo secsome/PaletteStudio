@@ -42,10 +42,10 @@ namespace PaletteStudio
                 CurrentStatusLabel.Text = "New palette created";
             }
 
-            
+            if (MainPanel.PalSource == null) MainPanel.PalSource = new PalFile();
             // New, later being Dialog Box but use this to replace it at first
             for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = Color.FromArgb(252, i, i, i).ToArgb();
-            
+            MainPanel.Refresh();
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {

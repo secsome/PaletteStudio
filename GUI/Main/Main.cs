@@ -1,4 +1,5 @@
 ﻿using PaletteStudio.FileSystem;
+using PaletteStudio.Utils;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -191,5 +192,10 @@ namespace PaletteStudio
             e.Effect = DragDropEffects.All;
         }
         #endregion
+
+        private void Main_Paint(object sender, PaintEventArgs e)
+        {
+            Misc.SetLanguage(this);
+        }
     }
 }
