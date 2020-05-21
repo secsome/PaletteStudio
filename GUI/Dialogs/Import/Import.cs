@@ -48,11 +48,12 @@ namespace PaletteStudio.GUI.Dialogs
                     path = openFileDialog.FileName;
                     string ext = path.Split('.').LastOrDefault().ToLower();
                     img = Image.FromFile(path);
-                    if (ext == "gif")
-                    {
-                        Misc.GifToIndex(img, Data);
-                    }
-                    else Misc.GetIndexedItem(img, Data);
+                    FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
+                    int framecount = img.GetFrameCount(fd);
+                    if (framecount > 1) 
+                        Misc.GifToIndex(img, Data, framecount);
+                    else 
+                        Misc.GetIndexedItem(img, Data);
                 }
             }
             catch(Exception ex)
@@ -65,7 +66,7 @@ namespace PaletteStudio.GUI.Dialogs
                 }
                 catch(Exception Ex)
                 {
-                    MyMessageBox.Show("Palette Studio", "Something wrong occured while importing the image, the reason might be:\n" + (flag ? Ex.Message : ex.Message));
+                    MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalImportLoad"] + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
                     return;
                 }
@@ -77,15 +78,8 @@ namespace PaletteStudio.GUI.Dialogs
 
         private void btnImport_Click(object sender, EventArgs e)
         {
-            try
-            {
-                DialogResult = DialogResult.OK;
-            }
-            catch(Exception ex)
-            {
-                MyMessageBox.Show("Palette Studio", "Something wrong occured while importing the image, the reason might be:\n" + ex.Message);
-                GC.Collect();
-            }
+            DialogResult = DialogResult.OK;
+            GC.Collect();
             Close();
         }
 

@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PaletteStudio.Common;
 
 namespace PaletteStudio
 {
@@ -125,7 +126,7 @@ namespace PaletteStudio
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
             switch(
-                MyMessageBox.Show("Palette Studio", "Are you sure to exit the Palette Studio? Please ensure that you have saved the file.", MyMessageBoxButtons.YesNo)
+                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgInfoOnClosing"], MyMessageBoxButtons.YesNo)
                 )
             {
                 case DialogResult.Yes:
@@ -150,7 +151,7 @@ namespace PaletteStudio
                     {
                         PalFile palFile = new PalFile(path);
                         if (MainPanel.PalSource != null)
-                            switch (MyMessageBox.Show("Palette Studio", "Do you want to save the current file first?", MyMessageBoxButtons.YesNoCancel))
+                            switch (MyMessageBox.Show(Constant.RunTime.ProgromTitle,Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
                             {
                                 case DialogResult.Yes:
                                     saveToolStripMenuItem_Click(null, new EventArgs());
@@ -177,7 +178,7 @@ namespace PaletteStudio
                         IsSaved = false;
                         MainPanel.Close();
                         CurrentStatusLabel.Text = "Failed to read the palette file";
-                        MyMessageBox.Show("Palette Studio", "Failed to read the palette file, the reason might be:\n" + ex.Message);
+                        MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalOpen"] + ex.Message);
                     }
                 }
             }

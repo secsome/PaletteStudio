@@ -12,8 +12,8 @@ namespace PaletteStudio.GUI.Dialogs
 
         public Find(PalPanel src)
         {
-            Misc.SetLanguage(this);
             InitializeComponent();
+            Misc.SetLanguage(this);
             srcPanel = src;
             isColorUpdating = true;
             Color lastSelColor = Color.FromArgb(srcPanel.PalSource[srcPanel.Selections.LastOrDefault()]);

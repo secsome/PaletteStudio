@@ -131,12 +131,11 @@ namespace PaletteStudio.Utils
             pal.Data = myPalette;
             return;
         }
-        public unsafe static void GifToIndex(Image img, PalFile pal)
+        public unsafe static void GifToIndex(Image img, PalFile pal, int framecount)
         {
             HashSet<int> set = new HashSet<int>();
             FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
-            int framecount = img.GetFrameCount(fd);
-            for(int k = 0; k < framecount; k++)
+            for (int k = 0; k < framecount; k++)
             {
                 img.SelectActiveFrame(fd, k);
                 Bitmap src = new Bitmap(img);

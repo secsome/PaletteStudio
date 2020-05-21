@@ -27,14 +27,12 @@ namespace PaletteStudio.GUI.Dialogs
         {
             try
             {
-                GlobalVar.INI["Settings"].DictData["CurrentLanguage"].Value = ((INIPair)cbbLanguage.SelectedItem).Name;
-                Misc.LoadLanguage();
-                GlobalVar.INI.SaveIni();
+                // GlobalVar.INI["Settings"].DictData["CurrentLanguage"].Value = ((INIPair)cbbLanguage.SelectedItem).Name;
                 DialogResult = DialogResult.OK;
             }
             catch(Exception ex)
             {
-                MyMessageBox.Show("Palette Studio", "Failed to save the change, the reason might be:\n" + ex.Message);
+                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalSettings"] + ex.Message);
             }
             Close();
         }

@@ -24,7 +24,7 @@ namespace PaletteStudio
             }
             catch(Exception ex)
             {
-                MyMessageBox.Show("Palette Studio", "Cannot open ini file correctly! The reason might be:\n" + ex.Message);
+                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalOnInit"] + ex.Message);
                 Application.Exit();
             }
 
