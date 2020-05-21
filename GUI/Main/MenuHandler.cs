@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using PaletteStudio.FileSystem;
 using PaletteStudio.Utils;
+using PaletteStudio.Common;
 using PaletteStudio.GUI;
 using PaletteStudio.GUI.Dialogs;
 using System.Drawing;
@@ -164,7 +165,7 @@ namespace PaletteStudio
                 if (MainPanel.PalSource == null)
                 {
                     MainPanel.PalSource = new PalFile();
-                    MainPanel.BackColor = -67108864;
+                    MainPanel.BackColor = Constant.Colors.PaletteBlack;
                 }
                 Misc.DeepCopy(import.Data.Data, MainPanel.PalSource.Data);
                 MainPanel.Refresh();

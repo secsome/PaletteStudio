@@ -112,20 +112,9 @@ namespace PaletteStudio.Utils
                 src.UnlockBits(bmpData);
                 img = src;
             }
-            while (myPalette.Count < 256) myPalette.Add(-67108864);
+            while (myPalette.Count < 256) myPalette.Add(Constant.Colors.PaletteBlack);
             pal.Data = myPalette;
             return;
-        }
-        public static void GetIndexedImagePal(Image img,PalFile pal)
-        {
-            GetIndexedImagePal(img.Palette, pal);
-        }
-        public static void GetIndexedImagePal(ColorPalette imgPal,PalFile pal)
-        {
-            List<int> list = new List<int>();
-            foreach (Color c in imgPal.Entries) list.Add(c.ToArgb());
-            while (list.Count < 256) list.Add(-67108864);
-            pal.Data = list;
         }
     }
 }

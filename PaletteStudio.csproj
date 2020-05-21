@@ -56,9 +56,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Common\Constant.cs" />
     <Compile Include="Common\Enums.cs" />
     <Compile Include="Common\GlobalVar.cs" />
     <Compile Include="FileSystem\BaseFile.cs" />
+    <Compile Include="FileSystem\INIFile\IniEntity.cs" />
+    <Compile Include="FileSystem\INIFile\INIFile.cs" />
+    <Compile Include="FileSystem\INIFile\INIPair.cs" />
+    <Compile Include="FileSystem\INIFile\IRegistable.cs" />
+    <Compile Include="FileSystem\INIFile\TechnoPair.cs" />
     <Compile Include="FileSystem\PalFile.cs" />
     <Compile Include="GUI\Controls\ColorPanel.cs">
       <SubType>Component</SubType>
@@ -179,11 +185,5 @@
     <None Include="PalStudio.ico" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <None Include="bin\Debug\PNG2SHP.exe" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\alt.png" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

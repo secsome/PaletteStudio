@@ -4,6 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Drawing;
 using PaletteStudio.FileSystem;
+using PaletteStudio.Common;
 
 namespace PaletteStudio.GUI
 {
@@ -236,7 +237,7 @@ namespace PaletteStudio.GUI
         public bool IsEditable { get; set; } = false;
         public bool IsMultiSelect { get; set; } = true;
         public bool AllowDropOpen { get; set; } = false;
-        public new int BackColor { get; set; } = -67108864; // 252, 0, 0, 0
+        public new int BackColor { get; set; } = Constant.Colors.PaletteBlack; // 252, 0, 0, 0
         #endregion
     }
 }
