@@ -42,7 +42,6 @@ namespace PaletteStudio
 
         private static void ReadNewTemplates()
         {
-            var tmp = GlobalVar.NewTemplates;
             try
             {
                 using (INIFile ini = new INIFile(Constant.RunTime.INIFile))

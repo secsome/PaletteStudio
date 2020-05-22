@@ -26,8 +26,8 @@ namespace PaletteStudio
         }
 
         #region Undo & Redo
-        private List<List<int>> Undos = new List<List<int>>();
-        private List<List<int>> Redos = new List<List<int>>();
+        private readonly List<List<int>> Undos = new List<List<int>>();
+        private readonly List<List<int>> Redos = new List<List<int>>();
 
         private void MakeUndo()
         {
@@ -78,16 +78,18 @@ namespace PaletteStudio
         }
 
         private bool isColorUpdating = false;
-        private void nud_ValueChanged(object sender, EventArgs e)
+        private void Nud_ValueChanged(object sender, EventArgs e)
         {
             if (!isColorUpdating)
                 UpdatePreview();
         }
         private void ColorPreview_Click(object sender, EventArgs e)
         {
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = ColorPreview.BackColor;
-            colorDialog.FullOpen = true;
+            ColorDialog colorDialog = new ColorDialog
+            {
+                Color = ColorPreview.BackColor,
+                FullOpen = true
+            };
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 MakeUndo();
@@ -102,9 +104,11 @@ namespace PaletteStudio
         }
         private void BackColorPreview_Click(object sender, EventArgs e)
         {
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = ColorPreview.BackColor;
-            colorDialog.FullOpen = true;
+            ColorDialog colorDialog = new ColorDialog
+            {
+                Color = ColorPreview.BackColor,
+                FullOpen = true
+            };
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 BackColorPreview.BackColor = Color.FromArgb(252, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B);
@@ -114,7 +118,7 @@ namespace PaletteStudio
         }
         #endregion
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void BtnApply_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource == null) return;
             MakeUndo();
@@ -161,7 +165,7 @@ namespace PaletteStudio
                             switch (MyMessageBox.Show(Language.DICT["MainTitle"],Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
                             {
                                 case DialogResult.Yes:
-                                    saveToolStripMenuItem_Click(null, new EventArgs());
+                                    SaveToolStripMenuItem_Click(null, new EventArgs());
                                     break;
                                 case DialogResult.No:
                                     break;

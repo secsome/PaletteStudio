@@ -11,9 +11,11 @@ namespace PaletteStudio.FileSystem
     [Serializable]
     public class INIEntity : IEnumerable<INIPair>
     {
-        private string name, comment, preComment;
+        private readonly string name;
+        private readonly string comment;
+        private readonly string preComment;
         private Dictionary<string, INIPair> data = new Dictionary<string, INIPair>();
-        private INIEntType entitytype;
+        private readonly INIEntType entitytype;
 
 
         #region Ctor - INIEntity

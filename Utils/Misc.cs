@@ -15,11 +15,55 @@ using PaletteStudio.Utils.PCXReader;
 using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace PaletteStudio.Utils
 {
     public class Misc
     {
+        public static int ReadColor(NewTemplateMode mode,string[] list)
+        {
+            switch (mode)
+            {
+                case NewTemplateMode.ARGB:
+                    return int.Parse(list[0]);
+                case NewTemplateMode.RGB:
+                    return Color.FromArgb(252, int.Parse(list[0]), int.Parse(list[1]), int.Parse(list[2])).ToArgb();
+                case NewTemplateMode.HTML:
+                    Color c = ColorTranslator.FromHtml(list[0]);
+                    return Color.FromArgb(252, c.R, c.G, c.B).ToArgb();
+                default:
+                    return int.MaxValue;
+            }
+        }
+        public static int GetTemplateLength(NewTemplateMode mode)
+        {
+            switch (mode)
+            {
+                case NewTemplateMode.ARGB:
+                    return 1;
+                case NewTemplateMode.HTML:
+                    return 1;
+                case NewTemplateMode.RGB:
+                    return 3;
+                default:
+                    return int.MaxValue;
+            }
+        }
+        public static string ToHtml(Color color)
+        {
+            return ColorTranslator.ToHtml(color.A == 252 ? color : Color.FromArgb(252, color.R, color.G, color.B));
+        }
+        public static string ToHtml(int argb)
+        {
+            Color tmp = Color.FromArgb(argb);
+            return ToHtml(Color.FromArgb(tmp.R, tmp.G, tmp.B));
+        }
+        public static Color FromHtml(string html)
+        {
+            Color tmp = ColorTranslator.FromHtml(html);
+            return Color.FromArgb(252, tmp.R, tmp.G, tmp.B);
+        }
         public static void LoadLanguage()
         {
             LoadLanguage(GlobalVar.Language.Name);

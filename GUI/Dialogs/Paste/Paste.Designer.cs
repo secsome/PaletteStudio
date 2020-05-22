@@ -71,7 +71,7 @@
             this.rbtnCustom.TabStop = true;
             this.rbtnCustom.Text = "Custom";
             this.rbtnCustom.UseVisualStyleBackColor = true;
-            this.rbtnCustom.CheckedChanged += new System.EventHandler(this.rbtnPasteTo_CheckedChanged);
+            this.rbtnCustom.CheckedChanged += new System.EventHandler(this.RbtnPasteTo_CheckedChanged);
             // 
             // rbtnOrigin
             // 
@@ -82,7 +82,7 @@
             this.rbtnOrigin.TabIndex = 0;
             this.rbtnOrigin.Text = "Origin";
             this.rbtnOrigin.UseVisualStyleBackColor = true;
-            this.rbtnOrigin.CheckedChanged += new System.EventHandler(this.rbtnPasteTo_CheckedChanged);
+            this.rbtnOrigin.CheckedChanged += new System.EventHandler(this.RbtnPasteTo_CheckedChanged);
             // 
             // groupBox2
             // 
@@ -109,7 +109,7 @@
             this.ckbBack2Front.TabIndex = 7;
             this.ckbBack2Front.Text = "PasteckbBack2Front";
             this.ckbBack2Front.UseVisualStyleBackColor = true;
-            this.ckbBack2Front.CheckedChanged += new System.EventHandler(this.ckbBack2Front_CheckedChanged);
+            this.ckbBack2Front.CheckedChanged += new System.EventHandler(this.CkbBack2Front_CheckedChanged);
             // 
             // ckbReserved
             // 
@@ -121,7 +121,7 @@
             this.ckbReserved.TabIndex = 6;
             this.ckbReserved.Text = "PasteckbReserved";
             this.ckbReserved.UseVisualStyleBackColor = true;
-            this.ckbReserved.CheckedChanged += new System.EventHandler(this.ckbReserved_CheckedChanged);
+            this.ckbReserved.CheckedChanged += new System.EventHandler(this.CkbReserved_CheckedChanged);
             // 
             // nudStarting
             // 
@@ -134,7 +134,7 @@
             this.nudStarting.Name = "nudStarting";
             this.nudStarting.Size = new System.Drawing.Size(120, 21);
             this.nudStarting.TabIndex = 5;
-            this.nudStarting.ValueChanged += new System.EventHandler(this.nudStarting_ValueChanged);
+            this.nudStarting.ValueChanged += new System.EventHandler(this.NudStarting_ValueChanged);
             // 
             // label2
             // 
@@ -154,7 +154,7 @@
             this.ckbIgnoreSpace.TabIndex = 3;
             this.ckbIgnoreSpace.Text = "PasteckbIgnoreSpaces";
             this.ckbIgnoreSpace.UseVisualStyleBackColor = true;
-            this.ckbIgnoreSpace.CheckedChanged += new System.EventHandler(this.ckbIgnoreSpace_CheckedChanged);
+            this.ckbIgnoreSpace.CheckedChanged += new System.EventHandler(this.CkbIgnoreSpace_CheckedChanged);
             // 
             // rbtnToTheEnd
             // 
@@ -167,7 +167,7 @@
             this.rbtnToTheEnd.TabStop = true;
             this.rbtnToTheEnd.Text = "PasterdbPaste2End";
             this.rbtnToTheEnd.UseVisualStyleBackColor = true;
-            this.rbtnToTheEnd.CheckedChanged += new System.EventHandler(this.rbtnCustoms_CheckedChanged);
+            this.rbtnToTheEnd.CheckedChanged += new System.EventHandler(this.RbtnCustoms_CheckedChanged);
             // 
             // rbtnJumpToStart
             // 
@@ -178,7 +178,7 @@
             this.rbtnJumpToStart.TabIndex = 1;
             this.rbtnJumpToStart.Text = "PasterdbCycle2Start";
             this.rbtnJumpToStart.UseVisualStyleBackColor = true;
-            this.rbtnJumpToStart.CheckedChanged += new System.EventHandler(this.rbtnCustoms_CheckedChanged);
+            this.rbtnJumpToStart.CheckedChanged += new System.EventHandler(this.RbtnCustoms_CheckedChanged);
             // 
             // btnPaste
             // 
@@ -188,7 +188,7 @@
             this.btnPaste.TabIndex = 9;
             this.btnPaste.Text = "PastebtnPaste";
             this.btnPaste.UseVisualStyleBackColor = true;
-            this.btnPaste.Click += new System.EventHandler(this.btnPaste_Click);
+            this.btnPaste.Click += new System.EventHandler(this.BtnPaste_Click);
             // 
             // label1
             // 

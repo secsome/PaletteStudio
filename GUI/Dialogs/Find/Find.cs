@@ -30,13 +30,13 @@ namespace PaletteStudio.GUI.Dialogs
         }
 
         private bool isColorUpdating = false;
-        private void nud_ValueChanged(object sender, EventArgs e)
+        private void Nud_ValueChanged(object sender, EventArgs e)
         {
             if (!isColorUpdating)
                 UpdatePreview();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             if (srcPanel.PalSource == null) return;
             byte idx = Misc.FindBestColor(FindColorPreview.BackColor, srcPanel.PalSource);
@@ -59,9 +59,11 @@ namespace PaletteStudio.GUI.Dialogs
 
         private void FindColorPreview_Click(object sender, EventArgs e)
         {
-            ColorDialog colorDialog = new ColorDialog();
-            colorDialog.Color = FindColorPreview.BackColor;
-            colorDialog.FullOpen = true;
+            ColorDialog colorDialog = new ColorDialog
+            {
+                Color = FindColorPreview.BackColor,
+                FullOpen = true
+            };
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
                 FindColorPreview.BackColor = Color.FromArgb(252, colorDialog.Color.R, colorDialog.Color.G, colorDialog.Color.B);

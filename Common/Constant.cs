@@ -14,10 +14,6 @@ namespace PaletteStudio.Common
         {
             public static readonly int PaletteBlack = -67108864; // 252 0 0 0
         }
-        public static class Messages
-        {
-
-        }
         public static class EntName
         {
             public static readonly string[] SystemEntity =

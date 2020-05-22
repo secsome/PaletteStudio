@@ -171,4 +171,8 @@ namespace PaletteStudio.Common
         Hue, Saturation, Brightness,
         Gray, Argb, Comprehensive
     }
+    public enum NewTemplateMode
+    {
+        RGB, ARGB, HTML
+    }
 }

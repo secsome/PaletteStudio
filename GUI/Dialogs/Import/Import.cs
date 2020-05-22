@@ -25,16 +25,17 @@ namespace PaletteStudio.GUI.Dialogs
             Misc.SetLanguage(this);
         }
 
-        private void btnLoad_Click(object sender, EventArgs e)
+        private void BtnLoad_Click(object sender, EventArgs e)
         {
             Image img = new Bitmap(1, 1);
             string path = "";
             bool flag = false;
             try
             {
-                OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Title = Language.DICT["MainTitle"];
-                openFileDialog.Filter =
+                OpenFileDialog openFileDialog = new OpenFileDialog
+                {
+                    Title = Language.DICT["MainTitle"],
+                    Filter =
                     "All Support Image Formats|*.pcx;*.gif;*.bmp;*.png;*.jpg;*.jpeg;*.tiff" +
                     "PCX File|*.pcx|" +
                     "GIF File|*.gif|" +
@@ -42,7 +43,7 @@ namespace PaletteStudio.GUI.Dialogs
                     "PNG File|*.png|" +
                     "JPG File|*.jpg;*.jpeg|" +
                     "TIFF File|*.tiff|"
-                    ;
+                };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     path = openFileDialog.FileName;
@@ -76,7 +77,7 @@ namespace PaletteStudio.GUI.Dialogs
             btnImport.Enabled = true;
         }
 
-        private void btnImport_Click(object sender, EventArgs e)
+        private void BtnImport_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             GC.Collect();

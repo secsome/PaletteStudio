@@ -55,7 +55,7 @@
             this.btnLoad.TabIndex = 2;
             this.btnLoad.Text = "ImportbtnLoad";
             this.btnLoad.UseVisualStyleBackColor = true;
-            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
+            this.btnLoad.Click += new System.EventHandler(this.BtnLoad_Click);
             // 
             // btnImport
             // 
@@ -66,7 +66,7 @@
             this.btnImport.TabIndex = 3;
             this.btnImport.Text = "ImportbtnImport";
             this.btnImport.UseVisualStyleBackColor = true;
-            this.btnImport.Click += new System.EventHandler(this.btnImport_Click);
+            this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
             // 
             // panel1
             // 

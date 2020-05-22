@@ -37,7 +37,11 @@ namespace PaletteStudio.FileSystem
             if (FileLength != 768) throw new Exception("NOT A RA2/TS PALETTE");
             for (int i = 0; i < 256; i++)
             {
+                /*
                 int tmp = (ReadByte() << 18) + (ReadByte() << 10) + (ReadByte() << 2) + (0xFF << 26);
+                data.Add(tmp);
+                */
+                int tmp = Color.FromArgb(252, ReadByte() * 4, ReadByte() * 4, ReadByte() * 4).ToArgb();
                 data.Add(tmp);
             }
         }
@@ -49,9 +53,15 @@ namespace PaletteStudio.FileSystem
         {
             for(int i = 0; i < 256; i++)
             {
+                /*
                 bw.Write((byte)(data[i] >> 18 & 0xFF));
                 bw.Write((byte)(data[i] >> 10 & 0xFF));
                 bw.Write((byte)(data[i] >> 2 & 0xFF));
+                */
+                Color c = Color.FromArgb(data[i]);
+                bw.Write((byte)(c.R / 4));
+                bw.Write((byte)(c.G / 4));
+                bw.Write((byte)(c.B / 4));
             }
             bw.Dispose();
         }

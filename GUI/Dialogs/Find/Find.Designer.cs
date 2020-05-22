@@ -55,7 +55,7 @@
             this.nudRed.Name = "nudRed";
             this.nudRed.Size = new System.Drawing.Size(68, 21);
             this.nudRed.TabIndex = 1;
-            this.nudRed.ValueChanged += new System.EventHandler(this.nud_ValueChanged);
+            this.nudRed.ValueChanged += new System.EventHandler(this.Nud_ValueChanged);
             // 
             // nudGreen
             // 
@@ -68,7 +68,7 @@
             this.nudGreen.Name = "nudGreen";
             this.nudGreen.Size = new System.Drawing.Size(68, 21);
             this.nudGreen.TabIndex = 2;
-            this.nudGreen.ValueChanged += new System.EventHandler(this.nud_ValueChanged);
+            this.nudGreen.ValueChanged += new System.EventHandler(this.Nud_ValueChanged);
             // 
             // nudBlue
             // 
@@ -81,7 +81,7 @@
             this.nudBlue.Name = "nudBlue";
             this.nudBlue.Size = new System.Drawing.Size(68, 21);
             this.nudBlue.TabIndex = 3;
-            this.nudBlue.ValueChanged += new System.EventHandler(this.nud_ValueChanged);
+            this.nudBlue.ValueChanged += new System.EventHandler(this.Nud_ValueChanged);
             // 
             // label1
             // 
@@ -126,9 +126,9 @@
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(121, 23);
             this.button1.TabIndex = 8;
-            this.button1.Text = "findbtnFind";
+            this.button1.Text = "FindbtnFind";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.button1.Click += new System.EventHandler(this.Button1_Click);
             // 
             // ckbAdd2Selections
             // 

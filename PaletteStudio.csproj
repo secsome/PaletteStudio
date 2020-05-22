@@ -103,6 +103,9 @@
     <Compile Include="GUI\Dialogs\New\New.Designer.cs">
       <DependentUpon>New.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Dialogs\New\TemplateReader.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="GUI\Dialogs\Paste\Paste.cs">
       <SubType>Form</SubType>
     </Compile>

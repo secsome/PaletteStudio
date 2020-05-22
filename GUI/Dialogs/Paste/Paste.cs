@@ -10,9 +10,9 @@ namespace PaletteStudio.GUI.Dialogs
 {
     public partial class Paste : Form
     {
-        private PalFile OriginPal = new PalFile();
-        private List<Tuple<byte, int>> OriginDatas = new List<Tuple<byte, int>>();
-        private byte OriginSelecting = 0;
+        private readonly PalFile OriginPal = new PalFile();
+        private readonly List<Tuple<byte, int>> OriginDatas = new List<Tuple<byte, int>>();
+        private readonly byte OriginSelecting = 0;
         private bool IsOrigin = false;
 
         public Paste(PalFile palFile, List<Tuple<byte, int>> data, byte nowSelectOn)
@@ -25,7 +25,7 @@ namespace PaletteStudio.GUI.Dialogs
             PreviewPanel.PalSource = new PalFile();
             for (int i = 0; i < 256; i++) PreviewPanel.PalSource[(byte)i] = OriginPal[(byte)i];
             PreviewPanel.Selections.Add(OriginSelecting);
-            rbtnPasteTo_CheckedChanged(null, new EventArgs());
+            RbtnPasteTo_CheckedChanged(null, new EventArgs());
             UpdatePreview();
         }
 
@@ -63,7 +63,7 @@ namespace PaletteStudio.GUI.Dialogs
             Refresh();
         }
 
-        private void rbtnPasteTo_CheckedChanged(object sender, EventArgs e)
+        private void RbtnPasteTo_CheckedChanged(object sender, EventArgs e)
         {
             if (rbtnOrigin.Checked)
             {
@@ -80,7 +80,7 @@ namespace PaletteStudio.GUI.Dialogs
             UpdatePreview();
         }
 
-        private void ckbBack2Front_CheckedChanged(object sender, EventArgs e)
+        private void CkbBack2Front_CheckedChanged(object sender, EventArgs e)
         {
             if (ckbBack2Front.Checked)
             {
@@ -95,12 +95,12 @@ namespace PaletteStudio.GUI.Dialogs
             UpdatePreview();
         }
 
-        private void nudStarting_ValueChanged(object sender, EventArgs e)
+        private void NudStarting_ValueChanged(object sender, EventArgs e)
         {
             UpdatePreview();
         }
 
-        private void ckbIgnoreSpace_CheckedChanged(object sender, EventArgs e)
+        private void CkbIgnoreSpace_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePreview();
             if (!ckbIgnoreSpace.Checked)
@@ -111,17 +111,17 @@ namespace PaletteStudio.GUI.Dialogs
             else ckbReserved.Enabled = true;
         }
 
-        private void ckbReserved_CheckedChanged(object sender, EventArgs e)
+        private void CkbReserved_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePreview();
         }
 
-        private void rbtnCustoms_CheckedChanged(object sender, EventArgs e)
+        private void RbtnCustoms_CheckedChanged(object sender, EventArgs e)
         {
             UpdatePreview();
         }
 
-        private void btnPaste_Click(object sender, EventArgs e)
+        private void BtnPaste_Click(object sender, EventArgs e)
         {
             DialogResult = DialogResult.OK;
             Misc.DeepCopy(PreviewPanel.PalSource.Data, DataReturn);

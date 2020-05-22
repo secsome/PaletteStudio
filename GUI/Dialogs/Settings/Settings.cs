@@ -23,7 +23,7 @@ namespace PaletteStudio.GUI.Dialogs
             cbbLanguage.SelectedItem = GlobalVar.INI["Language"].GetPair(GlobalVar.INI["Settings"]["CurrentLanguage"]);
         }
 
-        private void btnApply_Click(object sender, EventArgs e)
+        private void BtnApply_Click(object sender, EventArgs e)
         {
             try
             {
