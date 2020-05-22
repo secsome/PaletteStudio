@@ -71,6 +71,7 @@
             this.BackColorPreview = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
             this.MainPanel = new PaletteStudio.GUI.PalPanel();
+            this.mainmenuExportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudRed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudGreen)).BeginInit();
@@ -207,7 +208,8 @@
             this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.gradientToolStripMenuItem,
             this.toolStripMenuItem3,
-            this.findToolStripMenuItem});
+            this.findToolStripMenuItem,
+            this.mainmenuExportToolStripMenuItem});
             this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
             this.toolsToolStripMenuItem.Size = new System.Drawing.Size(113, 21);
             this.toolsToolStripMenuItem.Text = "MainmenuTools";
@@ -216,20 +218,20 @@
             // 
             this.gradientToolStripMenuItem.Name = "gradientToolStripMenuItem";
             this.gradientToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F2;
-            this.gradientToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.gradientToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.gradientToolStripMenuItem.Text = "MainmenuGradient";
             this.gradientToolStripMenuItem.Click += new System.EventHandler(this.GradientToolStripMenuItem_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(205, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(216, 6);
             // 
             // findToolStripMenuItem
             // 
             this.findToolStripMenuItem.Name = "findToolStripMenuItem";
             this.findToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.F)));
-            this.findToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.findToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
             this.findToolStripMenuItem.Text = "MainmenuFind";
             this.findToolStripMenuItem.Click += new System.EventHandler(this.FindToolStripMenuItem_Click);
             // 
@@ -458,6 +460,14 @@
             this.MainPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragEnter);
             this.MainPanel.DragOver += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragOver);
             // 
+            // mainmenuExportToolStripMenuItem
+            // 
+            this.mainmenuExportToolStripMenuItem.Name = "mainmenuExportToolStripMenuItem";
+            this.mainmenuExportToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.E)));
+            this.mainmenuExportToolStripMenuItem.Size = new System.Drawing.Size(219, 22);
+            this.mainmenuExportToolStripMenuItem.Text = "MainmenuExport";
+            this.mainmenuExportToolStripMenuItem.Click += new System.EventHandler(this.MainmenuExportToolStripMenuItem_Click);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -542,6 +552,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mainmenuExportToolStripMenuItem;
     }
 }
 

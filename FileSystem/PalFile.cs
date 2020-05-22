@@ -49,6 +49,19 @@ namespace PaletteStudio.FileSystem
 
 
         #region Public Methods - PalFile
+        public void Export(StreamWriter sw, string name)
+        {
+            // Write Heads
+            sw.Write("[Node]\nIsBody=true\nDisplayName=" + name + "\nHasChild=false\n\n[Body]\nGlobalMode=ARGB\n");
+            for (int i = 0; i < 256; i++) sw.WriteLine(i.ToString() + "=" + data[i]);
+            sw.Close();
+        }
+
+        public void Export(string _path)
+        {
+            Export(new StreamWriter(_path), _path.Split('\\').Last().Split('.').First());
+        }
+
         public void Save(BinaryWriter bw)
         {
             for(int i = 0; i < 256; i++)

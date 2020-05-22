@@ -275,7 +275,6 @@ namespace PaletteStudio
                 CurrentStatusLabel.Text = Language.DICT["StslblGradientFailed"];
             }
         }
-
         private void FindToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource == null || GlobalVar.IsFindOpening) return;
@@ -289,6 +288,32 @@ namespace PaletteStudio
             catch
             {
                 GlobalVar.IsFindOpening = false;
+            }
+        }
+        private void MainmenuExportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MainPanel.PalSource == null) return;
+                SaveFileDialog saveFileDialog = new SaveFileDialog
+                {
+                    Filter = "All Files|*.*",
+                    InitialDirectory = Application.StartupPath,
+                    Title = Language.DICT["MainTitle"],
+                    DefaultExt = "ini",
+                    CheckPathExists = true,
+                    AddExtension = true
+                };
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    MainPanel.PalSource.Export(saveFileDialog.FileName);
+                    CurrentStatusLabel.Text = Language.DICT["StslblExportSucceed"];
+                }
+            }
+            catch (Exception ex)
+            {
+                CurrentStatusLabel.Text = Language.DICT["StslblExportFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalExport"] + ex.Message);
             }
         }
         #endregion
