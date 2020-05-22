@@ -33,7 +33,7 @@ namespace PaletteStudio.GUI.Dialogs
             try
             {
                 OpenFileDialog openFileDialog = new OpenFileDialog();
-                openFileDialog.Title = Constant.RunTime.ProgromTitle + " - " + Constant.RunTime.ProgramVersion;
+                openFileDialog.Title = Language.DICT["MainTitle"];
                 openFileDialog.Filter =
                     "All Support Image Formats|*.pcx;*.gif;*.bmp;*.png;*.jpg;*.jpeg;*.tiff" +
                     "PCX File|*.pcx|" +
@@ -66,7 +66,7 @@ namespace PaletteStudio.GUI.Dialogs
                 }
                 catch(Exception Ex)
                 {
-                    MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalImportLoad"] + (flag ? Ex.Message : ex.Message));
+                    MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImportLoad"] + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
                     return;
                 }

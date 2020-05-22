@@ -10,6 +10,7 @@ using PaletteStudio.Common;
 using PaletteStudio.GUI;
 using PaletteStudio.GUI.Dialogs;
 using System.Drawing;
+using System.Security.Cryptography;
 
 namespace PaletteStudio
 {
@@ -20,7 +21,7 @@ namespace PaletteStudio
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource != null)
-                switch(MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
+                switch(MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
                 {
                     case DialogResult.Yes:
                         saveToolStripMenuItem_Click(null, new EventArgs());
@@ -31,28 +32,36 @@ namespace PaletteStudio
                         return;
                 }
 
-            New newDialog = new New();
-            if (newDialog.ShowDialog() == DialogResult.OK)
+            try
             {
-                MainPanel.PalSource = new PalFile();
-                Misc.DeepCopy(newDialog.Data, MainPanel.PalSource.Data);
-                MainPanel.Refresh();
-                MainPanel_BackColorChanged(null, new EventArgs());
-                MainPanel_SelectedIndexChanged(null, new EventArgs());
-                CurrentStatusLabel.Text = "New palette created";
-            }
+                New newDialog = new New();
+                if (newDialog.ShowDialog() == DialogResult.OK)
+                {
+                    MainPanel.PalSource = new PalFile();
+                    Misc.DeepCopy(newDialog.Data, MainPanel.PalSource.Data);
+                    MainPanel.Refresh();
+                    MainPanel_BackColorChanged(null, new EventArgs());
+                    MainPanel_SelectedIndexChanged(null, new EventArgs());
+                    CurrentStatusLabel.Text = Language.DICT["StslblNewSucceed"];
+                }
 
-            if (MainPanel.PalSource == null) MainPanel.PalSource = new PalFile();
-            // New, later being Dialog Box but use this to replace it at first
-            for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = Color.FromArgb(252, i, i, i).ToArgb();
-            MainPanel.Refresh();
+                if (MainPanel.PalSource == null) MainPanel.PalSource = new PalFile();
+                // New, later being Dialog Box but use this to replace it at first
+                for (int i = 0; i < 256; i++) MainPanel.PalSource[(byte)i] = Color.FromArgb(252, i, i, i).ToArgb();
+                MainPanel.Refresh();
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalNew"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblNewFailed"];
+            }
         }
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             try
             {
                 if (MainPanel.PalSource != null)
-                    switch (MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
+                    switch (MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
                     {
                         case DialogResult.Yes:
                             saveToolStripMenuItem_Click(null, new EventArgs());
@@ -65,7 +74,7 @@ namespace PaletteStudio
                 OpenFileDialog openFileDialog = new OpenFileDialog();
                 openFileDialog.Filter = "Palette File|*.pal|All Files|*.*";
                 openFileDialog.InitialDirectory = Application.StartupPath;
-                openFileDialog.Title = Constant.RunTime.ProgromTitle + " - " + Constant.RunTime.ProgramVersion;
+                openFileDialog.Title = Language.DICT["MainTitle"];
                 openFileDialog.DefaultExt = "pal";
                 openFileDialog.CheckPathExists = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -79,7 +88,7 @@ namespace PaletteStudio
                     MainPanel.Refresh();
                     MainPanel_SelectedIndexChanged(null, new EventArgs());
                     MainPanel_BackColorChanged(null, new EventArgs());
-                    CurrentStatusLabel.Text = "Palette opened";
+                    CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
                 }
             }
             catch (Exception ex)
@@ -87,8 +96,8 @@ namespace PaletteStudio
                 SavePath = "";
                 IsSaved = false;
                 MainPanel.Close();
-                CurrentStatusLabel.Text = "Failed to read the palette file";
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalOpen"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblOpenFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOpen"] + ex.Message);
             }
         }
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -98,7 +107,7 @@ namespace PaletteStudio
                 if (IsSaved && MainPanel.PalSource != null)
                 {
                     MainPanel.PalSource.Save(SavePath);
-                    CurrentStatusLabel.Text = "Successfully saved the palette";
+                    CurrentStatusLabel.Text = Language.DICT["StslblSaveSucceed"];
                 }
                 else
                 {
@@ -107,8 +116,8 @@ namespace PaletteStudio
             }
             catch(Exception ex)
             {
-                CurrentStatusLabel.Text = "Failed to save the palette file";
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalSave"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblSaveFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalSave"] + ex.Message);
             }
             
         }
@@ -120,7 +129,7 @@ namespace PaletteStudio
                 SaveFileDialog saveFileDialog = new SaveFileDialog();
                 saveFileDialog.Filter = "Palette File|*.pal";
                 saveFileDialog.InitialDirectory = Application.StartupPath;
-                saveFileDialog.Title = Constant.RunTime.ProgromTitle + " - " + Constant.RunTime.ProgramVersion;
+                saveFileDialog.Title = Language.DICT["MainTitle"];
                 saveFileDialog.DefaultExt = "pal";
                 saveFileDialog.CheckPathExists = true;
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -128,28 +137,36 @@ namespace PaletteStudio
                     SavePath = saveFileDialog.FileName;
                     MainPanel.PalSource.Save(SavePath);
                     IsSaved = true;
-                    CurrentStatusLabel.Text = "Successfully saved the palette";
+                    CurrentStatusLabel.Text = Language.DICT["StslblSaveSucceed"];
                 }
             }
             catch(Exception ex)
             {
-                CurrentStatusLabel.Text = "Failed to save the palette file";
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalSave"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblSaveFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalSave"] + ex.Message);
             }
         }
         private void closeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainPanel.Close();
-            IsSaved = false;
-            SavePath = "";
-            Undos.Clear();
-            Redos.Clear();
-            CurrentStatusLabel.Text = "Palette file closed";
+            try
+            {
+                MainPanel.Close();
+                IsSaved = false;
+                SavePath = "";
+                Undos.Clear();
+                Redos.Clear();
+                CurrentStatusLabel.Text = Language.DICT["StslblCloseSucceed"];
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show(Language.DICT["MainText"], Language.DICT["MsgFatalClose"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblCloseFailed"];
+            }
         }
         private void importToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MainPanel.PalSource != null)
-                switch (MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
+                switch (MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
                 {
                     case DialogResult.Yes:
                         saveToolStripMenuItem_Click(null, new EventArgs());
@@ -159,45 +176,69 @@ namespace PaletteStudio
                     default:
                         return;
                 }
-            Import import = new Import();
-            if (import.ShowDialog() == DialogResult.OK)
+            try
             {
-                if (MainPanel.PalSource == null)
+                Import import = new Import();
+                if (import.ShowDialog() == DialogResult.OK)
                 {
-                    MainPanel.PalSource = new PalFile();
-                    MainPanel.BackColor = Constant.Colors.PaletteBlack;
+                    if (MainPanel.PalSource == null)
+                    {
+                        MainPanel.PalSource = new PalFile();
+                        MainPanel.BackColor = Constant.Colors.PaletteBlack;
+                    }
+                    Misc.DeepCopy(import.Data.Data, MainPanel.PalSource.Data);
+                    MainPanel.Refresh();
+                    MainPanel_BackColorChanged(null, new EventArgs());
+                    MainPanel_SelectedIndexChanged(null, new EventArgs());
+                    CurrentStatusLabel.Text = Language.DICT["StslblImportSucceed"];
                 }
-                Misc.DeepCopy(import.Data.Data, MainPanel.PalSource.Data);
-                MainPanel.Refresh();
-                MainPanel_BackColorChanged(null, new EventArgs());
-                MainPanel_SelectedIndexChanged(null, new EventArgs());
-                CurrentStatusLabel.Text = "Imported successful";
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImport"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblImportFailed"];
             }
         }
         #endregion
         #region Edit
         private void undoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Undos.Count > 0)
+            try
             {
-                MakeRedo();
-                for (int i = 0; i < 256; i++)
-                    MainPanel.PalSource[(byte)i] = Undos.Last()[(byte)i];
-                Undos.RemoveAt(Undos.Count - 1);
-                MainPanel.Refresh();
-                CurrentStatusLabel.Text = "Undo";
-            }  
+                if (Undos.Count > 0)
+                {
+                    MakeRedo();
+                    for (int i = 0; i < 256; i++)
+                        MainPanel.PalSource[(byte)i] = Undos.Last()[(byte)i];
+                    Undos.RemoveAt(Undos.Count - 1);
+                    MainPanel.Refresh();
+                    CurrentStatusLabel.Text = Language.DICT["StslblUndoSucceed"];
+                }
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalUndo"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblUndoFailed"];
+            }
         }
         private void redoToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (Redos.Count > 0)
+            try
             {
-                MakeUndo();
-                for (int i = 0; i < 256; i++)
-                    MainPanel.PalSource[(byte)i] = Redos.Last()[(byte)i];
-                Redos.RemoveAt(Redos.Count - 1);
-                MainPanel.Refresh();
-                CurrentStatusLabel.Text = "Redo";
+                if (Redos.Count > 0)
+                {
+                    MakeUndo();
+                    for (int i = 0; i < 256; i++)
+                        MainPanel.PalSource[(byte)i] = Redos.Last()[(byte)i];
+                    Redos.RemoveAt(Redos.Count - 1);
+                    MainPanel.Refresh();
+                    CurrentStatusLabel.Text = Language.DICT["StslblRedoSucceed"];
+                }
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalRedo"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblRedoFailed"];
             }
         }
         private void selectAllToolStripMenuItem_Click(object sender, EventArgs e)
@@ -213,14 +254,22 @@ namespace PaletteStudio
         #region Tools
         private void gradientToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MainPanel.PalSource == null) return;
-            Gradient gradient = new Gradient(MainPanel);
-            if (gradient.ShowDialog() == DialogResult.OK)
+            try
             {
-                MakeUndo();
-                Misc.DeepCopy(MainPanel.PalSource.Data, gradient.PalData);
-                MainPanel.Refresh();
-                CurrentStatusLabel.Text = "Generate gradient colors done";
+                if (MainPanel.PalSource == null) return;
+                Gradient gradient = new Gradient(MainPanel);
+                if (gradient.ShowDialog() == DialogResult.OK)
+                {
+                    MakeUndo();
+                    Misc.DeepCopy(MainPanel.PalSource.Data, gradient.PalData);
+                    MainPanel.Refresh();
+                    CurrentStatusLabel.Text = Language.DICT["StslblGradientSucceed"];
+                }
+            }
+            catch(Exception ex)
+            {
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalGradient"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblGradientFailed"];
             }
         }
 
@@ -251,7 +300,19 @@ namespace PaletteStudio
             Settings settings = new Settings();
             if (settings.ShowDialog() == DialogResult.OK)
             {
-                Misc.SetLanguage(this);
+                if (GlobalVar.NewLanguage == GlobalVar.Language) return;
+                switch (MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgInfoNeedsRestart"], MyMessageBoxButtons.YesNo))
+                {
+                    case DialogResult.Yes:
+                        GlobalVar.exitMessageBox = false;
+                        Application.ExitThread();
+                        Application.Restart();
+                        GlobalVar.exitMessageBox = true;
+                        break;
+                    case DialogResult.No:
+                    default:
+                        break; 
+                }
             }
         }
         #endregion
@@ -266,17 +327,17 @@ namespace PaletteStudio
                 MakeUndo();
                 string format = "";
                 format += MainPanel.Selections.Count.ToString();
-                foreach (byte v in MainPanel.Selections) format += "," + v + "," + Misc.ColorToString(MainPanel.PalSource[v]);
+                foreach (byte v in MainPanel.Selections) format += "," + v + "," + MainPanel.PalSource[v];
                 Clipboard.SetData(DataFormats.Text, format);
                 foreach (byte v in MainPanel.Selections) MainPanel.PalSource[v] = MainPanel.BackColor;
                 MainPanel.Refresh();
-                CurrentStatusLabel.Text = "Successfully cutted " + MainPanel.Selections.Count + " items to clipboard as string";
+                CurrentStatusLabel.Text = Language.DICT["StslblCutSucceed"].Replace("%COUNT", MainPanel.Selections.Count.ToString());
             }
             catch (Exception ex)
             {
                 redoToolStripMenuItem_Click(null, new EventArgs());
-                CurrentStatusLabel.Text = "Failed to cut";
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalCut"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblCutFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalCut"] + ex.Message);
             }
         }
         private void copyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -288,12 +349,12 @@ namespace PaletteStudio
                 format += MainPanel.Selections.Count.ToString();
                 foreach (byte v in MainPanel.Selections) format += "," + v + "," + MainPanel.PalSource[v];
                 Clipboard.SetData(DataFormats.Text, format);
-                CurrentStatusLabel.Text = "Successfully copied " + MainPanel.Selections.Count + " items to clipboard as string";
+                CurrentStatusLabel.Text = Language.DICT["StslblCopySucceed"].Replace("%COUNT", MainPanel.Selections.Count.ToString());
             }
             catch(Exception ex)
             {
-                CurrentStatusLabel.Text = "Failed to copy";
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalCopy"] + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblCopyFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalCopy"] + ex.Message);
             }
             
         }
@@ -317,17 +378,19 @@ namespace PaletteStudio
                         Colors.Add(new Tuple<byte, int>(byte.Parse(splitedData[i * 2 + 1]), int.Parse(splitedData[i * 2 + 2])));
                     Colors.Sort((a, b) => a.Item1.CompareTo(b.Item1));
                     Paste paste = new Paste(MainPanel.PalSource, Colors, MainPanel.Selections.LastOrDefault());
-                    paste.ShowDialog();
-                    Refresh();
-                    CurrentStatusLabel.Text = "Successfully paste " + count + " items";
+                    if (paste.ShowDialog() == DialogResult.OK)
+                    {
+                        Misc.DeepCopy(paste.DataReturn, MainPanel.PalSource.Data);
+                        Refresh();
+                        CurrentStatusLabel.Text = Language.DICT["StslblPasteSucceed"].Replace("%COUNT", count.ToString());
+                    }
                 }
-                
             }
             catch(Exception ex)
             {
-                CurrentStatusLabel.Text = "Failed to paste items";
+                CurrentStatusLabel.Text = Language.DICT["StslblPasteFailed"];
                 if (!isClipboardException) redoToolStripMenuItem_Click(null, new EventArgs());
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT[isClipboardException ? "MsgFatalPasteClipboard" : "MsgFatalPaste"] + ex.Message);
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT[isClipboardException ? "MsgFatalPasteClipboard" : "MsgFatalPaste"] + ex.Message);
             }
         }
         private void sortToolStripMenuItem_Click(object sender, EventArgs e)
@@ -340,13 +403,13 @@ namespace PaletteStudio
                 if (sort.ShowDialog() == DialogResult.OK)
                 {
                     MainPanel.Refresh();
-                    CurrentStatusLabel.Text = "Successfully sorted the palette";
+                    CurrentStatusLabel.Text = Language.DICT["StslblSortSucceed"];
                 }
             }
             catch(Exception ex)
             {
-                CurrentStatusLabel.Text = "Failed to sort";
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, "Failed to sort, the reason might be:\n" + ex.Message);
+                CurrentStatusLabel.Text = Language.DICT["StslblSortFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalSort"] + ex.Message);
             }
         }
         #endregion

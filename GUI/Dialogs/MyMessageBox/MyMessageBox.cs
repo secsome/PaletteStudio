@@ -30,6 +30,10 @@ namespace PaletteStudio.GUI.Dialogs
             InitializeComponent();
             Text = title;
             rtxbMessage.Text = content;
+            btnOK.Text = Language.DICT["MsgbtnOK"];
+            btnYes.Text = Language.DICT["MsgbtnYes"];
+            btnNo.Text = Language.DICT["MsgbtnNo"];
+            btnCancel.Text = Language.DICT["MsgbtnCancel"];
             switch (buttons)
             {
                 case MyMessageBoxButtons.OK:
@@ -39,6 +43,8 @@ namespace PaletteStudio.GUI.Dialogs
                     btnCancel.Visible = false;
                     break;
                 case MyMessageBoxButtons.YesNo:
+                    btnYes.Location = btnNo.Location;
+                    btnNo.Location = btnCancel.Location;
                     btnOK.Visible = false;
                     btnYes.Visible = true;
                     btnNo.Visible = true;

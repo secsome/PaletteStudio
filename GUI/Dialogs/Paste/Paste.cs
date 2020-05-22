@@ -123,7 +123,8 @@ namespace PaletteStudio.GUI.Dialogs
 
         private void btnPaste_Click(object sender, EventArgs e)
         {
-            for (int i = 0; i < 256; i++) OriginPal[(byte)i] = PreviewPanel.PalSource[(byte)i];
+            DialogResult = DialogResult.OK;
+            Misc.DeepCopy(PreviewPanel.PalSource.Data, DataReturn);
             Close();
         }
 
@@ -131,5 +132,7 @@ namespace PaletteStudio.GUI.Dialogs
         {
             
         }
+
+        public List<int> DataReturn { get; set; } = new List<int>();
     }
 }

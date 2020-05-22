@@ -125,9 +125,16 @@ namespace PaletteStudio
 
         private void Main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            switch(
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgInfoOnClosing"], MyMessageBoxButtons.YesNo)
-                )
+            if(GlobalVar.NewLanguage != null)
+            {
+                if (GlobalVar.Language != GlobalVar.NewLanguage)
+                {
+                    GlobalVar.INI["Settings"].GetPair("CurrentLanguage").Value = GlobalVar.NewLanguage.Name;
+                    GlobalVar.INI.SaveIni();
+                }
+            }
+            if (!GlobalVar.exitMessageBox) return;
+            switch(MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgInfoOnClosing"], MyMessageBoxButtons.YesNo))
             {
                 case DialogResult.Yes:
                     break;
@@ -151,7 +158,7 @@ namespace PaletteStudio
                     {
                         PalFile palFile = new PalFile(path);
                         if (MainPanel.PalSource != null)
-                            switch (MyMessageBox.Show(Constant.RunTime.ProgromTitle,Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
+                            switch (MyMessageBox.Show(Language.DICT["MainTitle"],Language.DICT["MsgInfoHintForSave"], MyMessageBoxButtons.YesNoCancel))
                             {
                                 case DialogResult.Yes:
                                     saveToolStripMenuItem_Click(null, new EventArgs());
@@ -170,15 +177,15 @@ namespace PaletteStudio
                         MainPanel.Refresh();
                         MainPanel_SelectedIndexChanged(null, new EventArgs());
                         MainPanel_BackColorChanged(null, new EventArgs());
-                        CurrentStatusLabel.Text = "Palette opened";
+                        CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
                     }
                     catch(Exception ex)
                     {
                         SavePath = "";
                         IsSaved = false;
                         MainPanel.Close();
-                        CurrentStatusLabel.Text = "Failed to read the palette file";
-                        MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalOpen"] + ex.Message);
+                        CurrentStatusLabel.Text = Language.DICT["StslblOpenFailed"];
+                        MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOpen"] + ex.Message);
                     }
                 }
             }

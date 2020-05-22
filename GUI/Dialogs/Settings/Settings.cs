@@ -27,12 +27,12 @@ namespace PaletteStudio.GUI.Dialogs
         {
             try
             {
-                // GlobalVar.INI["Settings"].DictData["CurrentLanguage"].Value = ((INIPair)cbbLanguage.SelectedItem).Name;
+                GlobalVar.NewLanguage = (INIPair)cbbLanguage.SelectedItem;
                 DialogResult = DialogResult.OK;
             }
             catch(Exception ex)
             {
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalSettings"] + ex.Message);
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalSettings"] + ex.Message);
             }
             Close();
         }

@@ -22,7 +22,7 @@ namespace PaletteStudio.Utils
     {
         public static void LoadLanguage()
         {
-            LoadLanguage(GlobalVar.INI["Settings"]["CurrentLanguage"]);
+            LoadLanguage(GlobalVar.Language.Name);
         }
         public static void LoadLanguage(string ID)
         {

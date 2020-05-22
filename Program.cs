@@ -19,18 +19,25 @@ namespace PaletteStudio
         {
             try
             {
+                InitializeGlobalVars();
                 Utils.Misc.LoadLanguage();
                 ReadNewTemplates();
             }
             catch(Exception ex)
             {
-                MyMessageBox.Show(Constant.RunTime.ProgromTitle, Language.DICT["MsgFatalOnInit"] + ex.Message);
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOnInit"] + ex.Message);
                 Application.Exit();
             }
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());
+        }
+
+        private static void InitializeGlobalVars()
+        {
+            GlobalVar.INI = new INIFile(Constant.RunTime.INIFile);
+            GlobalVar.Language = GlobalVar.INI["Language"].GetPair(GlobalVar.INI["Settings"]["CurrentLanguage"]);
         }
 
         private static void ReadNewTemplates()
