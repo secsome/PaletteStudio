@@ -29,13 +29,13 @@ namespace PaletteStudio
         private void MakeUndo()
         {
             Undos.Add(new List<int>());
-            Utils.Misc.DeepCopy(MainPanel.PalSource.Data, Undos.Last());
+            Misc.DeepCopy(MainPanel.PalSource.Data, Undos.Last());
             GC.Collect();
         }
         private void MakeRedo()
         {
             Redos.Add(new List<int>());
-            Utils.Misc.DeepCopy(MainPanel.PalSource.Data, Redos.Last());
+            Misc.DeepCopy(MainPanel.PalSource.Data, Redos.Last());
             GC.Collect();
         }
         #endregion

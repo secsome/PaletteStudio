@@ -211,8 +211,7 @@ namespace PaletteStudio
                 if (Undos.Count > 0)
                 {
                     MakeRedo();
-                    for (int i = 0; i < 256; i++)
-                        MainPanel.PalSource[(byte)i] = Undos.Last()[(byte)i];
+                    Misc.DeepCopy(Undos.Last(), MainPanel.PalSource.Data);
                     Undos.RemoveAt(Undos.Count - 1);
                     MainPanel.Refresh();
                     CurrentStatusLabel.Text = Language.DICT["StslblUndoSucceed"];
@@ -231,8 +230,7 @@ namespace PaletteStudio
                 if (Redos.Count > 0)
                 {
                     MakeUndo();
-                    for (int i = 0; i < 256; i++)
-                        MainPanel.PalSource[(byte)i] = Redos.Last()[(byte)i];
+                    Misc.DeepCopy(Redos.Last(), MainPanel.PalSource.Data);
                     Redos.RemoveAt(Redos.Count - 1);
                     MainPanel.Refresh();
                     CurrentStatusLabel.Text = Language.DICT["StslblRedoSucceed"];
@@ -381,7 +379,7 @@ namespace PaletteStudio
             }
             catch (Exception ex)
             {
-                RedoToolStripMenuItem_Click(null, new EventArgs());
+                UndoToolStripMenuItem_Click(null, new EventArgs());
                 CurrentStatusLabel.Text = Language.DICT["StslblCutFailed"];
                 MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalCut"] + ex.Message);
             }
@@ -435,7 +433,7 @@ namespace PaletteStudio
             catch(Exception ex)
             {
                 CurrentStatusLabel.Text = Language.DICT["StslblPasteFailed"];
-                if (!isClipboardException) RedoToolStripMenuItem_Click(null, new EventArgs());
+                if (!isClipboardException) UndoToolStripMenuItem_Click(null, new EventArgs());
                 MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT[isClipboardException ? "MsgFatalPasteClipboard" : "MsgFatalPaste"] + ex.Message);
             }
         }
