@@ -195,6 +195,7 @@ namespace PaletteStudio
                         SavePath = "";
                         IsSaved = false;
                         MainPanel.Close();
+                        UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                         CurrentStatusLabel.Text = Language.DICT["StslblOpenFailed"];
                         MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOpen"] + ex.Message);
                     }
