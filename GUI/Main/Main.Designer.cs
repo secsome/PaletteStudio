@@ -381,6 +381,13 @@
             this.MainPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("MainPanel.Selections")));
             this.MainPanel.Size = new System.Drawing.Size(238, 403);
             this.MainPanel.TabIndex = 28;
+            this.MainPanel.SelectedIndexChanged += new PaletteStudio.GUI.PalPanel.SelectedIndexChangedHandle(this.MainPanel_SelectedIndexChanged);
+            this.MainPanel.BackColorChanged += new PaletteStudio.GUI.PalPanel.BackColorChangedHandle(this.MainPanel_BackColorChanged);
+            this.MainPanel.PalSourceChanging += new PaletteStudio.GUI.PalPanel.PalSourceChangingHandle(this.MainPanel_PalSourceChanging);
+            this.MainPanel.PalSourceChanged += new PaletteStudio.GUI.PalPanel.PalSourceChangedHandle(this.MainPanel_PalSourceChanged);
+            this.MainPanel.DragDrop += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragDrop);
+            this.MainPanel.DragEnter += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragEnter);
+            this.MainPanel.DragOver += new System.Windows.Forms.DragEventHandler(this.MainPanel_DragOver);
             // 
             // panel1
             // 
@@ -436,6 +443,7 @@
             this.BackColorPreview.Size = new System.Drawing.Size(95, 21);
             this.BackColorPreview.TabIndex = 49;
             this.BackColorPreview.TabStop = false;
+            this.BackColorPreview.Click += new System.EventHandler(this.BackColorPreview_Click);
             // 
             // nudBlue
             // 
@@ -448,6 +456,7 @@
             this.nudBlue.Name = "nudBlue";
             this.nudBlue.Size = new System.Drawing.Size(50, 21);
             this.nudBlue.TabIndex = 45;
+            this.nudBlue.ValueChanged += new System.EventHandler(this.Nud_ValueChanged);
             // 
             // nudGreen
             // 
@@ -460,6 +469,7 @@
             this.nudGreen.Name = "nudGreen";
             this.nudGreen.Size = new System.Drawing.Size(50, 21);
             this.nudGreen.TabIndex = 43;
+            this.nudGreen.ValueChanged += new System.EventHandler(this.Nud_ValueChanged);
             // 
             // label4
             // 
@@ -491,6 +501,7 @@
             this.nudRed.Name = "nudRed";
             this.nudRed.Size = new System.Drawing.Size(50, 21);
             this.nudRed.TabIndex = 41;
+            this.nudRed.ValueChanged += new System.EventHandler(this.Nud_ValueChanged);
             // 
             // label2
             // 
@@ -509,6 +520,7 @@
             this.ColorPreview.Size = new System.Drawing.Size(95, 21);
             this.ColorPreview.TabIndex = 47;
             this.ColorPreview.TabStop = false;
+            this.ColorPreview.Click += new System.EventHandler(this.ColorPreview_Click);
             // 
             // Main
             // 
