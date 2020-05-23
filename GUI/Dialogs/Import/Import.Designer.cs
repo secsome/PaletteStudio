@@ -92,14 +92,17 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(717, 210);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(95, 12);
             this.label1.TabIndex = 6;
             this.label1.Text = "ImportlblMaxNum";
+            this.label1.Visible = false;
             // 
             // nudMaxNum
             // 
+            this.nudMaxNum.Enabled = false;
             this.nudMaxNum.Location = new System.Drawing.Point(719, 225);
             this.nudMaxNum.Maximum = new decimal(new int[] {
             255,
@@ -119,6 +122,7 @@
             0,
             0,
             0});
+            this.nudMaxNum.Visible = false;
             // 
             // Import
             // 
