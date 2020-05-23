@@ -35,7 +35,7 @@
             // palPanel1
             // 
             this.palPanel1.AllowDropOpen = false;
-            this.palPanel1.BackgroundImage = global::PaletteStudio.Properties.Resources.About;
+            this.palPanel1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("palPanel1.BackgroundImage")));
             this.palPanel1.IsEditable = false;
             this.palPanel1.IsMultiSelect = true;
             this.palPanel1.IsSelectable = true;
@@ -64,6 +64,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "AboutTitle";
             this.Click += new System.EventHandler(this.About_Click);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.About_KeyDown);
             this.ResumeLayout(false);
 
         }

@@ -18,5 +18,10 @@ namespace PaletteStudio.GUI.Dialogs
         {
             Close();
         }
+
+        private void About_KeyDown(object sender, KeyEventArgs e)
+        {
+            Close();
+        }
     }
 }
