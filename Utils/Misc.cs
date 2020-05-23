@@ -1,21 +1,14 @@
-﻿using System;
+﻿using PaletteStudio.FileSystem;
+using PaletteStudio.Common;
+using PaletteStudio.Utils.PCXReader;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using System.Drawing;
-using PaletteStudio.FileSystem;
-using PaletteStudio.Common;
-using System.Reflection;
 using System.Drawing.Imaging;
-using PaletteStudio.GUI;
-using System.Threading;
-using PaletteStudio.Utils.PCXReader;
 using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 
 namespace PaletteStudio.Utils
 {

@@ -1,16 +1,11 @@
-﻿using System;
+﻿using PaletteStudio.FileSystem;
+using PaletteStudio.Utils;
+using PaletteStudio.Common;
+using PaletteStudio.GUI.Dialogs;
+using System;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using PaletteStudio.FileSystem;
-using PaletteStudio.Utils;
-using PaletteStudio.Common;
-using PaletteStudio.GUI;
-using PaletteStudio.GUI.Dialogs;
-using System.Drawing;
-using System.Security.Cryptography;
 
 namespace PaletteStudio
 {
@@ -34,12 +29,12 @@ namespace PaletteStudio
 
             try
             {
-                MainPanel.Close();
-                IsSaved = false;
-                SavePath = "";
                 New newDialog = new New();
                 if (newDialog.ShowDialog() == DialogResult.OK)
                 {
+                    MainPanel.Close();
+                    IsSaved = false;
+                    SavePath = "";
                     if (MainPanel.PalSource == null) MainPanel.PalSource = new PalFile();
                     Misc.DeepCopy(newDialog.Data, MainPanel.PalSource.Data);
                     MainPanel.Refresh();

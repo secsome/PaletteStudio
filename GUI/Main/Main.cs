@@ -1,16 +1,12 @@
-﻿using PaletteStudio.FileSystem;
+﻿using PaletteStudio.Common;
+using PaletteStudio.FileSystem;
 using PaletteStudio.GUI.Dialogs;
 using PaletteStudio.Utils;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
-using PaletteStudio.Common;
 
 namespace PaletteStudio
 {

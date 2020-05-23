@@ -9,6 +9,7 @@ namespace PaletteStudio.Common
             public static readonly string ProgromTitle = "Palette Studio";
             public static readonly string ProgramVersion = "1.0";
             public static readonly string INIFile = "PalStudio.ini";
+            public static readonly string FatalOnInitializing = "FATAL ERROR WHILE INITIALIZING THE PROGRAM!";
         }
         public static class Colors
         {

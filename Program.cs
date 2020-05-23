@@ -3,8 +3,6 @@ using PaletteStudio.FileSystem;
 using PaletteStudio.GUI.Dialogs;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace PaletteStudio
@@ -23,12 +21,12 @@ namespace PaletteStudio
                 Utils.Misc.LoadLanguage();
                 ReadNewTemplates();
             }
-            catch(Exception ex)
+            catch
             {
-                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOnInit"] + ex.Message);
+                MessageBox.Show(Constant.RunTime.FatalOnInitializing, Constant.RunTime.ProgromTitle, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
+                return;
             }
-
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Main());

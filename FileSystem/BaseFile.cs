@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.IO;
 using PaletteStudio.Common;
 
@@ -28,6 +25,7 @@ namespace PaletteStudio.FileSystem
         #region Ctor - BaseFile
         public BaseFile(string path, FileMode m, FileAccess a, bool _keepAlive = true)
         {
+            if (!File.Exists(Constant.RunTime.INIFile)) throw new Exception("CAN NOT OPEN THE FILE:" + FileName);
             if (m == FileMode.Create && File.Exists(path)) File.Delete(path);
             _fs = new FileStream(path, m, a);
             if (!_keepAlive) _fs.CopyTo(memoryRead);

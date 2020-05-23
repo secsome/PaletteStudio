@@ -1,18 +1,9 @@
-﻿using ImageProcessor;
-using PaletteStudio.FileSystem;
+﻿using PaletteStudio.FileSystem;
 using PaletteStudio.Utils;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.IO;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
-using PaletteStudio.Common;
 using System.Windows.Forms;
 
 namespace PaletteStudio.GUI.Dialogs
