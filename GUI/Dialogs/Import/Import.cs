@@ -42,10 +42,19 @@ namespace PaletteStudio.GUI.Dialogs
                     img = Image.FromFile(path);
                     FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
                     int framecount = img.GetFrameCount(fd);
-                    if (framecount > 1) 
-                        Misc.GifToIndex(img, Data, framecount);
-                    else 
-                        Misc.GetIndexedItem(img, Data);
+                    if (framecount > 1)
+                        Misc.GifToIndex(img, Data, framecount, (int)nudMaxNum.Value);
+                    else
+                        Misc.GetIndexedItem(img, Data, (int)nudMaxNum.Value);
+                    btnImport.Enabled = true;
+                    nudMaxNum.ReadOnly = true;
+                    nudMaxNum.Increment = 0;
+                }
+                else
+                {
+                    nudMaxNum.Increment = 3;
+                    nudMaxNum.ReadOnly = false;
+                    btnImport.Enabled = false;
                 }
             }
             catch(Exception ex)
@@ -53,19 +62,23 @@ namespace PaletteStudio.GUI.Dialogs
                 try
                 {
                     img = Misc.DecodePCX(path);
-                    Misc.GetIndexedItem(img, Data);
+                    Misc.GetIndexedItem(img, Data, (int)nudMaxNum.Value);
                     flag = true;
+                    btnImport.Enabled = true;
+                    nudMaxNum.ReadOnly = true;
+                    nudMaxNum.Increment = 0;
                 }
                 catch(Exception Ex)
                 {
                     MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImportLoad"] + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
+                    nudMaxNum.ReadOnly = false;
+                    nudMaxNum.Increment = 3;
                     return;
                 }
             }
             PreviewBox.Image = img;
             lblPath.Text = Language.DICT["ImportlblPrefix"] + path;
-            btnImport.Enabled = true;
         }
 
         private void BtnImport_Click(object sender, EventArgs e)

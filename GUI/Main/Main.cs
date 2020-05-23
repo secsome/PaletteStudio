@@ -19,6 +19,7 @@ namespace PaletteStudio
         {
             InitializeComponent();
             Misc.SetLanguage(this);
+            UpdateTitle(Language.DICT["MainTitleEmptyName"]);
         }
 
         #region Undo & Redo
@@ -68,6 +69,14 @@ namespace PaletteStudio
         #endregion
 
         #region GUI Updates
+        private void UpdateTitle(string defName)
+        {
+            Text = 
+                Constant.RunTime.ProgromTitle + " " + 
+                Constant.RunTime.ProgramVersion + " " + " - " + 
+                (string.IsNullOrEmpty(SavePath) ? defName : SavePath
+                );
+        }
         private void UpdatePreview()
         {
             ColorPreview.BackColor = Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value);
@@ -177,6 +186,7 @@ namespace PaletteStudio
                         MainPanel.Refresh();
                         MainPanel_SelectedIndexChanged(null, new EventArgs());
                         MainPanel_BackColorChanged(null, new EventArgs());
+                        UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                         CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
                     }
                     catch(Exception ex)

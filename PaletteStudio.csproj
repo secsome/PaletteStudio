@@ -91,6 +91,12 @@
     <Compile Include="GUI\Dialogs\Import\Import.Designer.cs">
       <DependentUpon>Import.cs</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Dialogs\Merge\Merge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\Dialogs\Merge\Merge.Designer.cs">
+      <DependentUpon>Merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="GUI\Dialogs\MyMessageBox\MyMessageBox.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -157,6 +163,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Dialogs\Import\Import.resx">
       <DependentUpon>Import.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GUI\Dialogs\Merge\Merge.resx">
+      <DependentUpon>Merge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="GUI\Dialogs\MyMessageBox\MyMessageBox.resx">
       <DependentUpon>MyMessageBox.cs</DependentUpon>

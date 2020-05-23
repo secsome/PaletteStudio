@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
+using ImageProcessor.Imaging.Quantizers;
 using System.Windows.Forms;
 
 namespace PaletteStudio.Utils
@@ -129,8 +130,9 @@ namespace PaletteStudio.Utils
         {
             return Color.FromArgb(A, R, G, B).ToArgb();
         }
-        public unsafe static void GetIndexedItem(Image img, PalFile pal)
+        public unsafe static void GetIndexedItem(Image img, PalFile pal, int maxNum)
         {
+            HashSet<int> set = new HashSet<int>();
             List<int> myPalette = new List<int>();
             if (img.PixelFormat == PixelFormat.Format8bppIndexed)
             {
@@ -141,12 +143,15 @@ namespace PaletteStudio.Utils
             {
                 ImageFactory factory = new ImageFactory();
                 factory.Load(img);
-                ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true};
+
+                ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true, Quantizer = new OctreeQuantizer(maxNum, 8) };
+
                 factory.Format(format);
                 MemoryStream stream = new MemoryStream();
                 factory.Save(stream);
-                Bitmap src = new Bitmap(stream);
+                img = Image.FromStream(stream);
                 stream.Dispose();
+                Bitmap src = new Bitmap(img);
                 Bitmap back = new Bitmap(src.Width, src.Height);
                 Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
                 BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
@@ -156,20 +161,29 @@ namespace PaletteStudio.Utils
                     for (int i = 0; i < src.Width; i++)
                     {
                         int argb = Color.FromArgb(252, ptr[2], ptr[1], ptr[0]).ToArgb();
-                        if (!myPalette.Contains(argb)) myPalette.Add(argb);
+                        set.Add(argb);
                         ptr += 4;
                     }
                     ptr += bmpData.Stride - bmpData.Width * 4;
                 }
                 src.UnlockBits(bmpData);
                 img = src;
+                myPalette = set.ToList();
             }
             while (myPalette.Count < 256) myPalette.Add(Constant.Colors.PaletteBlack);
             pal.Data = myPalette;
-            return;
         }
-        public unsafe static void GifToIndex(Image img, PalFile pal, int framecount)
+        public unsafe static void GifToIndex(Image img, PalFile pal, int framecount, int maxNum)
         {
+            ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true, Quantizer = new OctreeQuantizer(maxNum, 8) };
+            ImageFactory factory = new ImageFactory();
+            factory.Load(img);
+            factory.Format(format);
+            MemoryStream stream = new MemoryStream();
+            factory.Save(stream);
+            img = Image.FromStream(stream);
+            stream.Dispose();
+
             HashSet<int> set = new HashSet<int>();
             FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
             for (int k = 0; k < framecount; k++)

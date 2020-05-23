@@ -14,18 +14,13 @@ namespace PaletteStudio.GUI.Dialogs
         private void TreeViewInitialization()
         {
             string[] roots = GlobalVar.INI["RootNodes"]["Nodes"].Split(',');
-            foreach(string temp in roots)
-            {
-                if (temp == "%DEFAULT")
-                {
-                    TreeNode treeNode = new TreeNode("Default");
-                    List<int> data = new List<int>();
-                    for (int i = 0; i < 256; i++) data.Add(Color.FromArgb(252, i, i, i).ToArgb());
-                    treeNode.Tag = data;
-                    lvTemplates.Nodes.Add(treeNode);
-                }
-                else LoadTemplates(temp, lvTemplates, null);
-            }
+            TreeNode treeNode = new TreeNode("Default");
+            List<int> data = new List<int>();
+            for (int i = 0; i < 256; i++) data.Add(Color.FromArgb(252, i, i, i).ToArgb());
+            treeNode.Tag = data;
+            lvTemplates.Nodes.Add(treeNode);
+            foreach (string temp in roots)
+                LoadTemplates(temp, lvTemplates, null);
         }
 
         private void LoadTemplates(string path, TreeView tv, TreeNode parent)

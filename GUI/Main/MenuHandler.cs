@@ -41,6 +41,7 @@ namespace PaletteStudio
                     MainPanel_BackColorChanged(null, new EventArgs());
                     MainPanel_SelectedIndexChanged(null, new EventArgs());
                     CurrentStatusLabel.Text = Language.DICT["StslblNewSucceed"];
+                    UpdateTitle(Language.DICT["MainTitleNewName"]);
                 }
                 MainPanel.Refresh();
             }
@@ -84,6 +85,7 @@ namespace PaletteStudio
                     MainPanel.Refresh();
                     MainPanel_SelectedIndexChanged(null, new EventArgs());
                     MainPanel_BackColorChanged(null, new EventArgs());
+                    UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                     CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
                 }
             }
@@ -93,6 +95,7 @@ namespace PaletteStudio
                 IsSaved = false;
                 MainPanel.Close();
                 CurrentStatusLabel.Text = Language.DICT["StslblOpenFailed"];
+                UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                 MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOpen"] + ex.Message);
             }
         }
@@ -135,6 +138,7 @@ namespace PaletteStudio
                     SavePath = saveFileDialog.FileName;
                     MainPanel.PalSource.Save(SavePath);
                     IsSaved = true;
+                    UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                     CurrentStatusLabel.Text = Language.DICT["StslblSaveSucceed"];
                 }
             }
@@ -151,6 +155,7 @@ namespace PaletteStudio
                 MainPanel.Close();
                 IsSaved = false;
                 SavePath = "";
+                UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                 Undos.Clear();
                 Redos.Clear();
                 CurrentStatusLabel.Text = Language.DICT["StslblCloseSucceed"];
@@ -309,6 +314,24 @@ namespace PaletteStudio
             {
                 CurrentStatusLabel.Text = Language.DICT["StslblExportFailed"];
                 MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalExport"] + ex.Message);
+            }
+        }
+        private void MainmenuMergeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (MainPanel.PalSource == null) return;
+                Merge merge = new Merge(MainPanel.PalSource);
+                if (merge.ShowDialog() == DialogResult.OK)
+                {
+                    Misc.DeepCopy(merge.PreviewPanel.PalSource.Data, MainPanel.PalSource.Data);
+                    MainPanel.Refresh();
+                }
+            }
+            catch(Exception ex)
+            {
+                CurrentStatusLabel.Text = Language.DICT["StslblMergeFailed"];
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalMerge"] + ex.Message);
             }
         }
         #endregion

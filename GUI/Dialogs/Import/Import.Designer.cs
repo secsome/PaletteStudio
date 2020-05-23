@@ -31,17 +31,19 @@
             this.lblPath = new System.Windows.Forms.Label();
             this.btnLoad = new System.Windows.Forms.Button();
             this.btnImport = new System.Windows.Forms.Button();
-            this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PreviewBox = new System.Windows.Forms.PictureBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.nudMaxNum = new System.Windows.Forms.NumericUpDown();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxNum)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPath
             // 
             this.lblPath.AutoSize = true;
-            this.lblPath.Location = new System.Drawing.Point(0, 267);
+            this.lblPath.Location = new System.Drawing.Point(12, 417);
             this.lblPath.Name = "lblPath";
             this.lblPath.Size = new System.Drawing.Size(95, 12);
             this.lblPath.TabIndex = 1;
@@ -49,9 +51,9 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(0, 279);
+            this.btnLoad.Location = new System.Drawing.Point(717, 153);
             this.btnLoad.Name = "btnLoad";
-            this.btnLoad.Size = new System.Drawing.Size(264, 24);
+            this.btnLoad.Size = new System.Drawing.Size(102, 24);
             this.btnLoad.TabIndex = 2;
             this.btnLoad.Text = "ImportbtnLoad";
             this.btnLoad.UseVisualStyleBackColor = true;
@@ -60,33 +62,26 @@
             // btnImport
             // 
             this.btnImport.Enabled = false;
-            this.btnImport.Location = new System.Drawing.Point(270, 279);
+            this.btnImport.Location = new System.Drawing.Point(717, 183);
             this.btnImport.Name = "btnImport";
-            this.btnImport.Size = new System.Drawing.Size(279, 24);
+            this.btnImport.Size = new System.Drawing.Size(102, 24);
             this.btnImport.TabIndex = 3;
             this.btnImport.Text = "ImportbtnImport";
             this.btnImport.UseVisualStyleBackColor = true;
             this.btnImport.Click += new System.EventHandler(this.BtnImport_Click);
             // 
-            // panel1
-            // 
-            this.panel1.Location = new System.Drawing.Point(264, 279);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(6, 239);
-            this.panel1.TabIndex = 4;
-            // 
             // panel2
             // 
             this.panel2.AutoScroll = true;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.panel2.Controls.Add(this.PreviewBox);
             this.panel2.Location = new System.Drawing.Point(2, 0);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(547, 264);
+            this.panel2.Size = new System.Drawing.Size(709, 414);
             this.panel2.TabIndex = 5;
             // 
             // PreviewBox
             // 
-            this.PreviewBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.PreviewBox.Location = new System.Drawing.Point(0, 0);
             this.PreviewBox.Name = "PreviewBox";
             this.PreviewBox.Size = new System.Drawing.Size(549, 267);
@@ -94,13 +89,45 @@
             this.PreviewBox.TabIndex = 6;
             this.PreviewBox.TabStop = false;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(717, 210);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(95, 12);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "ImportlblMaxNum";
+            // 
+            // nudMaxNum
+            // 
+            this.nudMaxNum.Location = new System.Drawing.Point(719, 225);
+            this.nudMaxNum.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.nudMaxNum.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nudMaxNum.Name = "nudMaxNum";
+            this.nudMaxNum.Size = new System.Drawing.Size(100, 21);
+            this.nudMaxNum.TabIndex = 7;
+            this.nudMaxNum.Value = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            // 
             // Import
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(549, 303);
+            this.ClientSize = new System.Drawing.Size(831, 438);
+            this.Controls.Add(this.nudMaxNum);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
-            this.Controls.Add(this.panel1);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.btnLoad);
             this.Controls.Add(this.lblPath);
@@ -115,6 +142,7 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudMaxNum)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -124,8 +152,9 @@
         private System.Windows.Forms.Label lblPath;
         private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnImport;
-        private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox PreviewBox;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.NumericUpDown nudMaxNum;
     }
 }
