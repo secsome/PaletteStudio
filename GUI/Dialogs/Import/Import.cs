@@ -70,7 +70,7 @@ namespace PaletteStudio.GUI.Dialogs
                 }
                 catch(Exception Ex)
                 {
-                    MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImportLoad"] + (flag ? Ex.Message : ex.Message));
+                    MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImport"] + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
                     nudMaxNum.ReadOnly = false;
                     nudMaxNum.Increment = 3;
