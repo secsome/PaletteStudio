@@ -28,40 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(About));
+            this.palPanel1 = new PaletteStudio.GUI.PalPanel();
             this.SuspendLayout();
             // 
-            // label1
+            // palPanel1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(281, 36);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Pal Studio is programed by secsome.\r\nbilibili: https://space.bilibili.com/1437480" +
-    "01\r\nblog: secsome.github.io";
+            this.palPanel1.AllowDropOpen = false;
+            this.palPanel1.BackgroundImage = global::PaletteStudio.Properties.Resources.About;
+            this.palPanel1.IsEditable = false;
+            this.palPanel1.IsMultiSelect = true;
+            this.palPanel1.IsSelectable = true;
+            this.palPanel1.IsSelectVisible = true;
+            this.palPanel1.Location = new System.Drawing.Point(0, 0);
+            this.palPanel1.Name = "palPanel1";
+            this.palPanel1.PalSource = null;
+            this.palPanel1.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("palPanel1.Selections")));
+            this.palPanel1.Size = new System.Drawing.Size(800, 600);
+            this.palPanel1.TabIndex = 0;
+            this.palPanel1.Click += new System.EventHandler(this.palPanel1_Click);
+            this.palPanel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.palPanel1_MouseMove);
             // 
             // About
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(306, 52);
-            this.Controls.Add(this.label1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.ClientSize = new System.Drawing.Size(800, 600);
+            this.ControlBox = false;
+            this.Controls.Add(this.palPanel1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "About";
             this.ShowIcon = false;
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "About";
+            this.Text = "AboutTitle";
+            this.Click += new System.EventHandler(this.About_Click);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.Label label1;
+        private PalPanel palPanel1;
     }
 }

@@ -8,5 +8,19 @@ namespace PaletteStudio.GUI.Dialogs
         {
             InitializeComponent();
         }
+
+        private void About_Click(object sender, System.EventArgs e)
+        {
+            Close();
+        }
+
+        private void palPanel1_Click(object sender, System.EventArgs e)
+        {
+            Close();
+        }
+
+        private void palPanel1_MouseMove(object sender, MouseEventArgs e)
+        {
+        }
     }
 }
