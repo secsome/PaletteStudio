@@ -143,9 +143,7 @@ namespace PaletteStudio.Utils
             {
                 ImageFactory factory = new ImageFactory();
                 factory.Load(img);
-
                 ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true, Quantizer = new OctreeQuantizer(maxNum, 8) };
-
                 factory.Format(format);
                 MemoryStream stream = new MemoryStream();
                 factory.Save(stream);
@@ -173,17 +171,8 @@ namespace PaletteStudio.Utils
             while (myPalette.Count < 256) myPalette.Add(Constant.Colors.PaletteBlack);
             pal.Data = myPalette;
         }
-        public unsafe static void GifToIndex(Image img, PalFile pal, int framecount, int maxNum)
+        public unsafe static void GifToIndex(Image img, PalFile pal, int framecount)
         {
-            ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true, Quantizer = new OctreeQuantizer(maxNum, 8) };
-            ImageFactory factory = new ImageFactory();
-            factory.Load(img);
-            factory.Format(format);
-            MemoryStream stream = new MemoryStream();
-            factory.Save(stream);
-            img = Image.FromStream(stream);
-            stream.Dispose();
-
             HashSet<int> set = new HashSet<int>();
             FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
             for (int k = 0; k < framecount; k++)
@@ -197,7 +186,7 @@ namespace PaletteStudio.Utils
                 {
                     for (int i = 0; i < src.Width; i++)
                     {
-                        if(ptr[3]!=0)    set.Add(Color.FromArgb(ptr[3], ptr[2], ptr[1], ptr[0]).ToArgb());
+                        if (ptr[3] != 0) set.Add(Color.FromArgb(ptr[3], ptr[2], ptr[1], ptr[0]).ToArgb());
                         ptr += 4;
                     }
                     ptr += bmpData.Stride - bmpData.Width * 4;

@@ -1,6 +1,10 @@
 ﻿using PaletteStudio.FileSystem;
 using PaletteStudio.Utils;
+using ImageProcessor;
+using ImageProcessor.Imaging.Formats;
+using ImageProcessor.Imaging.Quantizers;
 using System;
+using System.IO;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.Linq;
@@ -43,7 +47,8 @@ namespace PaletteStudio.GUI.Dialogs
                     FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
                     int framecount = img.GetFrameCount(fd);
                     if (framecount > 1)
-                        Misc.GifToIndex(img, Data, framecount, (int)nudMaxNum.Value);
+                        Misc.GifToIndex(img, Data, framecount);
+                        
                     else
                         Misc.GetIndexedItem(img, Data, (int)nudMaxNum.Value);
                     btnImport.Enabled = true;
