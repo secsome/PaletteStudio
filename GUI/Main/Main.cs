@@ -127,8 +127,9 @@ namespace PaletteStudio
         {
             if (MainPanel.PalSource == null) return;
             MakeUndo();
-            Color newColor = Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value);
-            MainPanel.PalSource[MainPanel.Selections.LastOrDefault()] = newColor.ToArgb();
+            int newColor = Color.FromArgb(252, (int)nudRed.Value, (int)nudGreen.Value, (int)nudBlue.Value).ToArgb();
+            foreach (byte sel in MainPanel.Selections)
+                MainPanel.PalSource[sel] = newColor;
             MainPanel.Refresh();
         }
 

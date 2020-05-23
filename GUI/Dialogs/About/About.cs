@@ -18,9 +18,5 @@ namespace PaletteStudio.GUI.Dialogs
         {
             Close();
         }
-
-        private void palPanel1_MouseMove(object sender, MouseEventArgs e)
-        {
-        }
     }
 }

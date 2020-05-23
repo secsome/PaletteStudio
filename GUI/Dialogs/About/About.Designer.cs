@@ -47,7 +47,6 @@
             this.palPanel1.Size = new System.Drawing.Size(800, 600);
             this.palPanel1.TabIndex = 0;
             this.palPanel1.Click += new System.EventHandler(this.palPanel1_Click);
-            this.palPanel1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.palPanel1_MouseMove);
             // 
             // About
             // 

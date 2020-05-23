@@ -65,7 +65,7 @@ namespace PaletteStudio.Utils
         public static void LoadLanguage(string ID)
         {
             Dictionary<string, string> dict = new Dictionary<string, string>();
-            INIEntity ent = GlobalVar.INI[GlobalVar.INI["Language"][ID]];
+            INIEntity ent = GlobalVar.INI[ID];
             foreach (INIPair p in ent.DataList)
                 dict[p.Name] = p.Value;
             Language.DICT = new Lang(dict);

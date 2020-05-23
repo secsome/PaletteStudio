@@ -62,6 +62,7 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.CurrentStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.MainPanel = new PaletteStudio.GUI.PalPanel();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label5 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -74,7 +75,6 @@
             this.nudRed = new System.Windows.Forms.NumericUpDown();
             this.label2 = new System.Windows.Forms.Label();
             this.ColorPreview = new System.Windows.Forms.PictureBox();
-            this.MainPanel = new PaletteStudio.GUI.PalPanel();
             this.menuStrip1.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.statusStrip1.SuspendLayout();
@@ -365,6 +365,23 @@
             this.splitContainer1.SplitterDistance = 238;
             this.splitContainer1.TabIndex = 14;
             // 
+            // MainPanel
+            // 
+            this.MainPanel.AllowDrop = true;
+            this.MainPanel.AllowDropOpen = true;
+            this.MainPanel.ContextMenuStrip = this.contextMenuStrip1;
+            this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MainPanel.IsEditable = true;
+            this.MainPanel.IsMultiSelect = true;
+            this.MainPanel.IsSelectable = true;
+            this.MainPanel.IsSelectVisible = true;
+            this.MainPanel.Location = new System.Drawing.Point(0, 0);
+            this.MainPanel.Name = "MainPanel";
+            this.MainPanel.PalSource = null;
+            this.MainPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("MainPanel.Selections")));
+            this.MainPanel.Size = new System.Drawing.Size(238, 403);
+            this.MainPanel.TabIndex = 28;
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.label5);
@@ -461,6 +478,7 @@
             this.btnApply.TabIndex = 46;
             this.btnApply.Text = "MainbtnApply";
             this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.BtnApply_Click);
             // 
             // nudRed
             // 
@@ -491,23 +509,6 @@
             this.ColorPreview.Size = new System.Drawing.Size(95, 21);
             this.ColorPreview.TabIndex = 47;
             this.ColorPreview.TabStop = false;
-            // 
-            // MainPanel
-            // 
-            this.MainPanel.AllowDrop = true;
-            this.MainPanel.AllowDropOpen = true;
-            this.MainPanel.ContextMenuStrip = this.contextMenuStrip1;
-            this.MainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MainPanel.IsEditable = true;
-            this.MainPanel.IsMultiSelect = true;
-            this.MainPanel.IsSelectable = true;
-            this.MainPanel.IsSelectVisible = true;
-            this.MainPanel.Location = new System.Drawing.Point(0, 0);
-            this.MainPanel.Name = "MainPanel";
-            this.MainPanel.PalSource = null;
-            this.MainPanel.Selections = ((System.Collections.Generic.List<byte>)(resources.GetObject("MainPanel.Selections")));
-            this.MainPanel.Size = new System.Drawing.Size(238, 403);
-            this.MainPanel.TabIndex = 28;
             // 
             // Main
             // 
