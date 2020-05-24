@@ -35,6 +35,18 @@ namespace PaletteStudio
                     UpdateTitle(Language.DICT["MainTitleEmptyName"]);
                     CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
                 }
+                else if (!string.IsNullOrWhiteSpace(args[2]))
+                {
+                    SavePath = args[2];
+                    IsSaved = true;
+                    MainPanel.Selections.Clear();
+                    MainPanel.PalSource = new PalFile(SavePath);
+                    MainPanel.Refresh();
+                    MainPanel_SelectedIndexChanged(null, new EventArgs());
+                    MainPanel_BackColorChanged(null, new EventArgs());
+                    UpdateTitle(Language.DICT["MainTitleEmptyName"]);
+                    CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
+                }
             }
             catch (Exception ex)
             {

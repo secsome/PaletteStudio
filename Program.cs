@@ -3,6 +3,8 @@ using PaletteStudio.FileSystem;
 using PaletteStudio.GUI.Dialogs;
 using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace PaletteStudio
