@@ -1,28 +1,21 @@
-# TODO
-1.跨pal复制(✔)
-举例如下：
-一个窗口可同时打开两个pal（或像ImageShaper一样可以同时列举三个列），例如A.pal与B.pal。我用常见快捷键（Shift选择范围，Ctrl单独选择）选中A色盘中的一段，然后使用右键菜单复制或Ctrl+C快捷键复制，然后选中B色盘的某个位置粘贴，能快速将刚刚选中的色盘序列复制到另一个色盘中去，而当我打开多个pal editor窗口时，也能跨窗口复制。
+# Palette Studio
+	Palette Studio is a tool used for making RA2/TS Palettes, it is a Winform application based on NET.Framework 4.7.2. So if your computer cannot run it, please check your .NET version before reporting to me.
+	The Palette Studio has a lot of convenient features, with the C# library ImageProcesser, it can:
+-	Select multi colors at one time by using Ctrl/Shift.
+-	Copy colors from one palette to another palette.
+-	Create a new palette by using a template.
+-	Draw a list of colors by “Gradient”.
+-	Find the nearest color in your palette[1].
+-	Import an image and convert it into a palette.
+-	Merge colors into less colors.
+-	Export the current palette as a template.
+	There might be several issues in this program, if you find any, please report it to me at 3179369262@qq.com.
+	Thanks to Fantasycho, who helped to test for this program and made valuable suggestions, also icon and images.
+	The code reading PCX files refer to ImageFormats. And the INI and PAL files refer to relert-sharp. Thanks to the developers of these projects.
+	Be warn! This program won’t be a open-sourced one for some reason.
 
-2.颜色快速排序(✔)
-能将已有的色盘内颜色按照RGB数值综合快速排序，同时排序可以自定义选定范围。例如我只需要将一个色盘的17-239号色排序，那么我选中这些颜色，右键菜单选择排序或是快捷键快速排序。排序方式可以设计多种，例如R优先，G优先，B优先，灰度优先，RGB综合数值优先等。
-
-3.将含有索引色的图片（包括并不限于索引色的pcx，png等）或GIF快速转pal(✔)
-增加一个导入功能，例如我导入一个gif或者是索引色的图片后，新的pal editor会自动根据图片或GIF内自带的索引色信息生成颜色表并转换成pal，同时在导入时增加排序选项。
-
-4.模板功能(✔)
-增加一些固定格式的pal新建模板，例如固定前16个颜色并且8-15号色是渐变红/渐变绿/渐变蓝/渐变紫，只能添加后240个颜色的单位自定义色盘模板，例如固定第一个颜色为R255G0B255的动画色盘模板等
-
-5.背景色功能(✔)
-当我选中色盘内的多个颜色并右键删除/delete快捷键时，这些颜色将会变成我所设置的背景色，背景色可以在设置内自定义设置，通过输入16进制6位代码或是调色板可以快捷指定删除后色盘的背景色。
-
-6.退出前提示保存(✔)  /自动保存 (×)
-RT，老版pal editor没这个功能，所以你没保存就凉了。或者增加自动保存功能，可以设置每隔一段时间系统自动保存副本。副本名字与格式可以在设置内设置。
-
-7.增加一段有规律的颜色功能(✔)
-选择色盘内任意的部分，右键菜单或快捷键可呼出增加颜色范围选单，用户可指定第一个颜色的RGB值与最后一个颜色的RGB值，然后系统会根据选中格子的数量与用户输入的头尾RGB值依照等差数列规律自动计算出每个格子内的RGB值。
-
-8.高级导入功能(✔)
-当我把一个含有超过256种颜色的图片想转换成pal时，新pal editor能自动选取图片中最具有特点的颜色转换成pal，当然，最好是用户能自定义转换颜色数量，例如我可以将一张图片选取256种颜色导入，也可以只选取最具代表的240种颜色导入，剩下的16个颜色自动按照我设置好的背景色填充。
-
-9.窗口复制功能(✔)
-就像NotePad++的窗口复制功能一样，新pal editor的pal编辑窗口能快速复制到另一个窗口中去，同时，假如我保存一个窗口后，两个窗口同时更新最新保存数据并向用户显示。
+## Version 1.01
+-	Add starting/ending idx option while importing an image
+-	Add “delta” in find dialog
+## Version 1.0
+-	The first released version of Palette Studio

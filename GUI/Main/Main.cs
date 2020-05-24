@@ -20,6 +20,31 @@ namespace PaletteStudio
             InitializeComponent();
             Misc.SetLanguage(this);
             UpdateTitle(Language.DICT["MainTitleEmptyName"]);
+            try
+            {
+                string[] args = Environment.CommandLine.Split('\"');
+                if (args.Length > 3)
+                {
+                    SavePath = args[3];
+                    IsSaved = true;
+                    MainPanel.Selections.Clear();
+                    MainPanel.PalSource = new PalFile(SavePath);
+                    MainPanel.Refresh();
+                    MainPanel_SelectedIndexChanged(null, new EventArgs());
+                    MainPanel_BackColorChanged(null, new EventArgs());
+                    UpdateTitle(Language.DICT["MainTitleEmptyName"]);
+                    CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
+                }
+            }
+            catch (Exception ex)
+            {
+                SavePath = "";
+                IsSaved = false;
+                MainPanel.Close();
+                CurrentStatusLabel.Text = Language.DICT["StslblOpenFailed"];
+                UpdateTitle(Language.DICT["MainTitleEmptyName"]);
+                MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalOpen"] + ex.Message);
+            }
         }
 
         #region Undo & Redo

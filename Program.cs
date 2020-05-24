@@ -17,6 +17,7 @@ namespace PaletteStudio
         {
             try
             {
+                Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
                 InitializeGlobalVars();
                 Utils.Misc.LoadLanguage();
                 ReadNewTemplates();
