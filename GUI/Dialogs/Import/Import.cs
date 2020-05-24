@@ -50,15 +50,15 @@ namespace PaletteStudio.GUI.Dialogs
                         Misc.GifToIndex(img, Data);
 
                     else
-                        Misc.GetIndexedItem(img, Data, (int)nudMaxNum.Value);
+                        Misc.GetIndexedItem(img, Data, (int)nudStartingIndex.Value);
                     btnImport.Enabled = true;
-                    nudMaxNum.ReadOnly = true;
-                    nudMaxNum.Increment = 0;
+                    nudStartingIndex.ReadOnly = true;
+                    nudStartingIndex.Increment = 0;
                 }
                 else
                 {
-                    nudMaxNum.Increment = 3;
-                    nudMaxNum.ReadOnly = false;
+                    nudStartingIndex.Increment = 3;
+                    nudStartingIndex.ReadOnly = false;
                     btnImport.Enabled = false;
                 }
             }
@@ -67,18 +67,18 @@ namespace PaletteStudio.GUI.Dialogs
                 try
                 {
                     img = Misc.DecodePCX(path);
-                    Misc.GetIndexedItem(img, Data, (int)nudMaxNum.Value);
+                    Misc.GetIndexedItem(img, Data, (int)nudStartingIndex.Value);
                     flag = true;
                     btnImport.Enabled = true;
-                    nudMaxNum.ReadOnly = true;
-                    nudMaxNum.Increment = 0;
+                    nudStartingIndex.ReadOnly = true;
+                    nudStartingIndex.Increment = 0;
                 }
                 catch(Exception Ex)
                 {
                     MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImport"] + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
-                    nudMaxNum.ReadOnly = false;
-                    nudMaxNum.Increment = 3;
+                    nudStartingIndex.ReadOnly = false;
+                    nudStartingIndex.Increment = 3;
                     return;
                 }
             }

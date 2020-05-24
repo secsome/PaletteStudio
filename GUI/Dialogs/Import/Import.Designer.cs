@@ -34,10 +34,13 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.PreviewBox = new System.Windows.Forms.PictureBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.nudMaxNum = new System.Windows.Forms.NumericUpDown();
+            this.nudStartingIndex = new System.Windows.Forms.NumericUpDown();
+            this.nudSteps = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxNum)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStartingIndex)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSteps)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPath
@@ -51,7 +54,7 @@
             // 
             // btnLoad
             // 
-            this.btnLoad.Location = new System.Drawing.Point(717, 153);
+            this.btnLoad.Location = new System.Drawing.Point(717, 133);
             this.btnLoad.Name = "btnLoad";
             this.btnLoad.Size = new System.Drawing.Size(102, 24);
             this.btnLoad.TabIndex = 2;
@@ -62,7 +65,7 @@
             // btnImport
             // 
             this.btnImport.Enabled = false;
-            this.btnImport.Location = new System.Drawing.Point(717, 183);
+            this.btnImport.Location = new System.Drawing.Point(717, 163);
             this.btnImport.Name = "btnImport";
             this.btnImport.Size = new System.Drawing.Size(102, 24);
             this.btnImport.TabIndex = 3;
@@ -93,43 +96,60 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Enabled = false;
-            this.label1.Location = new System.Drawing.Point(717, 210);
+            this.label1.Location = new System.Drawing.Point(717, 201);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(95, 12);
+            this.label1.Size = new System.Drawing.Size(137, 12);
             this.label1.TabIndex = 6;
-            this.label1.Text = "ImportlblMaxNum";
+            this.label1.Text = "ImportlblStartingIndex";
             this.label1.Visible = false;
             // 
-            // nudMaxNum
+            // nudStartingIndex
             // 
-            this.nudMaxNum.Enabled = false;
-            this.nudMaxNum.Location = new System.Drawing.Point(719, 225);
-            this.nudMaxNum.Maximum = new decimal(new int[] {
+            this.nudStartingIndex.Enabled = false;
+            this.nudStartingIndex.Location = new System.Drawing.Point(719, 216);
+            this.nudStartingIndex.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.nudMaxNum.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-            this.nudMaxNum.Name = "nudMaxNum";
-            this.nudMaxNum.Size = new System.Drawing.Size(100, 21);
-            this.nudMaxNum.TabIndex = 7;
-            this.nudMaxNum.Value = new decimal(new int[] {
+            this.nudStartingIndex.Name = "nudStartingIndex";
+            this.nudStartingIndex.Size = new System.Drawing.Size(100, 21);
+            this.nudStartingIndex.TabIndex = 7;
+            this.nudStartingIndex.Visible = false;
+            // 
+            // nudSteps
+            // 
+            this.nudSteps.Enabled = false;
+            this.nudSteps.Location = new System.Drawing.Point(719, 255);
+            this.nudSteps.Maximum = new decimal(new int[] {
             255,
             0,
             0,
             0});
-            this.nudMaxNum.Visible = false;
+            this.nudSteps.Name = "nudSteps";
+            this.nudSteps.Size = new System.Drawing.Size(100, 21);
+            this.nudSteps.TabIndex = 9;
+            this.nudSteps.Visible = false;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Enabled = false;
+            this.label2.Location = new System.Drawing.Point(715, 240);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(89, 12);
+            this.label2.TabIndex = 8;
+            this.label2.Text = "ImportlblSteps";
+            this.label2.Visible = false;
             // 
             // Import
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 438);
-            this.Controls.Add(this.nudMaxNum);
+            this.Controls.Add(this.nudSteps);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.nudStartingIndex);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnImport);
@@ -146,7 +166,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudMaxNum)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudStartingIndex)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nudSteps)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -159,6 +180,8 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox PreviewBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown nudMaxNum;
+        private System.Windows.Forms.NumericUpDown nudStartingIndex;
+        private System.Windows.Forms.NumericUpDown nudSteps;
+        private System.Windows.Forms.Label label2;
     }
 }
