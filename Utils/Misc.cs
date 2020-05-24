@@ -10,6 +10,7 @@ using ImageProcessor;
 using ImageProcessor.Imaging.Formats;
 using ImageProcessor.Imaging.Quantizers;
 using System.Windows.Forms;
+using System.Security.Policy;
 
 namespace PaletteStudio.Utils
 {
@@ -171,31 +172,48 @@ namespace PaletteStudio.Utils
             while (myPalette.Count < 256) myPalette.Add(Constant.Colors.PaletteBlack);
             pal.Data = myPalette;
         }
-        public unsafe static void GifToIndex(Image img, PalFile pal, int framecount)
+        public unsafe static void GifToIndex(Image img, PalFile pal)
         {
+            PropertyItem[] props = img.PropertyItems;
             HashSet<int> set = new HashSet<int>();
-            FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
-            for (int k = 0; k < framecount; k++)
+            foreach(PropertyItem x in props)
+                if(x.Id== 0x5102)
+                    for (int i = 0; i < x.Len; i += 3)
+                        set.Add(Color.FromArgb(252, x.Value[i], x.Value[i + 1], x.Value[i + 2]).ToArgb());
+
+            if (set.Count > 256)
             {
-                img.SelectActiveFrame(fd, k);
-                Bitmap src = new Bitmap(img);
-                Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
-                BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
-                byte* ptr = (byte*)bmpData.Scan0;
-                for (int j = 0; j < src.Height; j++)
-                {
-                    for (int i = 0; i < src.Width; i++)
-                    {
-                        if (ptr[3] != 0) set.Add(Color.FromArgb(ptr[3], ptr[2], ptr[1], ptr[0]).ToArgb());
-                        ptr += 4;
-                    }
-                    ptr += bmpData.Stride - bmpData.Width * 4;
-                }
-                src.UnlockBits(bmpData);
-                src.Dispose();
+                Bitmap bmp = new Bitmap(1, set.Count);
+                GetIndexedItem(bmp, pal, 255);
             }
-            pal.Data = set.ToList();
-            while (pal.Data.Count < 256) pal.Data.Add(Constant.Colors.PaletteBlack);
+            else
+            {
+                pal.Data = set.ToList();
+                while (pal.Data.Count < 256) pal.Data.Add(Constant.Colors.PaletteBlack);
+            }
+            
+            //HashSet<int> set = new HashSet<int>();
+            //FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
+            //for (int k = 0; k < framecount; k++)
+            //{
+            //    img.SelectActiveFrame(fd, k);
+            //    Bitmap src = new Bitmap(img);
+            //    Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
+            //    BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+            //    byte* ptr = (byte*)bmpData.Scan0;
+            //    for (int j = 0; j < src.Height; j++)
+            //    {
+            //        for (int i = 0; i < src.Width; i++)
+            //        {
+            //            if (ptr[3] != 0) set.Add(Color.FromArgb(ptr[3], ptr[2], ptr[1], ptr[0]).ToArgb());
+            //            ptr += 4;
+            //        }
+            //        ptr += bmpData.Stride - bmpData.Width * 4;
+            //    }
+            //    src.UnlockBits(bmpData);
+            //    src.Dispose();
+            //}
+            //pal.Data = set.ToList();
         }
     }
 }

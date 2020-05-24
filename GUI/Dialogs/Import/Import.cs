@@ -47,8 +47,8 @@ namespace PaletteStudio.GUI.Dialogs
                     FrameDimension fd = new FrameDimension(img.FrameDimensionsList[0]);
                     int framecount = img.GetFrameCount(fd);
                     if (framecount > 1)
-                        Misc.GifToIndex(img, Data, framecount);
-                        
+                        Misc.GifToIndex(img, Data);
+
                     else
                         Misc.GetIndexedItem(img, Data, (int)nudMaxNum.Value);
                     btnImport.Enabled = true;
