@@ -31,7 +31,7 @@ namespace PaletteStudio.GUI.Dialogs
                 {
                     Title = Language.DICT["MainTitle"],
                     Filter =
-                    "All Support Image Formats|*.pcx;*.gif;*.bmp;*.png;*.jpg;*.jpeg;*.tiff" +
+                    "All Support Image Formats|*.pcx;*.gif;*.bmp;*.png;*.jpg;*.jpeg;*.tiff|" +
                     "PCX File|*.pcx|" +
                     "GIF File|*.gif|" +
                     "BMP File|*.bmp|" +
