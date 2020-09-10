@@ -76,17 +76,25 @@ namespace PaletteStudio
                 };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    SavePath = openFileDialog.FileName;
-                    IsSaved = true;
-                    Undos.Clear();
-                    Redos.Clear();
-                    MainPanel.Selections.Clear();
-                    MainPanel.PalSource = new PalFile(SavePath);
-                    MainPanel.Refresh();
-                    MainPanel_SelectedIndexChanged(null, new EventArgs());
-                    MainPanel_BackColorChanged(null, new EventArgs());
-                    UpdateTitle(Language.DICT["MainTitleEmptyName"]);
-                    CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
+                    if (SavePath.EndsWith(".ini"))
+                    {
+                        //TODO
+                    }
+                    else
+                    {
+                        SavePath = openFileDialog.FileName;
+                        IsSaved = true;
+                        Undos.Clear();
+                        Redos.Clear();
+                        MainPanel.Selections.Clear();
+                        MainPanel.PalSource = new PalFile(SavePath);
+                        MainPanel.Refresh();
+                        MainPanel_SelectedIndexChanged(null, new EventArgs());
+                        MainPanel_BackColorChanged(null, new EventArgs());
+                        UpdateTitle(Language.DICT["MainTitleEmptyName"]);
+                        CurrentStatusLabel.Text = Language.DICT["StslblOpenSucceed"];
+                    }
+                    
                 }
             }
             catch (Exception ex)
