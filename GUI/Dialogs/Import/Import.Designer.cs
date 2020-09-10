@@ -33,14 +33,13 @@
             this.btnImport = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.PreviewBox = new System.Windows.Forms.PictureBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.nudStartingIndex = new System.Windows.Forms.NumericUpDown();
-            this.nudSteps = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
+            this.rdbModeMC = new System.Windows.Forms.RadioButton();
+            this.rdbModeEF = new System.Windows.Forms.RadioButton();
+            this.rdbModeAV = new System.Windows.Forms.RadioButton();
+            this.gpbMode = new System.Windows.Forms.GroupBox();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudStartingIndex)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSteps)).BeginInit();
+            this.gpbMode.SuspendLayout();
             this.SuspendLayout();
             // 
             // lblPath
@@ -92,65 +91,57 @@
             this.PreviewBox.TabIndex = 6;
             this.PreviewBox.TabStop = false;
             // 
-            // label1
+            // rdbModeMC
             // 
-            this.label1.AutoSize = true;
-            this.label1.Enabled = false;
-            this.label1.Location = new System.Drawing.Point(717, 201);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(137, 12);
-            this.label1.TabIndex = 6;
-            this.label1.Text = "ImportlblStartingIndex";
-            this.label1.Visible = false;
+            this.rdbModeMC.AutoSize = true;
+            this.rdbModeMC.Checked = true;
+            this.rdbModeMC.Location = new System.Drawing.Point(0, 20);
+            this.rdbModeMC.Name = "rdbModeMC";
+            this.rdbModeMC.Size = new System.Drawing.Size(113, 16);
+            this.rdbModeMC.TabIndex = 7;
+            this.rdbModeMC.TabStop = true;
+            this.rdbModeMC.Text = "ImportrdbModeMC";
+            this.rdbModeMC.UseVisualStyleBackColor = true;
             // 
-            // nudStartingIndex
+            // rdbModeEF
             // 
-            this.nudStartingIndex.Enabled = false;
-            this.nudStartingIndex.Location = new System.Drawing.Point(719, 216);
-            this.nudStartingIndex.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudStartingIndex.Name = "nudStartingIndex";
-            this.nudStartingIndex.Size = new System.Drawing.Size(100, 21);
-            this.nudStartingIndex.TabIndex = 7;
-            this.nudStartingIndex.Visible = false;
+            this.rdbModeEF.AutoSize = true;
+            this.rdbModeEF.Location = new System.Drawing.Point(0, 42);
+            this.rdbModeEF.Name = "rdbModeEF";
+            this.rdbModeEF.Size = new System.Drawing.Size(113, 16);
+            this.rdbModeEF.TabIndex = 8;
+            this.rdbModeEF.Text = "ImportrdbModeEF";
+            this.rdbModeEF.UseVisualStyleBackColor = true;
             // 
-            // nudSteps
+            // rdbModeAV
             // 
-            this.nudSteps.Enabled = false;
-            this.nudSteps.Location = new System.Drawing.Point(719, 255);
-            this.nudSteps.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.nudSteps.Name = "nudSteps";
-            this.nudSteps.Size = new System.Drawing.Size(100, 21);
-            this.nudSteps.TabIndex = 9;
-            this.nudSteps.Visible = false;
+            this.rdbModeAV.AutoSize = true;
+            this.rdbModeAV.Enabled = false;
+            this.rdbModeAV.Location = new System.Drawing.Point(0, 64);
+            this.rdbModeAV.Name = "rdbModeAV";
+            this.rdbModeAV.Size = new System.Drawing.Size(113, 16);
+            this.rdbModeAV.TabIndex = 9;
+            this.rdbModeAV.Text = "ImportrdbModeAV";
+            this.rdbModeAV.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // gpbMode
             // 
-            this.label2.AutoSize = true;
-            this.label2.Enabled = false;
-            this.label2.Location = new System.Drawing.Point(715, 240);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 12);
-            this.label2.TabIndex = 8;
-            this.label2.Text = "ImportlblSteps";
-            this.label2.Visible = false;
+            this.gpbMode.Controls.Add(this.rdbModeMC);
+            this.gpbMode.Controls.Add(this.rdbModeAV);
+            this.gpbMode.Controls.Add(this.rdbModeEF);
+            this.gpbMode.Location = new System.Drawing.Point(717, 193);
+            this.gpbMode.Name = "gpbMode";
+            this.gpbMode.Size = new System.Drawing.Size(102, 91);
+            this.gpbMode.TabIndex = 10;
+            this.gpbMode.TabStop = false;
+            this.gpbMode.Text = "ImportgpbMode";
             // 
             // Import
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(831, 438);
-            this.Controls.Add(this.nudSteps);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.nudStartingIndex);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.gpbMode);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.btnImport);
             this.Controls.Add(this.btnLoad);
@@ -166,8 +157,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PreviewBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudStartingIndex)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nudSteps)).EndInit();
+            this.gpbMode.ResumeLayout(false);
+            this.gpbMode.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -179,9 +170,9 @@
         private System.Windows.Forms.Button btnImport;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.PictureBox PreviewBox;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown nudStartingIndex;
-        private System.Windows.Forms.NumericUpDown nudSteps;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RadioButton rdbModeMC;
+        private System.Windows.Forms.RadioButton rdbModeEF;
+        private System.Windows.Forms.RadioButton rdbModeAV;
+        private System.Windows.Forms.GroupBox gpbMode;
     }
 }

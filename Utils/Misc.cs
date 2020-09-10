@@ -11,6 +11,7 @@ using ImageProcessor.Imaging.Formats;
 using ImageProcessor.Imaging.Quantizers;
 using System.Windows.Forms;
 using System.Security.Policy;
+using System;
 
 namespace PaletteStudio.Utils
 {
@@ -131,9 +132,8 @@ namespace PaletteStudio.Utils
         {
             return Color.FromArgb(A, R, G, B).ToArgb();
         }
-        public unsafe static void GetIndexedItem(Image img, PalFile pal, int maxNum)
+        public unsafe static void GetIndexedItem(Image img, PalFile pal, int maxNum, int mode = 2)
         {
-            HashSet<int> set = new HashSet<int>();
             List<int> myPalette = new List<int>();
             if (img.PixelFormat == PixelFormat.Format8bppIndexed)
             {
@@ -142,32 +142,104 @@ namespace PaletteStudio.Utils
             }
             else
             {
-                ImageFactory factory = new ImageFactory();
-                factory.Load(img);
-                ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true, Quantizer = new OctreeQuantizer(maxNum, 8) };
-                factory.Format(format);
-                MemoryStream stream = new MemoryStream();
-                factory.Save(stream);
-                img = Image.FromStream(stream);
-                stream.Dispose();
-                Bitmap src = new Bitmap(img);
-                Bitmap back = new Bitmap(src.Width, src.Height);
-                Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
-                BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
-                byte* ptr = (byte*)bmpData.Scan0;
-                for (int j = 0; j < src.Height; j++)
+                switch (mode)
                 {
-                    for (int i = 0; i < src.Width; i++)
-                    {
-                        int argb = Color.FromArgb(252, ptr[2], ptr[1], ptr[0]).ToArgb();
-                        set.Add(argb);
-                        ptr += 4;
-                    }
-                    ptr += bmpData.Stride - bmpData.Width * 4;
+                    case 0: // Even
+                        HashSet<int> _set = new HashSet<int>();
+                        Bitmap pic = new Bitmap(img);
+                        BitmapData picData = pic.LockBits(
+                                new Rectangle(0, 0, pic.Width, pic.Height),
+                                ImageLockMode.ReadWrite,
+                                PixelFormat.Format32bppArgb
+                                );
+                        byte* __ptr = (byte*)picData.Scan0;
+                        for (int j = 0; j < pic.Height; ++j)
+                        {
+                            for (int i = 0; i < pic.Width; ++i)
+                            {
+                                int argb = Color.FromArgb(252, __ptr[2], __ptr[1], __ptr[0]).ToArgb();
+                                _set.Add(argb);
+                                __ptr += 4;
+                            }
+                            __ptr += picData.Stride - picData.Width * 4;
+                        }
+                        int STEP = 1;
+                        while (_set.Count > 255) 
+                        {
+                            var setarr = _set.ToArray();
+                            foreach(int argb in setarr)
+                            {
+                                Color clr = Color.FromArgb(argb);
+                                int nR = clr.R / (int)Math.Pow(8, STEP) * (int)Math.Pow(8, STEP);
+                                int nG = clr.G / (int)Math.Pow(8, STEP) * (int)Math.Pow(8, STEP);
+                                int nB = clr.B / (int)Math.Pow(4, STEP) * (int)Math.Pow(4, STEP);
+                                clr = Color.FromArgb(252, nR, nG, nB);
+                            }
+                            _set.Clear();
+                            foreach (int argb in setarr)
+                                _set.Add(argb);
+                            ++STEP;
+                        }
+                        myPalette = _set.ToList();
+                        break;
+                    case 1: // Frequency
+                        {
+                            Dictionary<int,int> filt = new Dictionary<int, int>();
+                            Bitmap tmp = new Bitmap(img);
+                            BitmapData tmpData = tmp.LockBits(
+                                new Rectangle(0, 0, tmp.Width, tmp.Height),
+                                ImageLockMode.ReadWrite,
+                                PixelFormat.Format32bppArgb
+                                );
+                            byte* _ptr = (byte*)tmpData.Scan0;
+                            for (int j = 0; j < tmp.Height; ++j) 
+                            {
+                                for (int i = 0; i < tmp.Width; ++i) 
+                                {
+                                    int argb = Color.FromArgb(252, _ptr[2], _ptr[1], _ptr[0]).ToArgb();
+                                    if (filt.ContainsKey(argb)) ++filt[argb];
+                                    else filt[argb] = 1;
+                                    _ptr += 4;
+                                }
+                                _ptr += tmpData.Stride - tmpData.Width * 4;
+                            }
+                            var retarr = filt.ToArray();
+                            retarr.OrderByDescending(a => a.Value);
+                            int cnt = Math.Min(255, retarr.Count());
+                            for (int i = 0; i <= cnt; ++i)
+                                myPalette.Add(retarr[i].Key);
+                        }
+                        break;
+                    case 2: // Mid Cut
+                    default:
+                        HashSet<int> set = new HashSet<int>();
+                        ImageFactory factory = new ImageFactory();
+                        factory.Load(img);
+                        ISupportedImageFormat format = new PngFormat { Quality = 100, IsIndexed = true, Quantizer = new OctreeQuantizer(maxNum, 8) };
+                        factory.Format(format);
+                        MemoryStream stream = new MemoryStream();
+                        factory.Save(stream);
+                        img = Image.FromStream(stream);
+                        stream.Dispose();
+                        Bitmap src = new Bitmap(img);
+                        Rectangle rect = new Rectangle(0, 0, src.Width, src.Height);
+                        BitmapData bmpData = src.LockBits(rect, ImageLockMode.ReadWrite, PixelFormat.Format32bppArgb);
+                        byte* ptr = (byte*)bmpData.Scan0;
+                        for (int j = 0; j < src.Height; j++)
+                        {
+                            for (int i = 0; i < src.Width; i++)
+                            {
+                                int argb = Color.FromArgb(252, ptr[2], ptr[1], ptr[0]).ToArgb();
+                                set.Add(argb);
+                                ptr += 4;
+                            }
+                            ptr += bmpData.Stride - bmpData.Width * 4;
+                        }
+                        src.UnlockBits(bmpData);
+                        img = src;
+                        myPalette = set.ToList();
+                        break;
                 }
-                src.UnlockBits(bmpData);
-                img = src;
-                myPalette = set.ToList();
             }
             while (myPalette.Count < 256) myPalette.Add(Constant.Colors.PaletteBlack);
             pal.Data = myPalette;

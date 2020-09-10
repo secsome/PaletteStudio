@@ -37,7 +37,7 @@ namespace PaletteStudio.GUI.Dialogs
                     "BMP File|*.bmp|" +
                     "PNG File|*.png|" +
                     "JPG File|*.jpg;*.jpeg|" +
-                    "TIFF File|*.tiff|"
+                    "TIFF File|*.tiff"
                 };
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -50,15 +50,11 @@ namespace PaletteStudio.GUI.Dialogs
                         Misc.GifToIndex(img, Data);
 
                     else
-                        Misc.GetIndexedItem(img, Data, (int)nudStartingIndex.Value);
+                        Misc.GetIndexedItem(img, Data, 255, rdbModeMC.Checked ? 2 : rdbModeEF.Checked ? 1 : 0);
                     btnImport.Enabled = true;
-                    nudStartingIndex.ReadOnly = true;
-                    nudStartingIndex.Increment = 0;
                 }
                 else
                 {
-                    nudStartingIndex.Increment = 3;
-                    nudStartingIndex.ReadOnly = false;
                     btnImport.Enabled = false;
                 }
             }
@@ -67,18 +63,14 @@ namespace PaletteStudio.GUI.Dialogs
                 try
                 {
                     img = Misc.DecodePCX(path);
-                    Misc.GetIndexedItem(img, Data, (int)nudStartingIndex.Value);
+                    Misc.GetIndexedItem(img, Data, 255, rdbModeMC.Checked ? 2 : rdbModeEF.Checked ? 1 : 0);
                     flag = true;
                     btnImport.Enabled = true;
-                    nudStartingIndex.ReadOnly = true;
-                    nudStartingIndex.Increment = 0;
                 }
                 catch(Exception Ex)
                 {
                     MyMessageBox.Show(Language.DICT["MainTitle"], Language.DICT["MsgFatalImport"] + (flag ? Ex.Message : ex.Message));
                     btnImport.Enabled = false;
-                    nudStartingIndex.ReadOnly = false;
-                    nudStartingIndex.Increment = 3;
                     return;
                 }
             }
