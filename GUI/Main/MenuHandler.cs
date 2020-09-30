@@ -397,10 +397,14 @@ namespace PaletteStudio
             try
             {
                 if (MainPanel.PalSource == null) return;
-                string format = "";
-                format += MainPanel.Selections.Count.ToString();
-                foreach (byte v in MainPanel.Selections) format += "," + v + "," + MainPanel.PalSource[v];
-                Clipboard.SetData(DataFormats.Text, format);
+                System.Text.StringBuilder sb = new System.Text.StringBuilder();
+                sb.Append(MainPanel.Selections.Count);
+                //string format = "";
+                //format += MainPanel.Selections.Count.ToString();
+                foreach (byte v in MainPanel.Selections)
+                    //format += "," + v + "," + MainPanel.PalSource[v];
+                    sb.AppendFormat(",{0},{1}", v, MainPanel.PalSource[v]);
+                Clipboard.SetData(DataFormats.Text, sb.ToString());
                 CurrentStatusLabel.Text = Language.DICT["StslblCopySucceed"].Replace("%COUNT", MainPanel.Selections.Count.ToString());
             }
             catch(Exception ex)
